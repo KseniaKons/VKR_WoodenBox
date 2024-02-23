@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeBox", "TreeBox.csproj", "{330A6986-06B0-475C-AA0C-F8A188450A8F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{330A6986-06B0-475C-AA0C-F8A188450A8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{330A6986-06B0-475C-AA0C-F8A188450A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{330A6986-06B0-475C-AA0C-F8A188450A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{330A6986-06B0-475C-AA0C-F8A188450A8F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0714D002-6CE8-4AF4-A5BF-855C94C402CD}
+	EndGlobalSection
+EndGlobal
