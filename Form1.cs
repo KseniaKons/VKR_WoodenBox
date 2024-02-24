@@ -126,7 +126,7 @@ namespace TreeBox
             if (cbTypeBox.SelectedIndex == 0) //тип I-1
             {
                 box11.СreatingBox11(x, y, z, massa, GOST, boardWidth, foldername);
-                //ширина, длинна, высота (внутренние), масса груза, ГОСТ, высота доски
+                //ширина, длинна, высота (внутренние), масса груза, ГОСТ, высота доски, плотность упаковывания
             }
 
             if (cbTypeBox.SelectedIndex == 1) //тип I-2
@@ -155,9 +155,9 @@ namespace TreeBox
             tbSave.Text = foldername;
         }
 
-        private void btCalculation_Click(object sender, EventArgs e)
+        private void Information_Click(object sender, EventArgs e)
         {
-            CalculationResults newForm = new CalculationResults();
+            Information newForm = new Information();
             newForm.Show();
         }
     }

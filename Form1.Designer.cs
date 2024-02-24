@@ -38,7 +38,6 @@
             this.cbGapWidth = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cbTypeBox = new System.Windows.Forms.ComboBox();
-            this.btCalculation = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tbHeightBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -52,6 +51,7 @@
             this.butSave = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tbSave = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +72,7 @@
             // btBuild
             // 
             this.btBuild.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btBuild.Location = new System.Drawing.Point(516, 486);
+            this.btBuild.Location = new System.Drawing.Point(516, 523);
             this.btBuild.Name = "btBuild";
             this.btBuild.Size = new System.Drawing.Size(180, 55);
             this.btBuild.TabIndex = 2;
@@ -167,17 +167,6 @@
             this.cbTypeBox.Size = new System.Drawing.Size(323, 24);
             this.cbTypeBox.TabIndex = 14;
             // 
-            // btCalculation
-            // 
-            this.btCalculation.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btCalculation.Location = new System.Drawing.Point(725, 486);
-            this.btCalculation.Name = "btCalculation";
-            this.btCalculation.Size = new System.Drawing.Size(180, 55);
-            this.btCalculation.TabIndex = 16;
-            this.btCalculation.Text = "Результаты построения";
-            this.btCalculation.UseVisualStyleBackColor = false;
-            this.btCalculation.Click += new System.EventHandler(this.btCalculation_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -217,9 +206,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(15, 175);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 16);
+            this.label3.Size = new System.Drawing.Size(72, 16);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Длинна, мм";
+            this.label3.Text = "Длина, мм";
             // 
             // tbLengthBox
             // 
@@ -293,19 +282,30 @@
             this.tbSave.Size = new System.Drawing.Size(335, 22);
             this.tbSave.TabIndex = 10;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button1.Location = new System.Drawing.Point(725, 523);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(180, 55);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "Информация о построении";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.Information_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(962, 590);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.tbSave);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.cbWidthBoards);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btCalculation);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cbTypeBox);
             this.Controls.Add(this.label6);
@@ -338,7 +338,6 @@
         private System.Windows.Forms.ComboBox cbGapWidth;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbTypeBox;
-        private System.Windows.Forms.Button btCalculation;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbHeightBox;
         private System.Windows.Forms.Label label2;
@@ -352,6 +351,7 @@
         private System.Windows.Forms.Button butSave;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox tbSave;
+        private System.Windows.Forms.Button button1;
     }
 }
 

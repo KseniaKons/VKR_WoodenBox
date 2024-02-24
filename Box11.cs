@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+
 
 namespace TreeBox
 {
@@ -19,7 +21,7 @@ namespace TreeBox
         private ksDocument3D ksDoc3d; // создание экземпляра 3D-документа
         private ksPart part; // создание экземпляра детали
 
-        void CalculationBoards(int param, out double w_fact_bottom, out double col_fact_bottom)
+        void CalculationBoardsLeaves(int param, out double w_fact_bottom, out double col_fact_bottom)
         {
             //параметр по которому считаем, ширина доски вернется, количество досок вернется 
 
@@ -29,6 +31,40 @@ namespace TreeBox
             int col;
 
             int[] arr = { 80, 90, 100, 110, 130, 150, 180, 200 };
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (param % arr[i] != 0)
+                    col = param / arr[i] + 1; //кол-во досок
+                else col = param / arr[i];
+
+                buf_sh = arr[i] * col; //длина щита
+
+                if (buf_sh < w_sh)
+                {
+                    w_sh = buf_sh;
+                    w_fact_bottom = arr[i];
+                    col_fact_bottom = col;
+                }
+            }
+        }
+
+        private void CalculationBoardsConifer(int param, int boardWidth, out double w_fact_bottom, out double col_fact_bottom)
+        {
+            //параметр по которому считаем, ширина доски вернется, количество досок вернется 
+
+            w_fact_bottom = 0; //посчитанная длиннна доски
+            col_fact_bottom = 0; // посчитанное количество
+            int w_sh = 10000, buf_sh;
+            int col;
+
+            int[] arr = { 75, 100, 125, 150, 175, 200, 225, 250, 275 };
+
+            if (boardWidth == 22)
+            {
+                //убрать последние два размера
+                arr = arr.Take(arr.Length - 2).ToArray();
+            }
 
             for (int i = 0; i < arr.Length; i++)
             {
@@ -209,20 +245,34 @@ namespace TreeBox
 
             kompas.Visible = true;
 
-            //РАСЧЕТ 
 
-            // ДОСКИ ДНА И КРЫШКИ
-            double w_fact_bottom, col_fact_bottom;
-            CalculationBoards(x + 2*boardWidth, out w_fact_bottom, out col_fact_bottom);
+            double w_fact_bottom = 0, col_fact_bottom = 0;
+            double w_fact_side = 0, col_fact_side = 0;
 
-            // ДОСКИ БОКОВОГО ЩИТА
-            double w_fact_side, col_fact_side;
-            CalculationBoards(z, out w_fact_side, out col_fact_side);
+            //РАСЧЕТ ЛИСТВЕННЫЕ ПОРОДЫ
 
+            if (GOST == 0) 
+            {
+                // ДОСКИ ДНА И КРЫШКИ
+                CalculationBoardsLeaves(x + 2 * boardWidth, out w_fact_bottom, out col_fact_bottom);
 
+                // ДОСКИ БОКОВОГО ЩИТА
+                CalculationBoardsLeaves(z, out w_fact_side, out col_fact_side);
+            }
+            else if (GOST == 1)
+            {
+                // ДОСКИ ДНА И КРЫШКИ
+                CalculationBoardsConifer(x + 2 * boardWidth, boardWidth, out w_fact_bottom, out col_fact_bottom);
+
+                // ДОСКИ БОКОВОГО ЩИТА
+                CalculationBoardsConifer(z, boardWidth, out w_fact_side, out col_fact_side);
+            }
+
+            
             string name_bottom = "Доски дна и крышки";
             string name_side = "Доски бокового щита";
             string name_before = "Доски торцевого щита";
+            string name_bar = "Планки торцевого щита";
 
             //длинна торцевых досок 
             double lenghtBT = w_fact_bottom * col_fact_bottom - 2 * boardWidth;
@@ -235,6 +285,9 @@ namespace TreeBox
 
             //доски торцевого щита
             Newboard(boardWidth, w_fact_side, lenghtBT, name_before, foldername);
+
+            //планки торцевого щита
+            //Newboard(boardWidth, w_fact_side, lenghtBT, name_bar, foldername);
 
 
 
@@ -462,7 +515,7 @@ namespace TreeBox
 
             ksDoc3d1.AddMateConstraint(0, namePlane4[0, 0], namePlane2[0, 3], -1, 1, 0);
             ksDoc3d1.AddMateConstraint(0, namePlane4[0, 2], namePlane[0, 3], -1, 1, 0);
-            ksDoc3d1.AddMateConstraint(5, namePlane4[0, 3], namePlane3[0, 0], 1, 1, 2 * boardWidth);
+            ksDoc3d1.AddMateConstraint(5, namePlane4[0, 3], namePlane3[0, 0], 1, 1, boardWidth);
 
 
             ////ТОРЦЕВОЙ ЩИТ2
@@ -505,20 +558,16 @@ namespace TreeBox
 
             ksDoc3d1.AddMateConstraint(0, namePlane5[0, 0], namePlane2[0, 3], -1, 1, 0);
             ksDoc3d1.AddMateConstraint(0, namePlane5[0, 2], namePlane[0, 3], -1, 1, 0);
-            ksDoc3d1.AddMateConstraint(5, namePlane5[0, 3], namePlane3[0, 0], 1, 1, y + boardWidth);
+            ksDoc3d1.AddMateConstraint(5, namePlane5[0, 3], namePlane3[0, 0], 1, 1, y + 2 * boardWidth);
 
 
 
             string save1;
             save1 = foldername + "\\Ящик деревянные.a3d";
 
-
-            //ksDoc3d.SaveAs(save1);
-
-
-
+            ksDoc3d1.SaveAs(save1);
+           
         }
-
     }
 
 

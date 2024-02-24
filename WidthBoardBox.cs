@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TreeBox
 {
-    public partial class CalculationResults : Form
+    public partial class WidthBoardBox : Form
     {
-        public CalculationResults()
+        public WidthBoardBox()
         {
             InitializeComponent();
         }
