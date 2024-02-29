@@ -30,33 +30,46 @@ namespace TreeBox
         Box12 box12 = new Box12();
         string foldername;
 
+        string savedValue1;
+        string savedValue2;
+        string savedValue3;
+
         public Form1()
         {
             InitializeComponent();
             cbTypeBox.SelectedIndexChanged += cbTypeBox_SelectedIndexChanged;
-            cbGOST.SelectedIndexChanged += CbGOST_SelectedIndexChanged;
+            cbWidthBoards.SelectedIndexChanged += CbWidthBoards_SelectedIndexChanged;
             cbGOST.SelectedIndex = 0;
             cbTypeBox.SelectedIndex = 0;
+            cbWidthBoards.SelectedIndex = 0;
             tbSave.Text = "C:\\Users\\Ksenia\\Desktop\\дт";
             foldername = tbSave.Text;
+            textBox1.Text = "МПСТ";
+            textBox3.Text = "001";
         }
 
-        private void CbGOST_SelectedIndexChanged(object sender, EventArgs e)
+      
+
+        private void CbWidthBoards_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbGOST.SelectedIndex == 0)
+           if (cbWidthBoards.SelectedIndex == 1)
             {
-                cbWidthBoards.Items.Clear();
-                cbWidthBoards.Items.AddRange(new string[] { "Вычислить оптимальную", "80", "90", "100", "110", "130", "150", "180", "200" });
-                cbWidthBoards.SelectedIndex = 0;
-            }
+                string selectedValue = cbGOST.SelectedItem.ToString();
+                WidthBoardBox newForm = new WidthBoardBox();
+                newForm.SetLabelValue(selectedValue);
 
+                newForm.cbBottomBoards.SelectedItem = savedValue1;
+                newForm.cbSideBoard.SelectedItem = savedValue2;
+                newForm.cbFrontBoard.SelectedItem = savedValue3;
 
-            else if (cbGOST.SelectedIndex == 1)
-            {
-                cbWidthBoards.Items.Clear();
-                cbWidthBoards.Items.AddRange(new string[] { "Вычислить оптимальную", "75", "100", "125", "150", "175", "200", "225", "250", "275"});
-                cbWidthBoards.SelectedIndex = 0;
+                newForm.ShowDialog();
+
+                savedValue1 = newForm.selectedValue1;
+                savedValue2 = newForm.selectedValue2;
+                savedValue3 = newForm.selectedValue3;
+
             }
+            
         }
 
         private void cbTypeBox_SelectedIndexChanged(object sender, EventArgs e)

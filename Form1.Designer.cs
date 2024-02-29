@@ -30,7 +30,6 @@
         {
             this.cbGOST = new System.Windows.Forms.ComboBox();
             this.btBuild = new System.Windows.Forms.Button();
-            this.pbImageBox = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tbMassa = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -52,8 +51,15 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tbSave = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).BeginInit();
+            this.pbImageBox = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).BeginInit();
             this.SuspendLayout();
             // 
             // cbGOST
@@ -62,8 +68,8 @@
             this.cbGOST.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbGOST.FormattingEnabled = true;
             this.cbGOST.Items.AddRange(new object[] {
-            "ГОСТ 2695. Пиломатериалы лиственных пород",
-            "ГОСТ 24454-80. Пиломатериалы хвойных пород."});
+            "ГОСТ 2695. Пиломатериалы лиственных пород",
+            "ГОСТ 24454-80. Пиломатериалы хвойных пород"});
             this.cbGOST.Location = new System.Drawing.Point(62, 319);
             this.cbGOST.Name = "cbGOST";
             this.cbGOST.Size = new System.Drawing.Size(360, 24);
@@ -79,15 +85,6 @@
             this.btBuild.Text = "Построить";
             this.btBuild.UseVisualStyleBackColor = false;
             this.btBuild.Click += new System.EventHandler(this.btBuild_Click);
-            // 
-            // pbImageBox
-            // 
-            this.pbImageBox.Location = new System.Drawing.Point(516, 99);
-            this.pbImageBox.Name = "pbImageBox";
-            this.pbImageBox.Size = new System.Drawing.Size(389, 299);
-            this.pbImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbImageBox.TabIndex = 6;
-            this.pbImageBox.TabStop = false;
             // 
             // label4
             // 
@@ -256,8 +253,8 @@
             this.cbWidthBoards.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbWidthBoards.FormattingEnabled = true;
             this.cbWidthBoards.Items.AddRange(new object[] {
-            "ГОСТ 2695. Пиломатериалы лиственных пород",
-            "ГОСТ 24454-80. Пиломатериалы хвойных пород."});
+            "Вычислить оптимальные",
+            "Вписать вручную"});
             this.cbWidthBoards.Location = new System.Drawing.Point(62, 383);
             this.cbWidthBoards.Name = "cbWidthBoards";
             this.cbWidthBoards.Size = new System.Drawing.Size(360, 24);
@@ -266,7 +263,7 @@
             // butSave
             // 
             this.butSave.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.butSave.Location = new System.Drawing.Point(857, 426);
+            this.butSave.Location = new System.Drawing.Point(852, 480);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(75, 29);
             this.butSave.TabIndex = 20;
@@ -277,9 +274,9 @@
             // tbSave
             // 
             this.tbSave.Enabled = false;
-            this.tbSave.Location = new System.Drawing.Point(516, 429);
+            this.tbSave.Location = new System.Drawing.Point(500, 483);
             this.tbSave.Name = "tbSave";
-            this.tbSave.Size = new System.Drawing.Size(335, 22);
+            this.tbSave.Size = new System.Drawing.Size(339, 22);
             this.tbSave.TabIndex = 10;
             // 
             // button1
@@ -293,12 +290,79 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.Information_Click);
             // 
+            // pbImageBox
+            // 
+            this.pbImageBox.Location = new System.Drawing.Point(516, 81);
+            this.pbImageBox.Name = "pbImageBox";
+            this.pbImageBox.Size = new System.Drawing.Size(389, 299);
+            this.pbImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImageBox.TabIndex = 6;
+            this.pbImageBox.TabStop = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(501, 428);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(128, 22);
+            this.textBox1.TabIndex = 23;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.Location = new System.Drawing.Point(632, 427);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(13, 20);
+            this.label11.TabIndex = 24;
+            this.label11.Text = ".";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(648, 428);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(170, 22);
+            this.textBox2.TabIndex = 25;
+            this.textBox2.Text = "32117.";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(821, 427);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(13, 20);
+            this.label12.TabIndex = 26;
+            this.label12.Text = ".";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(837, 428);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(90, 22);
+            this.textBox3.TabIndex = 27;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(498, 409);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(97, 16);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Обозначение";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(962, 590);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.tbSave);
@@ -318,9 +382,9 @@
             this.Controls.Add(this.cbGOST);
             this.Name = "Form1";
             this.Text = "ГОСТ 10198.91 Ящики деревянные для грузов массой св. 200 до 20000 кг";
-            ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -352,6 +416,12 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox tbSave;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label10;
     }
 }
 
