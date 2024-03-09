@@ -50,7 +50,6 @@
             this.butSave = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tbSave = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.pbImageBox = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -78,7 +77,7 @@
             // btBuild
             // 
             this.btBuild.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btBuild.Location = new System.Drawing.Point(516, 523);
+            this.btBuild.Location = new System.Drawing.Point(612, 523);
             this.btBuild.Name = "btBuild";
             this.btBuild.Size = new System.Drawing.Size(180, 55);
             this.btBuild.TabIndex = 2;
@@ -253,7 +252,7 @@
             this.cbWidthBoards.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbWidthBoards.FormattingEnabled = true;
             this.cbWidthBoards.Items.AddRange(new object[] {
-            "Вычислить оптимальные",
+            "Вычислить оптимальную",
             "Вписать вручную"});
             this.cbWidthBoards.Location = new System.Drawing.Point(62, 383);
             this.cbWidthBoards.Name = "cbWidthBoards";
@@ -278,17 +277,6 @@
             this.tbSave.Name = "tbSave";
             this.tbSave.Size = new System.Drawing.Size(339, 22);
             this.tbSave.TabIndex = 10;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(725, 523);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(180, 55);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Информация о построении";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.Information_Click);
             // 
             // pbImageBox
             // 
@@ -363,7 +351,6 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.tbSave);
             this.Controls.Add(this.label9);
@@ -415,7 +402,6 @@
         private System.Windows.Forms.Button butSave;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox tbSave;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox2;

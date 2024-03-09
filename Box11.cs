@@ -21,6 +21,8 @@ namespace TreeBox
         private ksDocument3D ksDoc3d; // создание экземпляра 3D-документа
         private ksPart part; // создание экземпляра детали
 
+        
+
         void CalculationBoardsLeaves(int param, out double w_fact_bottom, out double col_fact_bottom)
         {
             //параметр по которому считаем, ширина доски вернется, количество досок вернется 
@@ -228,10 +230,8 @@ namespace TreeBox
             }
         }
 
-        public void СreatingBox11(int x, int y, int z, double massa, double GOST, int boardWidth, string foldername)
+        public void СreatingBox11(int x, int y, int z, double massa, int GOST, int boardWidth, int widthBoard, string foldername)
         {
-            //ширина, длинна, высота (внутренние), масса груза, ГОСТ, высота доски
-
             try
             {
                 kompas = (KompasObject)Marshal.GetActiveObject("KOMPAS.Application.5");
@@ -249,9 +249,7 @@ namespace TreeBox
             double w_fact_bottom = 0, col_fact_bottom = 0;
             double w_fact_side = 0, col_fact_side = 0;
 
-            //РАСЧЕТ ЛИСТВЕННЫЕ ПОРОДЫ
-
-            if (GOST == 0) 
+            if (GOST == 0) //ЛИСТВЕННЫЕ ПОРОДЫ
             {
                 // ДОСКИ ДНА И КРЫШКИ
                 CalculationBoardsLeaves(x + 2 * boardWidth, out w_fact_bottom, out col_fact_bottom);
@@ -259,7 +257,7 @@ namespace TreeBox
                 // ДОСКИ БОКОВОГО ЩИТА
                 CalculationBoardsLeaves(z, out w_fact_side, out col_fact_side);
             }
-            else if (GOST == 1)
+            else if (GOST == 1) //ХВОЙНЫЕ ПОРОДЫ
             {
                 // ДОСКИ ДНА И КРЫШКИ
                 CalculationBoardsConifer(x + 2 * boardWidth, boardWidth, out w_fact_bottom, out col_fact_bottom);
@@ -568,8 +566,13 @@ namespace TreeBox
             ksDoc3d1.SaveAs(save1);
            
         }
+
+
+        public void СreatingBox11Manually(int x, int y, int z, double massa, int GOST, int heightWidth, int widthBoard, string savedValue1, string savedValue2, string savedValue3, string foldername)
+        {
+
+        }
     }
 
-
-    
+   
 }

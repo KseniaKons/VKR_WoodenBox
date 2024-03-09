@@ -25,20 +25,22 @@ namespace TreeBox
 
         private Bitmap p;
         
-       
+
         Box11 box11 = new Box11();
         Box12 box12 = new Box12();
-        string foldername;
+        //string foldername;
 
         string savedValue1;
         string savedValue2;
         string savedValue3;
 
+
+        string foldername;
         public Form1()
         {
             InitializeComponent();
-            cbTypeBox.SelectedIndexChanged += cbTypeBox_SelectedIndexChanged;
-            cbWidthBoards.SelectedIndexChanged += CbWidthBoards_SelectedIndexChanged;
+            cbTypeBox.SelectedIndexChanged += SelectedIndexChangedTypeBox;
+            cbWidthBoards.SelectedIndexChanged += SelectedIndexChangedWidthBoards;
             cbGOST.SelectedIndex = 0;
             cbTypeBox.SelectedIndex = 0;
             cbWidthBoards.SelectedIndex = 0;
@@ -50,7 +52,7 @@ namespace TreeBox
 
       
 
-        private void CbWidthBoards_SelectedIndexChanged(object sender, EventArgs e)
+        private void SelectedIndexChangedWidthBoards(object sender, EventArgs e)
         {
            if (cbWidthBoards.SelectedIndex == 1)
             {
@@ -72,7 +74,7 @@ namespace TreeBox
             
         }
 
-        private void cbTypeBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void SelectedIndexChangedTypeBox(object sender, EventArgs e)
         {
             if (cbTypeBox.SelectedIndex == 0)
             {
@@ -108,57 +110,61 @@ namespace TreeBox
                 MessageBox.Show("Ошибка: поля не могут быть пустыми!");
                 return;
             }
-
             if (cbTypeBox.SelectedIndex == 1 & cbGapWidth.SelectedIndex == 0)
             {
                 MessageBox.Show("Ошибка: введите значение зазора!!");
                 return;
             }
-
+            
             int x = Convert.ToInt32(tbWidthBox.Text);  //ширина
             int y = Convert.ToInt32(tbLengthBox.Text); //длинна
             int z = Convert.ToInt32(tbHeightBox.Text); //высота
 
             double massa = Convert.ToInt32(tbMassa.Text); //масса груза
-
             double VBox = x * y * z / 1000; //внутренний объем ящика, дм3
-
             double PackingDensity = massa / VBox; //Плотность упаковывания, кг/дм3 
 
-            int boardWidth = 22;
-
+            int heightWidth = 22;
             if (PackingDensity <= 1)
-                boardWidth = 22;
+                heightWidth = 22;
             if (PackingDensity > 1 & PackingDensity <= 3)
-                boardWidth = 25;
+                heightWidth = 25;
             if (PackingDensity > 3)
-                boardWidth = 32;
+                heightWidth = 32;
 
-            double GOST = cbGOST.SelectedIndex;
+            int GOST = cbGOST.SelectedIndex;
+            int widthBoard = cbWidthBoards.SelectedIndex;
 
             if (cbTypeBox.SelectedIndex == 0) //тип I-1
             {
-                box11.СreatingBox11(x, y, z, massa, GOST, boardWidth, foldername);
-                //ширина, длинна, высота (внутренние), масса груза, ГОСТ, высота доски, плотность упаковывания
+                
+                if(widthBoard == 0) // вычислить оптимальное
+                    box11.СreatingBox11(x, y, z, massa, GOST, heightWidth, widthBoard, foldername);
+                
+                if(widthBoard == 1) // вписать вручную
+                    box11.СreatingBox11Manually(x, y, z, massa, GOST, heightWidth, widthBoard, 
+                        savedValue1, savedValue2, savedValue3, foldername);
+                //ширина, длинна, высота ящика (внутренние), масса груза, ГОСТ, высота доски, 
+                //ширина доски, папка 
             }
 
             if (cbTypeBox.SelectedIndex == 1) //тип I-2
             {
-                double gap = cbGapWidth.SelectedIndex; //зазор (индекс равен зазору в мм)
-                
-                box12.СreatingBox12(x, y, z, massa, gap, GOST, boardWidth, foldername);
-                //ширина, длинна, высота (внутренние), масса груза, зазор, ГОСТ, высота доски
+                int gap = cbGapWidth.SelectedIndex; //зазор (индекс равен зазору в мм)
+
+                if (widthBoard == 0)
+                    box12.СreatingBox12(x, y, z, massa, gap, GOST, heightWidth, widthBoard, foldername);
+
+                if (widthBoard == 1)
+                    box12.СreatingBox12Manually(x, y, z, massa, gap, GOST, heightWidth, widthBoard, 
+                        savedValue1, savedValue2, savedValue3, foldername);
+                //ширина, длинна, высота ящика (внутренние), масса груза, зазор, ГОСТ, высота доски, ширина доски
             }
-
-
-
         }
 
         private void butSave_Click(object sender, EventArgs e)
         {
             DialogResult dialogresult = folderBrowserDialog1.ShowDialog();
-            //Надпись выше окна контрола
-            folderBrowserDialog1.Description = "Поиск папки";
 
             if (dialogresult == DialogResult.OK)
             {
@@ -171,7 +177,7 @@ namespace TreeBox
         private void Information_Click(object sender, EventArgs e)
         {
             Information newForm = new Information();
-            newForm.Show();
+            newForm.ShowDialog();
         }
     }
 }

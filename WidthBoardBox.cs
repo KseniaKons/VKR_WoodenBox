@@ -15,15 +15,12 @@ namespace TreeBox
     public partial class WidthBoardBox : Form
     {
 
-        public string selectedValue1;
-        public string selectedValue2;
-        public string selectedValue3;
-
         public WidthBoardBox()
         {
             InitializeComponent();
-
         }
+
+
 
 
         public void SetLabelValue(string value)
@@ -94,19 +91,27 @@ namespace TreeBox
             }
 
 
-            cbFrontBoard.SelectedIndex = 0;
-            cbSideBoard.SelectedIndex = 0;
-            cbBottomBoards.SelectedIndex = 0;
-
         }
+
+        public string selectedValue1;
+        public string selectedValue2;
+        public string selectedValue3;
 
         public void butSave_Click(object sender, EventArgs e)
         {
-            selectedValue1 = cbBottomBoards.SelectedItem.ToString();
-            selectedValue2 = cbSideBoard.SelectedItem.ToString();
-            selectedValue3 = cbFrontBoard.SelectedItem.ToString();
+            
+            if (cbBottomBoards.SelectedIndex == -1 || cbSideBoard.SelectedIndex == -1 || cbFrontBoard.SelectedIndex == -1)
+            {
+                MessageBox.Show("Ошибка: введите значение ширины досок!!");
+            }
+            else
+            {
+                selectedValue1 = cbBottomBoards.SelectedItem.ToString();
+                selectedValue2 = cbSideBoard.SelectedItem.ToString();
+                selectedValue3 = cbFrontBoard.SelectedItem.ToString();
 
-            this.Close();
+                this.Close();
+            }
         }
     }
 }
