@@ -85,17 +85,16 @@ namespace TreeBox
             }
         }
 
-        void Newboard(double height, double width, double length, string name, string foldername) //ширина 22 высота 75 длинна 1000
+        void Newboard(double height, double width, double length, string name, string foldername) 
         {
-
-            // создаём экземпляры для базовых плоскостей
             ksDoc3d = (ksDocument3D)kompas.Document3D();
             ksDoc3d.Create(false, true);
             ksDoc3d.fileName = name; // указание названия файла
 
             part = ksDoc3d.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой детали
 
-            ksEntity basePlaneXOY = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY); // получим интерфейс базовой плоскости XOY
+            ksEntity basePlaneXOY = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY); 
+            // получим интерфейс базовой плоскости XOY
 
 
             ksEntity ksNewScetchE = part.NewEntity((int)Obj3dType.o3d_sketch); // создание нового эскиза
@@ -165,10 +164,8 @@ namespace TreeBox
                             for (int k1 = 0; k1 < col2.GetCount(); k1++)
                             {
 
-
                                 ksEdgeDefinition d1 = col1.GetByIndex(k);
                                 ksEdgeDefinition d2 = col2.GetByIndex(k1);
-
 
                                 ksVertexDefinition p1 = d1.GetVertex(true);
                                 ksVertexDefinition p2 = d2.GetVertex(true);
@@ -187,7 +184,6 @@ namespace TreeBox
                                         face.Update();
                                         break;
                                     }
-
                                 }
 
                                 if (x1 == 0 && z1 == 0 && y1 == 0)
@@ -230,7 +226,7 @@ namespace TreeBox
             }
         }
 
-        public void СreatingBox11(int x, int y, int z, double massa, int GOST, int boardWidth, int widthBoard, string foldername)
+        public void СreatingBox11(int x, int y, int z, double massa, int GOST, int heightWidth, string foldername)
         {
             try
             {
@@ -252,7 +248,7 @@ namespace TreeBox
             if (GOST == 0) //ЛИСТВЕННЫЕ ПОРОДЫ
             {
                 // ДОСКИ ДНА И КРЫШКИ
-                CalculationBoardsLeaves(x + 2 * boardWidth, out w_fact_bottom, out col_fact_bottom);
+                CalculationBoardsLeaves(x + 2 * heightWidth, out w_fact_bottom, out col_fact_bottom);
 
                 // ДОСКИ БОКОВОГО ЩИТА
                 CalculationBoardsLeaves(z, out w_fact_side, out col_fact_side);
@@ -260,32 +256,29 @@ namespace TreeBox
             else if (GOST == 1) //ХВОЙНЫЕ ПОРОДЫ
             {
                 // ДОСКИ ДНА И КРЫШКИ
-                CalculationBoardsConifer(x + 2 * boardWidth, boardWidth, out w_fact_bottom, out col_fact_bottom);
+                CalculationBoardsConifer(x + 2 * heightWidth, heightWidth, out w_fact_bottom, out col_fact_bottom);
 
                 // ДОСКИ БОКОВОГО ЩИТА
-                CalculationBoardsConifer(z, boardWidth, out w_fact_side, out col_fact_side);
+                CalculationBoardsConifer(z, heightWidth, out w_fact_side, out col_fact_side);
             }
 
             
             string name_bottom = "Доски дна и крышки";
             string name_side = "Доски бокового щита";
             string name_before = "Доски торцевого щита";
-            string name_bar = "Планки торцевого щита";
 
             //длинна торцевых досок 
-            double lenghtBT = w_fact_bottom * col_fact_bottom - 2 * boardWidth;
+            double lenghtBT = w_fact_bottom * col_fact_bottom - 2 * heightWidth;
 
             //доски дна и крышки
-            Newboard(boardWidth, w_fact_bottom, y + 4*boardWidth, name_bottom, foldername); // передать параметры досок  ширина высота длинна
+            Newboard(heightWidth, w_fact_bottom, y + 4*heightWidth, name_bottom, foldername); // передать параметры досок  ширина высота длинна
 
             //доски бокового щита
-            Newboard(boardWidth, w_fact_side, y + 4 * boardWidth, name_side, foldername);
+            Newboard(heightWidth, w_fact_side, y + 4 * heightWidth, name_side, foldername);
 
             //доски торцевого щита
-            Newboard(boardWidth, w_fact_side, lenghtBT, name_before, foldername);
+            Newboard(heightWidth, w_fact_side, lenghtBT, name_before, foldername);
 
-            //планки торцевого щита
-            //Newboard(boardWidth, w_fact_side, lenghtBT, name_bar, foldername);
 
 
 
@@ -293,7 +286,6 @@ namespace TreeBox
 
             ksDocument3D ksDoc3d1 = (ksDocument3D)kompas.Document3D();
             ksDoc3d1.Create(false, false);
-            ksDoc3d1.fileName = "Ящик деревянные"; // указание названия файла
             ksPart partAs = ksDoc3d1.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой сборки
 
 
@@ -418,7 +410,7 @@ namespace TreeBox
 
 
             ksDoc3d1.AddMateConstraint(0, namePlane[0, 0], namePlane2[0, 0], 1, 1, 0);
-            ksDoc3d1.AddMateConstraint(5, namePlane[0, 2], namePlane2[0, 3], 1, 1, -(w_fact_bottom * col_fact_bottom - boardWidth));
+            ksDoc3d1.AddMateConstraint(5, namePlane[0, 2], namePlane2[0, 3], 1, 1, -(w_fact_bottom * col_fact_bottom - heightWidth));
             ksDoc3d1.AddMateConstraint(0, namePlane[0, 3], namePlane2[0, 2], -1, 1, 0);
 
             ////КРЫШКА
@@ -465,7 +457,7 @@ namespace TreeBox
 
             ksDoc3d1.AddMateConstraint(0, namePlane3[0, 0], namePlane2[0, 0], 1, 1, 0);
             ksDoc3d1.AddMateConstraint(5, namePlane3[0, 3], namePlane2[0, 2], 1, 1, (w_fact_side * col_fact_side));
-            ksDoc3d1.AddMateConstraint(5, namePlane3[0, 2], namePlane2[0, 3], -1, 1, -boardWidth);
+            ksDoc3d1.AddMateConstraint(5, namePlane3[0, 2], namePlane2[0, 3], -1, 1, -heightWidth);
 
 
             ////ТОРЦЕВОЙ ЩИТ
@@ -513,7 +505,7 @@ namespace TreeBox
 
             ksDoc3d1.AddMateConstraint(0, namePlane4[0, 0], namePlane2[0, 3], -1, 1, 0);
             ksDoc3d1.AddMateConstraint(0, namePlane4[0, 2], namePlane[0, 3], -1, 1, 0);
-            ksDoc3d1.AddMateConstraint(5, namePlane4[0, 3], namePlane3[0, 0], 1, 1, boardWidth);
+            ksDoc3d1.AddMateConstraint(5, namePlane4[0, 3], namePlane3[0, 0], 1, 1, heightWidth);
 
 
             ////ТОРЦЕВОЙ ЩИТ2
@@ -556,7 +548,7 @@ namespace TreeBox
 
             ksDoc3d1.AddMateConstraint(0, namePlane5[0, 0], namePlane2[0, 3], -1, 1, 0);
             ksDoc3d1.AddMateConstraint(0, namePlane5[0, 2], namePlane[0, 3], -1, 1, 0);
-            ksDoc3d1.AddMateConstraint(5, namePlane5[0, 3], namePlane3[0, 0], 1, 1, y + 2 * boardWidth);
+            ksDoc3d1.AddMateConstraint(5, namePlane5[0, 3], namePlane3[0, 0], 1, 1, y + 2 * heightWidth);
 
 
 
@@ -568,8 +560,23 @@ namespace TreeBox
         }
 
 
-        public void СreatingBox11Manually(int x, int y, int z, double massa, int GOST, int heightWidth, int widthBoard, string savedValue1, string savedValue2, string savedValue3, string foldername)
+        public void СreatingBox11Manually(int x, int y, int z, double massa, int GOST, int heightWidth, 
+            string savedValue1, string savedValue2, string savedValue3, string foldername)
         {
+            try
+            {
+                kompas = (KompasObject)Marshal.GetActiveObject("KOMPAS.Application.5");
+            }
+            catch
+            {
+                kompas = (KompasObject)Activator.CreateInstance(Type.GetTypeFromProgID("KOMPAS.Application.5"));
+            }
+            if (kompas == null)
+                return;
+
+            kompas.Visible = true;
+
+
 
         }
     }

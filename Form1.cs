@@ -27,6 +27,7 @@ namespace TreeBox
         
 
         Box11 box11 = new Box11();
+        Box11New box11New = new Box11New();
         Box12 box12 = new Box12();
         //string foldername;
 
@@ -139,10 +140,11 @@ namespace TreeBox
             {
                 
                 if(widthBoard == 0) // вычислить оптимальное
-                    box11.СreatingBox11(x, y, z, massa, GOST, heightWidth, widthBoard, foldername);
+                    box11New.СreatingBox11(x, y, z, massa, GOST, heightWidth, foldername);
+                    //box11.СreatingBox11(x, y, z, massa, GOST, heightWidth, foldername);
                 
                 if(widthBoard == 1) // вписать вручную
-                    box11.СreatingBox11Manually(x, y, z, massa, GOST, heightWidth, widthBoard, 
+                    box11.СreatingBox11Manually(x, y, z, massa, GOST, heightWidth, 
                         savedValue1, savedValue2, savedValue3, foldername);
                 //ширина, длинна, высота ящика (внутренние), масса груза, ГОСТ, высота доски, 
                 //ширина доски, папка 
@@ -179,5 +181,7 @@ namespace TreeBox
             Information newForm = new Information();
             newForm.ShowDialog();
         }
+
+       
     }
 }

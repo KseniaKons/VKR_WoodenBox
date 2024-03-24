@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Box11.cs" />
+    <Compile Include="Box11New.cs" />
     <Compile Include="Box12.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
