@@ -125,13 +125,13 @@ namespace TreeBox
             double VBox = x * y * z / 1000; //внутренний объем ящика, дм3
             double PackingDensity = massa / VBox; //Плотность упаковывания, кг/дм3 
 
-            int heightWidth = 22;
+            int heightBoard = 22;
             if (PackingDensity <= 1)
-                heightWidth = 22;
+                heightBoard = 22;
             if (PackingDensity > 1 & PackingDensity <= 3)
-                heightWidth = 25;
+                heightBoard = 25;
             if (PackingDensity > 3)
-                heightWidth = 32;
+                heightBoard = 32;
 
             int GOST = cbGOST.SelectedIndex;
             int widthBoard = cbWidthBoards.SelectedIndex;
@@ -140,11 +140,12 @@ namespace TreeBox
             {
                 
                 if(widthBoard == 0) // вычислить оптимальное
-                    box11New.СreatingBox11(x, y, z, massa, GOST, heightWidth, foldername);
-                    //box11.СreatingBox11(x, y, z, massa, GOST, heightWidth, foldername);
-                
-                if(widthBoard == 1) // вписать вручную
-                    box11.СreatingBox11Manually(x, y, z, massa, GOST, heightWidth, 
+                        box11New.СreatingBox11(x, y, z, massa, GOST, heightBoard, foldername);
+                        //box11New.СreatingBox11(x, y, z, massa, GOST, heightWidth, foldername);
+                //box11.СreatingBox11(x, y, z, massa, GOST, heightWidth, foldername);
+
+                if (widthBoard == 1) // вписать вручную
+                    box11.СreatingBox11Manually(x, y, z, massa, GOST, heightBoard, 
                         savedValue1, savedValue2, savedValue3, foldername);
                 //ширина, длинна, высота ящика (внутренние), масса груза, ГОСТ, высота доски, 
                 //ширина доски, папка 
@@ -155,10 +156,10 @@ namespace TreeBox
                 int gap = cbGapWidth.SelectedIndex; //зазор (индекс равен зазору в мм)
 
                 if (widthBoard == 0)
-                    box12.СreatingBox12(x, y, z, massa, gap, GOST, heightWidth, widthBoard, foldername);
+                    box12.СreatingBox12(x, y, z, massa, gap, GOST, heightBoard, widthBoard, foldername);
 
                 if (widthBoard == 1)
-                    box12.СreatingBox12Manually(x, y, z, massa, gap, GOST, heightWidth, widthBoard, 
+                    box12.СreatingBox12Manually(x, y, z, massa, gap, GOST, heightBoard, widthBoard, 
                         savedValue1, savedValue2, savedValue3, foldername);
                 //ширина, длинна, высота ящика (внутренние), масса груза, зазор, ГОСТ, высота доски, ширина доски
             }
