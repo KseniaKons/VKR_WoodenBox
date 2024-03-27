@@ -34,7 +34,6 @@
             this.tbMassa = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cbGapWidth = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cbTypeBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -64,6 +63,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.cbPlankaPoasa = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.tbGap = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).BeginInit();
             this.panel2.SuspendLayout();
@@ -127,26 +127,6 @@
             this.label6.Size = new System.Drawing.Size(133, 16);
             this.label6.TabIndex = 13;
             this.label6.Text = "Ширина зазора, мм";
-            // 
-            // cbGapWidth
-            // 
-            this.cbGapWidth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbGapWidth.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbGapWidth.FormattingEnabled = true;
-            this.cbGapWidth.Items.AddRange(new object[] {
-            "-",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.cbGapWidth.Location = new System.Drawing.Point(18, 286);
-            this.cbGapWidth.Name = "cbGapWidth";
-            this.cbGapWidth.Size = new System.Drawing.Size(360, 24);
-            this.cbGapWidth.TabIndex = 12;
             // 
             // label7
             // 
@@ -361,6 +341,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.tbGap);
             this.panel2.Controls.Add(this.label16);
             this.panel2.Controls.Add(this.cbPlankaTor);
             this.panel2.Controls.Add(this.label15);
@@ -369,7 +350,6 @@
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.cbGOST);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.cbGapWidth);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Location = new System.Drawing.Point(33, 330);
             this.panel2.Name = "panel2";
@@ -429,6 +409,13 @@
             this.label17.TabIndex = 31;
             this.label17.Text = "Директория сохранения файлов";
             // 
+            // tbGap
+            // 
+            this.tbGap.Location = new System.Drawing.Point(18, 289);
+            this.tbGap.Name = "tbGap";
+            this.tbGap.Size = new System.Drawing.Size(362, 22);
+            this.tbGap.TabIndex = 32;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -473,7 +460,6 @@
         private System.Windows.Forms.TextBox tbMassa;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cbGapWidth;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbTypeBox;
         private System.Windows.Forms.Label label1;
@@ -502,6 +488,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox cbPlankaPoasa;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox tbGap;
     }
 }
 

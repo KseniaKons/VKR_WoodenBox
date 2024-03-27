@@ -79,9 +79,9 @@ namespace TreeBox
         {
             if (cbTypeBox.SelectedIndex == 0)
             {
-                cbGapWidth.Enabled = false;
+                tbGap.Enabled = false;
                 label6.Enabled = false;
-                cbGapWidth.SelectedIndex = 0;
+                tbGap.Text = " - ";
                 p = new Bitmap(Properties.Resources.I_1);
                 pbImageBox.Image = p;
                 pbImageBox.Invalidate();
@@ -90,9 +90,9 @@ namespace TreeBox
 
             else if (cbTypeBox.SelectedIndex == 1)
             {
-                cbGapWidth.Enabled = true;
+                tbGap.Enabled = true;
                 label6.Enabled = true;
-                cbGapWidth.SelectedIndex = 5;
+                tbGap.Text = " 10 ";
                 p = new Bitmap(Properties.Resources.I_2);
                 pbImageBox.Image = p;
                 pbImageBox.Invalidate();
@@ -106,14 +106,15 @@ namespace TreeBox
             if (tbHeightBox.Text == String.Empty ||
                 tbLengthBox.Text == String.Empty ||
                 tbWidthBox.Text == String.Empty ||
-                tbMassa.Text == String.Empty)
+                tbMassa.Text == String.Empty ||
+                tbGap.Text == String.Empty)
             {
                 MessageBox.Show("Ошибка: поля не могут быть пустыми!");
                 return;
             }
-            if (cbTypeBox.SelectedIndex == 1 & cbGapWidth.SelectedIndex == 0)
+            if (cbTypeBox.SelectedIndex == 1 & !int.TryParse(tbGap.Text, out int result))
             {
-                MessageBox.Show("Ошибка: введите значение зазора!!");
+                MessageBox.Show("Ошибка: значение зазора должно быть целым числом!!");
                 return;
             }
             
@@ -153,13 +154,13 @@ namespace TreeBox
 
             if (cbTypeBox.SelectedIndex == 1) //тип I-2
             {
-                int gap = cbGapWidth.SelectedIndex; //зазор (индекс равен зазору в мм)
+                int gap = Convert.ToInt32(tbGap.Text); //зазор 
 
                 if (widthBoard == 0)
-                    box12.СreatingBox12(x, y, z, massa, gap, GOST, heightBoard, widthBoard, foldername);
+                    box12.СreatingBox12(x, y, z, massa, gap, GOST, heightBoard, foldername);
 
                 if (widthBoard == 1)
-                    box12.СreatingBox12Manually(x, y, z, massa, gap, GOST, heightBoard, widthBoard, 
+                    box12.СreatingBox12Manually(x, y, z, massa, gap, GOST, heightBoard, 
                         savedValue1, savedValue2, savedValue3, foldername);
                 //ширина, длинна, высота ящика (внутренние), масса груза, зазор, ГОСТ, высота доски, ширина доски
             }

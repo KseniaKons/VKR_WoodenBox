@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Kompas6API5;
 using Kompas6Constants;
 using Kompas6Constants3D;
@@ -315,13 +316,13 @@ namespace TreeBox
             double lenghtBT = w_fact_bottom * col_fact_bottom - 2 * heightBoard;
 
             //ЩИТ дна и крышки
-            //NewShield(heightBoard, w_fact_bottom, y + 4 * heightBoard, col_fact_bottom, name_bottom, foldername); // передать параметры досок  ширина высота длинна
+            NewShield(heightBoard, w_fact_bottom, y + 4 * heightBoard, col_fact_bottom, name_bottom, foldername); // передать параметры досок  ширина высота длинна
 
             //боковой щит
-            //NewShield(heightBoard, w_fact_side, y + 4 * heightBoard, col_fact_side, name_side, foldername);
+            NewShield(heightBoard, w_fact_side, y + 4 * heightBoard, col_fact_side, name_side, foldername);
 
             //торцевой щит
-            //NewShield(heightBoard, w_fact_side, lenghtBT, col_fact_side, name_before, foldername);
+            NewShield(heightBoard, w_fact_side, lenghtBT, col_fact_side, name_before, foldername);
 
 
             ////////////////СБОРКА
@@ -461,6 +462,11 @@ namespace TreeBox
             ksDoc3d1.AddMateConstraint(5, namePlane1[4], namePlane5[1], 1, 1, -heightBoard);
             ksDoc3d1.AddMateConstraint(5, namePlane1[1], namePlane5[3], 1, 1, -(y + 2 * heightBoard));
             ksDoc3d1.AddMateConstraint(0, namePlane[4], namePlane5[0], -1, 1, 0);
+
+                       
+            string save = foldername + "\\" + "Ящик типа I-1" + ".m3d";
+
+            ksDoc3d.SaveAs(save);
 
 
         }
