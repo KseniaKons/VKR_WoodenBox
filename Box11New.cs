@@ -10,7 +10,7 @@ using Kompas6API5;
 using Kompas6Constants;
 using Kompas6Constants3D;
 
-namespace TreeBox
+namespace WoodenBox
 {
     internal class Box11New
     {

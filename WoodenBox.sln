@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeBox", "TreeBox.csproj", "{330A6986-06B0-475C-AA0C-F8A188450A8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenBox", "WoodenBox.csproj", "{330A6986-06B0-475C-AA0C-F8A188450A8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

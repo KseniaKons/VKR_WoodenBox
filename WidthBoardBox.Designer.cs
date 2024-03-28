@@ -1,4 +1,4 @@
-﻿namespace TreeBox
+﻿namespace WoodenBox
 {
     partial class WidthBoardBox
     {

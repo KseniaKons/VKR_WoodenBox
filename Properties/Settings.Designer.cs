@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TreeBox.Properties
+namespace WoodenBox.Properties
 {
 
 

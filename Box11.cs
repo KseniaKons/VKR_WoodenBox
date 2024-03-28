@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 
 
-namespace TreeBox
+namespace WoodenBox
 {
     internal class Box11
     {
