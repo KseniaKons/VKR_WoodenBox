@@ -29,14 +29,14 @@ namespace WoodenBox
 
             if (lbGOST.Text == "ГОСТ 2695. Пиломатериалы лиственных пород")
             {
-                cbFrontBoard.Items.Insert(0, "80");
-                cbFrontBoard.Items.Insert(1, "90");
-                cbFrontBoard.Items.Insert(2, "100");
-                cbFrontBoard.Items.Insert(3, "110");
-                cbFrontBoard.Items.Insert(4, "130");
-                cbFrontBoard.Items.Insert(5, "150");
-                cbFrontBoard.Items.Insert(6, "180");
-                cbFrontBoard.Items.Insert(7, "200");
+                //cbFrontBoard.Items.Insert(0, "80");
+                //cbFrontBoard.Items.Insert(1, "90");
+                //cbFrontBoard.Items.Insert(2, "100");
+                //cbFrontBoard.Items.Insert(3, "110");
+                //cbFrontBoard.Items.Insert(4, "130");
+                //cbFrontBoard.Items.Insert(5, "150");
+                //cbFrontBoard.Items.Insert(6, "180");
+                //cbFrontBoard.Items.Insert(7, "200");
 
                 cbSideBoard.Items.Insert(0, "80");
                 cbSideBoard.Items.Insert(1, "90");
@@ -59,15 +59,15 @@ namespace WoodenBox
             }
             else if (lbGOST.Text == "ГОСТ 24454-80. Пиломатериалы хвойных пород")
             {
-                cbFrontBoard.Items.Insert(0, "75");
-                cbFrontBoard.Items.Insert(1, "100");
-                cbFrontBoard.Items.Insert(2, "125");
-                cbFrontBoard.Items.Insert(3, "150");
-                cbFrontBoard.Items.Insert(4, "175");
-                cbFrontBoard.Items.Insert(5, "200");
-                cbFrontBoard.Items.Insert(6, "225");
-                cbFrontBoard.Items.Insert(7, "250");
-                cbFrontBoard.Items.Insert(8, "275");
+                //cbFrontBoard.Items.Insert(0, "75");
+                //cbFrontBoard.Items.Insert(1, "100");
+                //cbFrontBoard.Items.Insert(2, "125");
+                //cbFrontBoard.Items.Insert(3, "150");
+                //cbFrontBoard.Items.Insert(4, "175");
+                //cbFrontBoard.Items.Insert(5, "200");
+                //cbFrontBoard.Items.Insert(6, "225");
+                //cbFrontBoard.Items.Insert(7, "250");
+                //cbFrontBoard.Items.Insert(8, "275");
 
                 cbSideBoard.Items.Insert(0, "75");
                 cbSideBoard.Items.Insert(1, "100");
@@ -100,15 +100,15 @@ namespace WoodenBox
         public void butSave_Click(object sender, EventArgs e)
         {
             
-            if (cbBottomBoards.SelectedIndex == -1 || cbSideBoard.SelectedIndex == -1 || cbFrontBoard.SelectedIndex == -1)
+            if (cbBottomBoards.SelectedIndex == -1 || cbSideBoard.SelectedIndex == -1)
             {
                 MessageBox.Show("Ошибка: введите значение ширины досок!!");
             }
             else
             {
-                selectedValue1 = cbBottomBoards.SelectedItem.ToString();
-                selectedValue2 = cbSideBoard.SelectedItem.ToString();
-                selectedValue3 = cbFrontBoard.SelectedItem.ToString();
+                selectedValue1 = cbBottomBoards.SelectedItem.ToString(); //дно
+                selectedValue2 = cbSideBoard.SelectedItem.ToString(); //бок
+                //selectedValue3 = cbFrontBoard.SelectedItem.ToString(); //торец
 
                 this.Close();
             }

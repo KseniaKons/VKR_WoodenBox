@@ -51,12 +51,12 @@ namespace WoodenBox
             }
         }
 
-        private void CalculationBoardsConifer(int param, int boardWidth, out double w_fact_bottom, out double col_fact_bottom)
+        private void CalculationBoardsConifer(int param, int boardWidth, out double w_fact, out double col_fact)
         {
             //параметр по которому считаем, ширина доски вернется, количество досок вернется 
 
-            w_fact_bottom = 0; //посчитанная длиннна доски
-            col_fact_bottom = 0; // посчитанное количество
+            w_fact = 0; //посчитанная длиннна доски
+            col_fact = 0; // посчитанное количество
             int w_sh = 10000, buf_sh;
             int col;
 
@@ -79,8 +79,8 @@ namespace WoodenBox
                 if (buf_sh < w_sh)
                 {
                     w_sh = buf_sh;
-                    w_fact_bottom = arr[i];
-                    col_fact_bottom = col;
+                    w_fact = arr[i];
+                    col_fact = col;
                 }
             }
         }
@@ -559,10 +559,23 @@ namespace WoodenBox
            
         }
 
+        public void CalculationLenghtManually(int widthBoard, int param, out int col_fact)
+        {
+            col_fact = 0;
+            int lenght = 0;
+
+            while(lenght < param)
+            {
+                lenght = lenght + widthBoard;
+                col_fact++;
+            }
+
+        }
+
 
         public void СreatingBox11Manually(int x, int y, int z, double massa, int GOST, int heightWidth, 
-            string savedValue1, string savedValue2, string savedValue3, string foldername)
-        {
+            string bottomBoards, string sideBoard, string foldername)
+        { //дно бок торец
             try
             {
                 kompas = (KompasObject)Marshal.GetActiveObject("KOMPAS.Application.5");
@@ -575,6 +588,34 @@ namespace WoodenBox
                 return;
 
             kompas.Visible = true;
+
+            int col_bottom = 0;
+            int col_side = 0;
+            int w_fact_bottom = int.Parse(bottomBoards);
+            int w_fact_side = int.Parse(sideBoard);
+
+            //дно
+            CalculationLenghtManually(w_fact_bottom, y + 4 * heightWidth, out col_bottom);
+           
+            //бок
+            CalculationLenghtManually(w_fact_side, y + 4 * heightWidth, out col_side);
+
+            string name_bottom = "Доски дна и крышки";
+            string name_side = "Доски бокового щита";
+            string name_before = "Доски торцевого щита";
+
+            //длинна торцевых досок 
+            double lenghtBT = w_fact_bottom * col_bottom - 2 * heightWidth;
+
+            //доски дна и крышки
+            Newboard(heightWidth, w_fact_bottom, y + 4 * heightWidth, name_bottom, foldername);
+
+            //доски бокового щита
+            Newboard(heightWidth, w_fact_side, y + 4 * heightWidth, name_side, foldername);
+
+            //доски торцевого щита
+            Newboard(heightWidth, w_fact_side, lenghtBT, name_before, foldername);
+
 
 
 

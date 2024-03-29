@@ -33,7 +33,7 @@ namespace WoodenBox
 
         string savedValue1;
         string savedValue2;
-        string savedValue3;
+        //string savedValue3;
 
 
         string foldername;
@@ -63,13 +63,13 @@ namespace WoodenBox
 
                 newForm.cbBottomBoards.SelectedItem = savedValue1;
                 newForm.cbSideBoard.SelectedItem = savedValue2;
-                newForm.cbFrontBoard.SelectedItem = savedValue3;
+                //newForm.cbFrontBoard.SelectedItem = savedValue3;
 
                 newForm.ShowDialog();
 
                 savedValue1 = newForm.selectedValue1;
                 savedValue2 = newForm.selectedValue2;
-                savedValue3 = newForm.selectedValue3;
+                //savedValue3 = newForm.selectedValue3;
 
             }
             
@@ -146,8 +146,8 @@ namespace WoodenBox
                 //box11.СreatingBox11(x, y, z, massa, GOST, heightWidth, foldername);
 
                 if (widthBoard == 1) // вписать вручную
-                    box11.СreatingBox11Manually(x, y, z, massa, GOST, heightBoard, 
-                        savedValue1, savedValue2, savedValue3, foldername);
+                    box11New.СreatingBox11Manually(x, y, z, massa, GOST, heightBoard, 
+                        savedValue1, savedValue2, foldername);
                 //ширина, длинна, высота ящика (внутренние), масса груза, ГОСТ, высота доски, 
                 //ширина доски, папка 
             }
@@ -161,7 +161,7 @@ namespace WoodenBox
 
                 if (widthBoard == 1)
                     box12.СreatingBox12Manually(x, y, z, massa, gap, GOST, heightBoard, 
-                        savedValue1, savedValue2, savedValue3, foldername);
+                        savedValue1, savedValue2, foldername);
                 //ширина, длинна, высота ящика (внутренние), масса груза, зазор, ГОСТ, высота доски, ширина доски
             }
         }
