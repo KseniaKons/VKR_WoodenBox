@@ -91,7 +91,8 @@ namespace WoodenBox
             }
         }
 
-        void NewShield(double height, double width, double length, double col, double gap, string name, string foldername)
+        void NewShield(double height, double width, double length, double col, 
+            double gap, string name, string foldername, bool meshCopy)
         {
             ksDoc3d = (ksDocument3D)kompas.Document3D();
             ksDoc3d.Create(false, true);
@@ -145,141 +146,83 @@ namespace WoodenBox
 
             }
 
-
-            /////ИЩУ ГРАНИ
-
+            //ИЩУ ГРАНИ
 
             ksEntityCollection flFaces = part.EntityCollection((int)Obj3dType.o3d_face);
-
-            for (int i = 0; i < flFaces.GetCount(); i++)
+            if (flFaces.SelectByPoint(0, height / 2, length / 2))
             {
-                ksEntity face = flFaces.GetByIndex(i);
-                ksFaceDefinition def = face.GetDefinition();
-                if (def.GetOwnerEntity() == bossExtr)
-                {
-                    if (def.IsPlanar())
-                    {
-                        ksEdgeCollection col1 = def.EdgeCollection();
-                        ksEdgeCollection col2 = def.EdgeCollection();
-                        for (int k = 0; k < col1.GetCount(); k++)
-                        {
-                            for (int k1 = 0; k1 < col2.GetCount(); k1++)
-                            {
-
-                                ksEdgeDefinition d1 = col1.GetByIndex(k);
-                                ksEdgeDefinition d2 = col2.GetByIndex(k1);
-
-                                ksVertexDefinition p1 = d1.GetVertex(true);
-                                ksVertexDefinition p2 = d2.GetVertex(true);
-
-                                double x1, y1, z1;
-                                double x2, y2, z2;
-
-                                p1.GetPoint(out x1, out y1, out z1);
-                                p2.GetPoint(out x2, out y2, out z2);
-
-                                // Нулевая боковая
-
-                                if (x1 == 0 && z1 == 0 && y1 == 0)
-                                {
-                                    if (x2 == 0 && y2 == height && z2 == length)
-                                    {
-                                        face.name = ("Number0");
-                                        face.Update();
-                                        break;
-                                    }
-                                }
-
-                                // Первая нижняя
-
-                                if (x1 == 0 && z1 == 0 && y1 == 0)
-                                {
-                                    if (x2 == width && y2 == height && z2 == 0)
-                                    {
-                                        face.name = ("Number1");
-                                        face.Update();
-                                        break;
-                                    }
-
-                                }
-
-                                // Вторя верхняя
-
-                                if (x1 == 0 && y1 == 0 && z1 == length)
-                                {
-                                    if (x2 == width && y2 == height && z2 == length)
-                                    {
-                                        face.name = ("Number2");
-                                        face.Update();
-                                        break;
-                                    }
-
-                                }
-
-                                // Третья передняя
-
-                                if (x1 == 0 && y1 == height && z1 == 0)
-                                {
-                                    if (x2 == width && y2 == height && z2 == length)
-                                    {
-                                        face.name = ("Number3");
-                                        face.Update();
-                                        break;
-                                    }
-
-                                }
-
-                                // Четвертая задняя
-
-                                if (x1 == width && y1 == 0 && z1 == 0)
-                                {
-                                    if (x2 == 0 && y2 == 0 && z2 == length)
-                                    {
-                                        face.name = ("Number4");
-                                        face.Update();
-                                        break;
-                                    }
-
-                                }
-
-
-
-                            }
-                        }
-                    }
-                }
+                ksEntity face = flFaces.First();
+                face.name = "Number0";
+                face.Update();
             }
+
+            ksEntityCollection flFaces1 = part.EntityCollection((int)Obj3dType.o3d_face);
+            if (flFaces1.SelectByPoint(width / 2, height / 2, 0))
+            {
+                ksEntity face1 = flFaces1.First();
+                face1.name = "Number1";
+                face1.Update();
+            }
+
+            ksEntityCollection flFaces2 = part.EntityCollection((int)Obj3dType.o3d_face);
+            if (flFaces2.SelectByPoint(width / 2, height / 2, length))
+            {
+                ksEntity face2 = flFaces2.First();
+                face2.name = "Number2";
+                face2.Update();
+            }
+
+            ksEntityCollection flFaces3 = part.EntityCollection((int)Obj3dType.o3d_face);
+            if (flFaces3.SelectByPoint(width / 2, height, length / 2))
+            {
+                ksEntity face3 = flFaces3.First();
+                face3.name = "Number3";
+                face3.Update();
+            }
+
+            ksEntityCollection flFaces4 = part.EntityCollection((int)Obj3dType.o3d_face);
+            if (flFaces4.SelectByPoint(width / 2, 0, length / 2))
+            {
+                ksEntity face4 = flFaces4.First();
+                face4.name = "Number4";
+                face4.Update();
+            }
+
 
             //// массив по сетке //
 
+            if (meshCopy == true)
+            { 
+                // создаём операцию линейного массива
+                ksEntity MeshCopyE = part.NewEntity((short)Obj3dType.o3d_meshCopy);
 
-            // создаём операцию линейного массива
-            ksEntity MeshCopyE = part.NewEntity((short)Obj3dType.o3d_meshCopy);
+                MeshCopyDefinition MeshCopyDef = MeshCopyE.GetDefinition(); //создаём интерфейс свойств линейного массива
 
-            MeshCopyDefinition MeshCopyDef = MeshCopyE.GetDefinition(); //создаём интерфейс свойств линейного массива
+                ksEntity baseAxisX = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_axisOX); //создаём ось линейного массива на основе базовой Х
+                MeshCopyDef.SetAxis1(baseAxisX); //выставляем базовую ось для первого направления
 
-            ksEntity baseAxisX = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_axisOX); //создаём ось линейного массива на основе базовой Х
-            MeshCopyDef.SetAxis1(baseAxisX); //выставляем базовую ось для первого направления
+                MeshCopyDef.count1 = (int)col; 
+                MeshCopyDef.step1 = width + gap;
+                //MeshCopyDef.angle1 = gap;
 
-            MeshCopyDef.count1 = (int)col; 
-            MeshCopyDef.step1 = width + gap;
-            //MeshCopyDef.angle1 = gap;
+                //создаём коллекцию для копируемых элементов
+                ksEntityCollection EntityCollection = MeshCopyDef.OperationArray();
+                EntityCollection.Clear(); // очищаем её
 
-            //создаём коллекцию для копируемых элементов
-            ksEntityCollection EntityCollection = MeshCopyDef.OperationArray();
-            EntityCollection.Clear(); // очищаем её
+                EntityCollection.Add(bossExtr); //добавляем элемент выдавливания в коллекци.
 
-            EntityCollection.Add(bossExtr); //добавляем элемент выдавливания в коллекци.
+                MeshCopyE.Create(); // создаём массив
 
-            MeshCopyE.Create(); // создаём массив
+                // сохранение //
 
-            // сохранение //
+                string save;
 
-            string save;
+                save = foldername + "\\" + name + ".m3d";
 
-            save = foldername + "\\" + name + ".m3d";
+                ksDoc3d.SaveAs(save);
+            }
 
-            ksDoc3d.SaveAs(save);
+            
         }
 
 
@@ -326,13 +269,13 @@ namespace WoodenBox
             double lenghtBT = w_fact_bottom * col_fact_bottom - 2 * heightBoard + gap * (col_fact_bottom - 1);
 
             //ЩИТ дна и крышки
-            NewShield(heightBoard, w_fact_bottom, y + 4 * heightBoard, col_fact_bottom, gap, name_bottom, foldername);
+            NewShield(heightBoard, w_fact_bottom, y + 4 * heightBoard, col_fact_bottom, gap, name_bottom, foldername, true);
 
             //боковой щит
-            NewShield(heightBoard, w_fact_side, y + 4 * heightBoard, col_fact_side, gap, name_side, foldername);
+            NewShield(heightBoard, w_fact_side, y + 4 * heightBoard, col_fact_side, gap, name_side, foldername, true);
 
             //торцевой щит
-            NewShield(heightBoard, w_fact_side, lenghtBT, col_fact_side, gap, name_before, foldername);
+            NewShield(heightBoard, w_fact_side, lenghtBT, col_fact_side, gap, name_before, foldername, true);
 
 
             ////////////////СБОРКА
@@ -531,13 +474,13 @@ namespace WoodenBox
             string name_before = "Торцевой щит";
 
             //ЩИТ дна и крышки
-            NewShield(heightBoard, w_fact_bottom, y + 4 * heightBoard, col_bottom, gap, name_bottom, foldername); // передать параметры досок  ширина высота длинна
+            NewShield(heightBoard, w_fact_bottom, y + 4 * heightBoard, col_bottom, gap, name_bottom, foldername, true); // передать параметры досок  ширина высота длинна
 
             //боковой щит
-            NewShield(heightBoard, w_fact_side, y + 4 * heightBoard, col_side, gap, name_side, foldername);
+            NewShield(heightBoard, w_fact_side, y + 4 * heightBoard, col_side, gap, name_side, foldername, true);
 
             //торцевой щит
-            NewShield(heightBoard, w_fact_side, lenghtBT, col_side, gap, name_before, foldername);
+            NewShield(heightBoard, w_fact_side, lenghtBT, col_side, gap, name_before, foldername, true);
 
 
             ////////////////СБОРКА
