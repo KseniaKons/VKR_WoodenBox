@@ -29,14 +29,23 @@ namespace WoodenBox
 
             if (lbGOST.Text == "ГОСТ 2695. Пиломатериалы лиственных пород")
             {
-                //cbFrontBoard.Items.Insert(0, "80");
-                //cbFrontBoard.Items.Insert(1, "90");
-                //cbFrontBoard.Items.Insert(2, "100");
-                //cbFrontBoard.Items.Insert(3, "110");
-                //cbFrontBoard.Items.Insert(4, "130");
-                //cbFrontBoard.Items.Insert(5, "150");
-                //cbFrontBoard.Items.Insert(6, "180");
-                //cbFrontBoard.Items.Insert(7, "200");
+                cbFrontBoard.Items.Insert(0, "80");
+                cbFrontBoard.Items.Insert(1, "90");
+                cbFrontBoard.Items.Insert(2, "100");
+                cbFrontBoard.Items.Insert(3, "110");
+                cbFrontBoard.Items.Insert(4, "130");
+                cbFrontBoard.Items.Insert(5, "150");
+                cbFrontBoard.Items.Insert(6, "180");
+                cbFrontBoard.Items.Insert(7, "200");
+
+                cbBeltBoard.Items.Insert(0, "80");
+                cbBeltBoard.Items.Insert(1, "90");
+                cbBeltBoard.Items.Insert(2, "100");
+                cbBeltBoard.Items.Insert(3, "110");
+                cbBeltBoard.Items.Insert(4, "130");
+                cbBeltBoard.Items.Insert(5, "150");
+                cbBeltBoard.Items.Insert(6, "180");
+                cbBeltBoard.Items.Insert(7, "200");
 
                 cbSideBoard.Items.Insert(0, "80");
                 cbSideBoard.Items.Insert(1, "90");
@@ -59,15 +68,25 @@ namespace WoodenBox
             }
             else if (lbGOST.Text == "ГОСТ 24454-80. Пиломатериалы хвойных пород")
             {
-                //cbFrontBoard.Items.Insert(0, "75");
-                //cbFrontBoard.Items.Insert(1, "100");
-                //cbFrontBoard.Items.Insert(2, "125");
-                //cbFrontBoard.Items.Insert(3, "150");
-                //cbFrontBoard.Items.Insert(4, "175");
-                //cbFrontBoard.Items.Insert(5, "200");
-                //cbFrontBoard.Items.Insert(6, "225");
-                //cbFrontBoard.Items.Insert(7, "250");
-                //cbFrontBoard.Items.Insert(8, "275");
+                cbFrontBoard.Items.Insert(0, "75");
+                cbFrontBoard.Items.Insert(1, "100");
+                cbFrontBoard.Items.Insert(2, "125");
+                cbFrontBoard.Items.Insert(3, "150");
+                cbFrontBoard.Items.Insert(4, "175");
+                cbFrontBoard.Items.Insert(5, "200");
+                cbFrontBoard.Items.Insert(6, "225");
+                cbFrontBoard.Items.Insert(7, "250");
+                cbFrontBoard.Items.Insert(8, "275");
+
+                cbBeltBoard.Items.Insert(0, "75");
+                cbBeltBoard.Items.Insert(1, "100");
+                cbBeltBoard.Items.Insert(2, "125");
+                cbBeltBoard.Items.Insert(3, "150");
+                cbBeltBoard.Items.Insert(4, "175");
+                cbBeltBoard.Items.Insert(5, "200");
+                cbBeltBoard.Items.Insert(6, "225");
+                cbBeltBoard.Items.Insert(7, "250");
+                cbBeltBoard.Items.Insert(8, "275");
 
                 cbSideBoard.Items.Insert(0, "75");
                 cbSideBoard.Items.Insert(1, "100");
@@ -96,6 +115,7 @@ namespace WoodenBox
         public string selectedValue1;
         public string selectedValue2;
         public string selectedValue3;
+        public string selectedValue4;
 
         public void butSave_Click(object sender, EventArgs e)
         {
@@ -108,7 +128,8 @@ namespace WoodenBox
             {
                 selectedValue1 = cbBottomBoards.SelectedItem.ToString(); //дно
                 selectedValue2 = cbSideBoard.SelectedItem.ToString(); //бок
-                //selectedValue3 = cbFrontBoard.SelectedItem.ToString(); //торец
+                selectedValue3 = cbFrontBoard.SelectedItem.ToString(); // планки тореца
+                selectedValue4 = cbBeltBoard.SelectedItem.ToString(); // планки пояса
 
                 this.Close();
             }

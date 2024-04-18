@@ -3,6 +3,7 @@ using Kompas6Constants;
 using Kompas6Constants3D;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -134,7 +135,7 @@ namespace WoodenBox
             if (extrProp != null)
             {
                 ExtrDef.SetSketch(ksNewScetchE); // эскиз операции выдавливания
-                                                 // направление выдавливания (обычное)
+                                                 // направление выдавливания (обычное)           
 
                 extrProp.direction = (short)Direction_Type.dtNormal;
                 // тип выдавливания 
@@ -382,6 +383,7 @@ namespace WoodenBox
             ////ДНО
 
             partAs = partColl.GetByIndex(0);
+            partAs.fixedComponent = true;
             pCol = partAs.EntityCollection((short)Obj3dType.o3d_face);
 
             namePlane[0] = pCol.GetByName("Number0", true, true);
@@ -471,6 +473,8 @@ namespace WoodenBox
             ksDoc3d1.AddMateConstraint(5, namePlane1[4], namePlane5[1], 1, 1, -heightBoard);
             ksDoc3d1.AddMateConstraint(5, namePlane1[1], namePlane5[3], 1, 1, -(y + 2 * heightBoard));
             ksDoc3d1.AddMateConstraint(0, namePlane[4], namePlane5[0], -1, 1, 0);
+
+
 
             string save = foldername + "\\" + "Ящик типа I-2" + ".m3d";
 
@@ -584,6 +588,7 @@ namespace WoodenBox
             ////ДНО
 
             partAs = partColl.GetByIndex(0);
+            partAs.fixedComponent = true;
             pCol = partAs.EntityCollection((short)Obj3dType.o3d_face);
 
             namePlane[0] = pCol.GetByName("Number0", true, true);

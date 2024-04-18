@@ -34,6 +34,10 @@
             this.cbSideBoard = new System.Windows.Forms.ComboBox();
             this.cbBottomBoards = new System.Windows.Forms.ComboBox();
             this.butSave = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.cbBeltBoard = new System.Windows.Forms.ComboBox();
+            this.cbFrontBoard = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label9
@@ -85,7 +89,7 @@
             // 
             // butSave
             // 
-            this.butSave.Location = new System.Drawing.Point(312, 188);
+            this.butSave.Location = new System.Drawing.Point(319, 311);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(96, 27);
             this.butSave.TabIndex = 27;
@@ -93,12 +97,54 @@
             this.butSave.UseVisualStyleBackColor = true;
             this.butSave.Click += new System.EventHandler(this.butSave_Click);
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(40, 249);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(239, 16);
+            this.label16.TabIndex = 39;
+            this.label16.Text = "Ширина планок торцевого щита, мм";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(39, 184);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(173, 16);
+            this.label15.TabIndex = 37;
+            this.label15.Text = "Ширина планок пояса, мм";
+            // 
+            // cbBeltBoard
+            // 
+            this.cbBeltBoard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBeltBoard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbBeltBoard.FormattingEnabled = true;
+            this.cbBeltBoard.Location = new System.Drawing.Point(43, 203);
+            this.cbBeltBoard.Name = "cbBeltBoard";
+            this.cbBeltBoard.Size = new System.Drawing.Size(341, 24);
+            this.cbBeltBoard.TabIndex = 40;
+            // 
+            // cbFrontBoard
+            // 
+            this.cbFrontBoard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFrontBoard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbFrontBoard.FormattingEnabled = true;
+            this.cbFrontBoard.Location = new System.Drawing.Point(43, 268);
+            this.cbFrontBoard.Name = "cbFrontBoard";
+            this.cbFrontBoard.Size = new System.Drawing.Size(341, 24);
+            this.cbFrontBoard.TabIndex = 41;
+            // 
             // WidthBoardBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(439, 231);
+            this.ClientSize = new System.Drawing.Size(439, 351);
+            this.Controls.Add(this.cbFrontBoard);
+            this.Controls.Add(this.cbBeltBoard);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.lbGOST);
             this.Controls.Add(this.label1);
@@ -120,5 +166,9 @@
         public System.Windows.Forms.ComboBox cbSideBoard;
         private System.Windows.Forms.Label lbGOST;
         private System.Windows.Forms.Button butSave;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        public System.Windows.Forms.ComboBox cbBeltBoard;
+        public System.Windows.Forms.ComboBox cbFrontBoard;
     }
 }

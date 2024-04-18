@@ -14,6 +14,7 @@ using Kompas6API5;
 using Kompas6Constants;
 using Kompas6Constants3D;
 using KAPITypes;
+using KompasAPI7;
 using System.Runtime.InteropServices;
 
 
@@ -24,16 +25,15 @@ namespace WoodenBox
     {
 
         private Bitmap p;
-        
-
+ 
         Box11 box11 = new Box11();
-        Box11New box11New = new Box11New();
         Box12 box12 = new Box12();
         //string foldername;
 
         string savedValue1;
         string savedValue2;
-        //string savedValue3;
+        string savedValue3;
+        string savedValue4;
 
 
         string foldername;
@@ -63,13 +63,15 @@ namespace WoodenBox
 
                 newForm.cbBottomBoards.SelectedItem = savedValue1;
                 newForm.cbSideBoard.SelectedItem = savedValue2;
-                //newForm.cbFrontBoard.SelectedItem = savedValue3;
+                newForm.cbFrontBoard.SelectedItem = savedValue3;
+                newForm.cbBeltBoard.SelectedItem = savedValue3;
 
                 newForm.ShowDialog();
 
                 savedValue1 = newForm.selectedValue1;
                 savedValue2 = newForm.selectedValue2;
-                //savedValue3 = newForm.selectedValue3;
+                savedValue3 = newForm.selectedValue3;
+                savedValue4 = newForm.selectedValue4;
 
             }
             
@@ -141,15 +143,12 @@ namespace WoodenBox
             {
                 
                 if(widthBoard == 0) // вычислить оптимальное
-                        box11New.СreatingBox11(x, y, z, massa, GOST, heightBoard, foldername);
-                        //box11New.СreatingBox11(x, y, z, massa, GOST, heightWidth, foldername);
-                //box11.СreatingBox11(x, y, z, massa, GOST, heightWidth, foldername);
+                    box11.СreatingBox11(x, y, z, massa, GOST, heightBoard, foldername);
 
                 if (widthBoard == 1) // вписать вручную
-                    box11New.СreatingBox11Manually(x, y, z, massa, GOST, heightBoard, 
+                    box11.СreatingBox11Manually(x, y, z, massa, GOST, heightBoard, 
                         savedValue1, savedValue2, foldername);
-                //ширина, длинна, высота ящика (внутренние), масса груза, ГОСТ, высота доски, 
-                //ширина доски, папка 
+                
             }
 
             if (cbTypeBox.SelectedIndex == 1) //тип I-2
@@ -162,7 +161,6 @@ namespace WoodenBox
                 if (widthBoard == 1)
                     box12.СreatingBox12Manually(x, y, z, massa, gap, GOST, heightBoard, 
                         savedValue1, savedValue2, foldername);
-                //ширина, длинна, высота ящика (внутренние), масса груза, зазор, ГОСТ, высота доски, ширина доски
             }
         }
 
