@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using KAPITypes;
 using Kompas6API5;
 using Kompas6Constants;
 using Kompas6Constants3D;
@@ -237,6 +238,75 @@ namespace WoodenBox
 
         }
 
+        public void CreatingSpecification(int r)
+        {
+            ksSpcDocument iDocumentSpc = (ksSpcDocument)kompas.SpcDocument();
+            
+            ksDocumentParam iDocumentParam = (ksDocumentParam)kompas.
+            GetParamStruct((short)StructType2DEnum.ko_DocumentParam);
+            if (iDocumentParam == null)
+                return;
+            iDocumentParam.Init();
+            iDocumentParam.type = (int)DocType.lt_DocSpc;// для СП №4
+            ksSheetPar iSheetParam = (ksSheetPar)iDocumentParam.GetLayoutParam();
+            iSheetParam.Init();
+            iSheetParam.layoutName = @"C:\Program Files\ASCON\KOMPAS-3D v21 Study\Sys\graphic.lyt";
+            iSheetParam.shtType = 1;
+            iDocumentSpc.ksCreateDocument(iDocumentParam);
+
+            // 1 Секция
+            ksSpecification iSpc = (ksSpecification)iDocumentSpc.GetSpecification();
+            iSpc.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
+            int reference = iSpc.ksSpcObjectEnd();
+            ksSpcObjParam iSpcObjParam =
+           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
+            iSpc.ksSpcObjectEdit(reference);
+            iDocumentSpc.ksGetObjParam(reference, iSpcObjParam, ldefin2d.ALLPARAM);
+            iSpcObjParam.blockNumber = 0;
+            iSpcObjParam.draw = 1;
+            iSpcObjParam.firstOnSheet = 0;
+            iSpcObjParam.ispoln = 0;
+            iSpcObjParam.posInc = 1;
+            iSpcObjParam.posNotDraw = 0;
+            iDocumentSpc.ksSetObjParam(reference, iSpcObjParam, ldefin2d.ALLPARAM);
+            iSpc.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
+            iSpc.ksSetSpcObjectColumnText(3, 1, 0, 1.ToString());
+            iSpc.ksSetSpcObjectColumnText(5, 1, 0, "Левая стойка 1 Ряд ");
+            iSpc.ksSetSpcObjectColumnText(6, 1, 0, "1");
+            reference = iSpc.ksSpcObjectEnd();
+            ksSpecification iSpc103 = (ksSpecification)iDocumentSpc.GetSpecification();
+            iSpc103.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
+            int reference103 = iSpc103.ksSpcObjectEnd();
+            ksSpcObjParam iSpcObjParam103 =
+           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
+            iSpc103.ksSpcObjectEdit(reference103);
+            iDocumentSpc.ksGetObjParam(reference103, iSpcObjParam103, ldefin2d.ALLPARAM);
+            iSpcObjParam103.blockNumber = 0;
+            iSpcObjParam103.draw = 2;
+            iSpcObjParam103.firstOnSheet = 0;
+            iSpcObjParam103.ispoln = 0;
+            iSpcObjParam103.posInc = 2;
+            iSpcObjParam103.posNotDraw = 0;
+            iDocumentSpc.ksSetObjParam(reference103, iSpcObjParam103, ldefin2d.ALLPARAM);
+            iSpc103.ksSetSpcObjectColumnText(5, 1, 0, "древесина");
+            ksSpecification iSpc104 = (ksSpecification)iDocumentSpc.GetSpecification();
+            iSpc104.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
+            int reference104 = iSpc104.ksSpcObjectEnd();
+            ksSpcObjParam iSpcObjParam104 =
+           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
+            iSpc104.ksSpcObjectEdit(reference104);
+            iDocumentSpc.ksGetObjParam(reference104, iSpcObjParam104, ldefin2d.ALLPARAM);
+            iSpcObjParam104.blockNumber = 0;
+            iSpcObjParam104.draw = 2;
+            iSpcObjParam104.firstOnSheet = 0;
+            iSpcObjParam104.ispoln = 0;
+            iSpcObjParam104.posInc = 2;
+            iSpcObjParam104.posNotDraw = 0;
+            iDocumentSpc.ksSetObjParam(reference104, iSpcObjParam104, ldefin2d.ALLPARAM);
+
+
+
+        }
 
         public void СreatingBox11(int x, int y, int z, double massa, int GOST, int heightBoard, string foldername)
         {
@@ -252,6 +322,9 @@ namespace WoodenBox
                 return;
 
             kompas.Visible = true;
+            //kompas.ActivateControllerAPI();
+
+            CreatingSpecification(5);
 
 
             double w_fact_bottom = 0, col_fact_bottom = 0;

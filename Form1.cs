@@ -83,7 +83,7 @@ namespace WoodenBox
             {
                 tbGap.Enabled = false;
                 label6.Enabled = false;
-                tbGap.Text = " - ";
+                tbGap.Text = " 0 ";
                 p = new Bitmap(Properties.Resources.I_1);
                 pbImageBox.Image = p;
                 pbImageBox.Invalidate();
