@@ -63,8 +63,8 @@ namespace WoodenBox
 
                 newForm.cbBottomBoards.SelectedItem = savedValue1;
                 newForm.cbSideBoard.SelectedItem = savedValue2;
-                newForm.cbFrontBoard.SelectedItem = savedValue3;
                 newForm.cbBeltBoard.SelectedItem = savedValue3;
+                newForm.cbFrontBoard.SelectedItem = savedValue4;
 
                 newForm.ShowDialog();
 
@@ -147,7 +147,7 @@ namespace WoodenBox
 
                 if (widthBoard == 1) // вписать вручную
                     box11.СreatingBox11Manually(x, y, z, massa, GOST, heightBoard, 
-                        savedValue1, savedValue2, foldername);
+                        savedValue1, savedValue2, savedValue3, savedValue4, foldername);
                 
             }
 

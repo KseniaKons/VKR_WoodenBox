@@ -126,10 +126,11 @@ namespace WoodenBox
             }
             else
             {
-                selectedValue1 = cbBottomBoards.SelectedItem.ToString(); //дно
-                selectedValue2 = cbSideBoard.SelectedItem.ToString(); //бок
-                selectedValue3 = cbFrontBoard.SelectedItem.ToString(); // планки тореца
-                selectedValue4 = cbBeltBoard.SelectedItem.ToString(); // планки пояса
+                selectedValue1 = cbBottomBoards.SelectedItem.ToString(); //дно и крышка
+                selectedValue2 = cbSideBoard.SelectedItem.ToString(); //бок и торец щит
+                selectedValue3 = cbBeltBoard.SelectedItem.ToString(); // планки пояса
+                selectedValue4 = cbFrontBoard.SelectedItem.ToString(); // планки торецевого щита
+                
 
                 this.Close();
             }
