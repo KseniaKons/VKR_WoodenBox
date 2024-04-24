@@ -99,6 +99,8 @@ namespace WoodenBox
             ksDoc3d.fileName = name; // указание названия файла
 
             part = ksDoc3d.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой детали
+            part.name = name;
+            part.Update();
 
             ksEntity basePlaneXOY = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
             // получим интерфейс базовой плоскости XOY
@@ -203,7 +205,6 @@ namespace WoodenBox
 
                 MeshCopyDef.count1 = (int)col; 
                 MeshCopyDef.step1 = width + gap;
-                //MeshCopyDef.angle1 = gap;
 
                 //создаём коллекцию для копируемых элементов
                 ksEntityCollection EntityCollection = MeshCopyDef.OperationArray();
@@ -212,17 +213,14 @@ namespace WoodenBox
                 EntityCollection.Add(bossExtr); //добавляем элемент выдавливания в коллекци.
 
                 MeshCopyE.Create(); // создаём массив
-
-                // сохранение //
-
-                string save;
-
-                save = foldername + "\\" + name + ".m3d";
-
-                ksDoc3d.SaveAs(save);
             }
 
-            
+            string save;
+
+            save = foldername + "\\" + name + ".m3d";
+
+            ksDoc3d.SaveAs(save);
+
         }
 
 
@@ -265,6 +263,10 @@ namespace WoodenBox
             string name_bottom = "Щит дна и крышки";
             string name_side = "Боковой щит";
             string name_before = "Торцевой щит";
+            string name_front1 = "Планка торцевого щита - вертикальная";
+            string name_front2 = "Планка торцевого щита - горизонтальная";
+            string name_around1 = "Планка пояса - вверхняя"; //размером с щит
+            string name_around2 = "Планка пояса - боковая"; //высокая
 
             double lenghtBT = w_fact_bottom * col_fact_bottom - 2 * heightBoard + gap * (col_fact_bottom - 1);
 
@@ -278,14 +280,29 @@ namespace WoodenBox
             NewShield(heightBoard, w_fact_side, lenghtBT, col_fact_side, gap, name_before, foldername, true);
 
 
+            //Планка торцевого щита - вертикальная
+            NewShield(heightBoard, w_fact_side, w_fact_side * col_fact_side + gap * (col_fact_side - 1),
+                0, 0, name_front1, foldername, false);
+
+            //Планка торцевого щита - горизонтальная
+            NewShield(heightBoard, w_fact_side, lenghtBT - 2 * w_fact_side, 0, 0, name_front2, foldername, false);
+
+            //Планка пояса - вверхняя
+            NewShield(heightBoard, w_fact_bottom, w_fact_bottom * col_fact_bottom + gap * (col_fact_bottom - 1), 
+                0, 0, name_around1, foldername, false);
+
+            //Планка пояса - боковая
+            NewShield(heightBoard, w_fact_bottom, 
+                w_fact_side * col_fact_side + 4 * heightBoard 
+                + gap * (col_fact_side - 1), 0, 0, name_around2, foldername, false);
+
+
             ////////////////СБОРКА
 
             ksDocument3D ksDoc3d1 = (ksDocument3D)kompas.Document3D();
             ksDoc3d1.Create(false, false);
+            ksDoc3d1.fileName = "Ящик деревянный I-2"; // указание названия файла
             ksPart partAs = ksDoc3d1.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой сборки
-
-
-            ////////////ДНО
 
             string file_bottom;
             file_bottom = foldername + "\\" + name_bottom + ".m3d";
@@ -295,6 +312,18 @@ namespace WoodenBox
 
             string file_before;
             file_before = foldername + "\\" + name_before + ".m3d";
+
+            string file_front1;
+            file_front1 = foldername + "\\" + name_front1 + ".m3d";
+
+            string file_front2;
+            file_front2 = foldername + "\\" + name_front2 + ".m3d";
+
+            string file_around1;
+            file_around1 = foldername + "\\" + name_around1 + ".m3d";
+
+            string file_around2;
+            file_around2 = foldername + "\\" + name_around2 + ".m3d";
 
             ksEntityCollection pCol;
             ksEntity[] namePlane = new ksEntity[5];
@@ -314,12 +343,81 @@ namespace WoodenBox
             ksEntityCollection pCol5;
             ksEntity[] namePlane5 = new ksEntity[5];
 
-            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //дно
-            ksDoc3d1.SetPartFromFile(file_side, partAs, false); //боковой щит 1
-            ksDoc3d1.SetPartFromFile(file_side, partAs, false); //боковой щит 2
-            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //крышка
-            ksDoc3d1.SetPartFromFile(file_before, partAs, false); //торец 1
-            ksDoc3d1.SetPartFromFile(file_before, partAs, false); //торец 2
+            ksEntityCollection pCol6;
+            ksEntity[] namePlane6 = new ksEntity[5];
+
+            ksEntityCollection pCol7;
+            ksEntity[] namePlane7 = new ksEntity[5];
+
+            ksEntityCollection pCol8;
+            ksEntity[] namePlane8 = new ksEntity[5];
+
+            ksEntityCollection pCol9;
+            ksEntity[] namePlane9 = new ksEntity[5];
+
+            ksEntityCollection pCol10;
+            ksEntity[] namePlane10 = new ksEntity[5];
+
+            ksEntityCollection pCol11;
+            ksEntity[] namePlane11 = new ksEntity[5];
+
+            ksEntityCollection pCol12;
+            ksEntity[] namePlane12 = new ksEntity[5];
+
+            ksEntityCollection pCol13;
+            ksEntity[] namePlane13 = new ksEntity[5];
+
+            ksEntityCollection pCol14;
+            ksEntity[] namePlane14 = new ksEntity[5];
+
+            ksEntityCollection pCol15;
+            ksEntity[] namePlane15 = new ksEntity[5];
+
+            ksEntityCollection pCol16;
+            ksEntity[] namePlane16 = new ksEntity[5];
+
+            ksEntityCollection pCol17;
+            ksEntity[] namePlane17 = new ksEntity[5];
+
+            ksEntityCollection pCol18;
+            ksEntity[] namePlane18 = new ksEntity[5];
+
+            ksEntityCollection pCol19;
+            ksEntity[] namePlane19 = new ksEntity[5];
+
+            ksEntityCollection pCol20;
+            ksEntity[] namePlane20 = new ksEntity[5];
+
+            ksEntityCollection pCol21;
+            ksEntity[] namePlane21 = new ksEntity[5];
+
+
+            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //0 дно
+            ksDoc3d1.SetPartFromFile(file_side, partAs, false); // 1 боковой щит 1 
+            ksDoc3d1.SetPartFromFile(file_side, partAs, false); //2 боковой щит 2
+            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //3 крышка
+            ksDoc3d1.SetPartFromFile(file_before, partAs, false); //4 торец 1
+            ksDoc3d1.SetPartFromFile(file_before, partAs, false); //5 торец 2
+
+            ksDoc3d1.SetPartFromFile(file_front1, partAs, false); //6 Планка торцевого щита - вертикальная
+            ksDoc3d1.SetPartFromFile(file_front1, partAs, false); //7 Планка торцевого щита - вертикальная
+            ksDoc3d1.SetPartFromFile(file_front2, partAs, false); //8 Планка торцевого щита - горизонтальная
+            ksDoc3d1.SetPartFromFile(file_front2, partAs, false); //9 Планка торцевого щита - горизонтальная
+
+            ksDoc3d1.SetPartFromFile(file_front1, partAs, false); //10 Планка торцевого щита - вертикальная
+            ksDoc3d1.SetPartFromFile(file_front1, partAs, false); //11 Планка торцевого щита - вертикальная
+            ksDoc3d1.SetPartFromFile(file_front2, partAs, false); //12 Планка торцевого щита - горизонтальная
+            ksDoc3d1.SetPartFromFile(file_front2, partAs, false); //13 Планка торцевого щита - горизонтальная
+
+            ksDoc3d1.SetPartFromFile(file_around1, partAs, false); // 14 Планка пояса - вверхняя
+            ksDoc3d1.SetPartFromFile(file_around1, partAs, false); // 15 Планка пояса - вверхняя
+            ksDoc3d1.SetPartFromFile(file_around1, partAs, false); // 16 Планка пояса - вверхняя
+            ksDoc3d1.SetPartFromFile(file_around1, partAs, false); // 17 Планка пояса - вверхняя
+
+            ksDoc3d1.SetPartFromFile(file_around2, partAs, false); // 18 Планка пояса - боковая
+            ksDoc3d1.SetPartFromFile(file_around2, partAs, false); // 19 Планка пояса - боковая
+            ksDoc3d1.SetPartFromFile(file_around2, partAs, false); // 20 Планка пояса - боковая
+            ksDoc3d1.SetPartFromFile(file_around2, partAs, false); // 21 Планка пояса - боковая
 
             ksPartCollection partColl = ksDoc3d1.PartCollection(true);
 
@@ -399,8 +497,6 @@ namespace WoodenBox
             ksDoc3d1.AddMateConstraint(5, namePlane1[1], namePlane4[3], 1, 1, -heightBoard);
             ksDoc3d1.AddMateConstraint(0, namePlane[4], namePlane4[0], -1, 1, 0);
 
-
-
             ////ТОРЦЕВОЙ ЩИТ 2
 
             partAs = partColl.GetByIndex(5);
@@ -417,9 +513,246 @@ namespace WoodenBox
             ksDoc3d1.AddMateConstraint(5, namePlane1[1], namePlane5[3], 1, 1, -(y + 2 * heightBoard));
             ksDoc3d1.AddMateConstraint(0, namePlane[4], namePlane5[0], -1, 1, 0);
 
+            
+            
+            /////// Планка торцевого щита - вертикальная 2 штуки
+
+            partAs = partColl.GetByIndex(6);
+            pCol6 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane6[0] = pCol6.GetByName("Number0", true, true);
+            namePlane6[1] = pCol6.GetByName("Number1", true, true);
+            namePlane6[2] = pCol6.GetByName("Number2", true, true);
+            namePlane6[3] = pCol6.GetByName("Number3", true, true);
+            namePlane6[4] = pCol6.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane4[3], namePlane6[3], -1, 1, 0); // торец
+            ksDoc3d1.AddMateConstraint(0, namePlane1[3], namePlane6[0], -1, 1, 0); // бок1
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane6[2], -1, 1, 0); // крышка
 
 
-            string save = foldername + "\\" + "Ящик типа I-2" + ".m3d";
+            partAs = partColl.GetByIndex(7);
+            pCol7 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane7[0] = pCol7.GetByName("Number0", true, true);
+            namePlane7[1] = pCol7.GetByName("Number1", true, true);
+            namePlane7[2] = pCol7.GetByName("Number2", true, true);
+            namePlane7[3] = pCol7.GetByName("Number3", true, true);
+            namePlane7[4] = pCol7.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane4[3], namePlane7[3], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(5, namePlane1[3], namePlane7[0], -1, 1, lenghtBT - w_fact_side);
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane7[2], -1, 1, 0);
+
+            //Планка торцевого щита - горизонтальная 2 штуки
+
+            partAs = partColl.GetByIndex(8);
+            pCol8 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane8[0] = pCol8.GetByName("Number0", true, true);
+            namePlane8[1] = pCol8.GetByName("Number1", true, true);
+            namePlane8[2] = pCol8.GetByName("Number2", true, true);
+            namePlane8[3] = pCol8.GetByName("Number3", true, true);
+            namePlane8[4] = pCol8.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane4[3], namePlane8[3], -1, 1, 0); //торец
+            ksDoc3d1.AddMateConstraint(0, namePlane7[0], namePlane8[2], -1, 1, 0); // планка 2
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane8[0], -1, 1, 0); //крышка
+
+            partAs = partColl.GetByIndex(9);
+            pCol9 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane9[0] = pCol9.GetByName("Number0", true, true);
+            namePlane9[1] = pCol9.GetByName("Number1", true, true);
+            namePlane9[2] = pCol9.GetByName("Number2", true, true);
+            namePlane9[3] = pCol9.GetByName("Number3", true, true);
+            namePlane9[4] = pCol9.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane4[3], namePlane9[4], -1, 1, 0); //торец
+            ksDoc3d1.AddMateConstraint(0, namePlane7[0], namePlane9[2], -1, 1, 0); // планка 2
+            ksDoc3d1.AddMateConstraint(5, namePlane3[3], namePlane9[0], 
+                1, 1, w_fact_side * col_fact_side + gap * (col_fact_side - 1)); //крышка
+
+            //ДАЛЬНИЕ Планка торцевого щита - вертикальная 2 штуки
+
+            partAs = partColl.GetByIndex(10);
+            pCol10 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane10[0] = pCol10.GetByName("Number0", true, true);
+            namePlane10[1] = pCol10.GetByName("Number1", true, true);
+            namePlane10[2] = pCol10.GetByName("Number2", true, true);
+            namePlane10[3] = pCol10.GetByName("Number3", true, true);
+            namePlane10[4] = pCol10.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane5[4], namePlane10[4], -1, 1, 0); // торец
+            ksDoc3d1.AddMateConstraint(0, namePlane1[3], namePlane10[0], -1, 1, 0); // бок1
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane10[2], -1, 1, 0); // крышка
+
+            partAs = partColl.GetByIndex(11);
+            pCol11 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane11[0] = pCol11.GetByName("Number0", true, true);
+            namePlane11[1] = pCol11.GetByName("Number1", true, true);
+            namePlane11[2] = pCol11.GetByName("Number2", true, true);
+            namePlane11[3] = pCol11.GetByName("Number3", true, true);
+            namePlane11[4] = pCol11.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane5[4], namePlane11[4], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(5, namePlane1[3], namePlane11[0], -1, 1, lenghtBT - w_fact_side);
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane11[2], -1, 1, 0);
+
+            //ДАЛЬНИЕ Планка торцевого щита - горизонтальные 2 штуки
+
+            partAs = partColl.GetByIndex(12);
+            pCol12 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane12[0] = pCol12.GetByName("Number0", true, true);
+            namePlane12[1] = pCol12.GetByName("Number1", true, true);
+            namePlane12[2] = pCol12.GetByName("Number2", true, true);
+            namePlane12[3] = pCol12.GetByName("Number3", true, true);
+            namePlane12[4] = pCol12.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane5[4], namePlane12[4], -1, 1, 0); //торец
+            ksDoc3d1.AddMateConstraint(0, namePlane7[0], namePlane12[2], -1, 1, 0); // планка 2
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane12[0], -1, 1, 0); //крышка
+
+            partAs = partColl.GetByIndex(13);
+            pCol13 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane13[0] = pCol13.GetByName("Number0", true, true);
+            namePlane13[1] = pCol13.GetByName("Number1", true, true);
+            namePlane13[2] = pCol13.GetByName("Number2", true, true);
+            namePlane13[3] = pCol13.GetByName("Number3", true, true);
+            namePlane13[4] = pCol13.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane5[4], namePlane13[3], -1, 1, 0); //торец
+            ksDoc3d1.AddMateConstraint(0, namePlane7[0], namePlane13[2], -1, 1, 0); // планка 2
+            ksDoc3d1.AddMateConstraint(5, namePlane3[3], namePlane13[0], 
+                1, 1, w_fact_side * col_fact_side + gap * (col_fact_side - 1)); //крышка
+
+
+            /////Планка пояса верхние - первая пара
+
+            double distance = (y + 4 * heightBoard) / 6;
+            if (distance > 700)
+                distance = ((y + 4 * heightBoard) - 700 - 2 * w_fact_bottom) / 2;
+            distance = Math.Round(distance);
+
+            partAs = partColl.GetByIndex(14);
+            pCol14 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane14[0] = pCol14.GetByName("Number0", true, true);
+            namePlane14[1] = pCol14.GetByName("Number1", true, true);
+            namePlane14[2] = pCol14.GetByName("Number2", true, true);
+            namePlane14[3] = pCol14.GetByName("Number3", true, true);
+            namePlane14[4] = pCol14.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane3[4], namePlane14[4], -1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(0, namePlane3[0], namePlane14[1], 1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(5, namePlane6[4], namePlane14[0], 1, 1, -distance); //планка 1
+
+
+            partAs = partColl.GetByIndex(15);
+            pCol15 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane15[0] = pCol15.GetByName("Number0", true, true);
+            namePlane15[1] = pCol15.GetByName("Number1", true, true);
+            namePlane15[2] = pCol15.GetByName("Number2", true, true);
+            namePlane15[3] = pCol15.GetByName("Number3", true, true);
+            namePlane15[4] = pCol15.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane[3], namePlane15[3], -1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(0, namePlane3[0], namePlane15[1], 1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(5, namePlane6[4], namePlane15[0], 1, 1, -distance); //планка 1
+
+            /////Планка пояса верхние - вторая пара
+
+            partAs = partColl.GetByIndex(16);
+            pCol16 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane16[0] = pCol16.GetByName("Number0", true, true);
+            namePlane16[1] = pCol16.GetByName("Number1", true, true);
+            namePlane16[2] = pCol16.GetByName("Number2", true, true);
+            namePlane16[3] = pCol16.GetByName("Number3", true, true);
+            namePlane16[4] = pCol16.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane3[4], namePlane16[4], -1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(0, namePlane3[0], namePlane16[1], 1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(5, namePlane10[3], namePlane16[0], -1, 1, -distance - w_fact_bottom); //планка 1
+
+            partAs = partColl.GetByIndex(17);
+            pCol17 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane17[0] = pCol17.GetByName("Number0", true, true);
+            namePlane17[1] = pCol17.GetByName("Number1", true, true);
+            namePlane17[2] = pCol17.GetByName("Number2", true, true);
+            namePlane17[3] = pCol17.GetByName("Number3", true, true);
+            namePlane17[4] = pCol17.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane[3], namePlane17[3], -1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(0, namePlane3[0], namePlane17[1], 1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(5, namePlane10[3], namePlane17[0], -1, 1, -distance - w_fact_bottom); //планка 1
+
+            //Планка пояса боковая - первая пара 
+
+            partAs = partColl.GetByIndex(18);
+            pCol18 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane18[0] = pCol18.GetByName("Number0", true, true);
+            namePlane18[1] = pCol18.GetByName("Number1", true, true);
+            namePlane18[2] = pCol18.GetByName("Number2", true, true);
+            namePlane18[3] = pCol18.GetByName("Number3", true, true);
+            namePlane18[4] = pCol18.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane1[4], namePlane18[4], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane14[3], namePlane18[2], 1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane14[0], namePlane18[0], 1, 1, 0);
+
+            partAs = partColl.GetByIndex(19);
+            pCol19 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane19[0] = pCol19.GetByName("Number0", true, true);
+            namePlane19[1] = pCol19.GetByName("Number1", true, true);
+            namePlane19[2] = pCol19.GetByName("Number2", true, true);
+            namePlane19[3] = pCol19.GetByName("Number3", true, true);
+            namePlane19[4] = pCol19.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane1[4], namePlane19[4], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane16[3], namePlane19[2], 1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane16[0], namePlane19[0], 1, 1, 0);
+
+            //Планка пояса боковая - вторая пара 
+
+            partAs = partColl.GetByIndex(20);
+            pCol20 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane20[0] = pCol20.GetByName("Number0", true, true);
+            namePlane20[1] = pCol20.GetByName("Number1", true, true);
+            namePlane20[2] = pCol20.GetByName("Number2", true, true);
+            namePlane20[3] = pCol20.GetByName("Number3", true, true);
+            namePlane20[4] = pCol20.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane2[3], namePlane20[3], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane14[3], namePlane20[2], 1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane14[0], namePlane20[0], 1, 1, 0);
+
+            partAs = partColl.GetByIndex(21);
+            pCol21 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane21[0] = pCol21.GetByName("Number0", true, true);
+            namePlane21[1] = pCol21.GetByName("Number1", true, true);
+            namePlane21[2] = pCol21.GetByName("Number2", true, true);
+            namePlane21[3] = pCol21.GetByName("Number3", true, true);
+            namePlane21[4] = pCol21.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane2[3], namePlane21[3], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane16[3], namePlane21[2], 1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane16[0], namePlane21[0], 1, 1, 0);
+
+
+            string save;
+
+            save = foldername + "\\" + "Ящик деревянный I-2" + ".a3d";
 
             ksDoc3d1.SaveAs(save);
 
@@ -441,7 +774,7 @@ namespace WoodenBox
         }
 
         public void СreatingBox12Manually(int x, int y, int z, double massa , int gap, int GOST, int heightBoard,
-            string bottomBoards, string sideBoard, string foldername)
+            string bottomBoards, string sideBoard, string aroundBoard, string frontBoard, string foldername)
         { //дно бок торец
             try
             {
@@ -460,18 +793,25 @@ namespace WoodenBox
             int col_side = 0;
             int w_fact_bottom = int.Parse(bottomBoards);
             int w_fact_side = int.Parse(sideBoard);
+            int w_front = int.Parse(frontBoard);
+            int w_around = int.Parse(aroundBoard);
 
             //дно
             CalculationLenghtManually(w_fact_bottom, x + 2 * heightBoard, gap, out col_bottom);
 
             //бок
             CalculationLenghtManually(w_fact_side, z, gap, out col_side);
+            
             //длинна торцевых досок 
             double lenghtBT = w_fact_bottom * col_bottom - 2 * heightBoard + gap * (col_bottom - 1);
 
             string name_bottom = "Щит дна и крышки";
             string name_side = "Боковой щит";
             string name_before = "Торцевой щит";
+            string name_front1 = "Планка торцевого щита - вертикальная";
+            string name_front2 = "Планка торцевого щита - горизонтальная";
+            string name_around1 = "Планка пояса - вверхняя"; //размером с щит
+            string name_around2 = "Планка пояса - боковая"; //высокая
 
             //ЩИТ дна и крышки
             NewShield(heightBoard, w_fact_bottom, y + 4 * heightBoard, col_bottom, gap, name_bottom, foldername, true); // передать параметры досок  ширина высота длинна
@@ -482,6 +822,24 @@ namespace WoodenBox
             //торцевой щит
             NewShield(heightBoard, w_fact_side, lenghtBT, col_side, gap, name_before, foldername, true);
 
+
+            //Планка торцевого щита - вертикальная
+            NewShield(heightBoard, w_front, w_fact_side * col_side + gap * (col_side - 1),
+                0, 0, name_front1, foldername, false);
+
+            //Планка торцевого щита - горизонтальная
+            NewShield(heightBoard, w_front, lenghtBT - 2 * w_front, 0, 0, name_front2, foldername, false);
+
+
+
+            //Планка пояса - вверхняя
+            NewShield(heightBoard, w_around, w_fact_bottom * col_bottom + gap * (col_bottom - 1),
+                0, 0, name_around1, foldername, false);
+
+            //Планка пояса - боковая
+            NewShield(heightBoard, w_around,
+                w_fact_side * col_side + 4 * heightBoard
+                + gap * (col_side - 1), 0, 0, name_around2, foldername, false);
 
             ////////////////СБОРКА
 
@@ -501,6 +859,18 @@ namespace WoodenBox
             string file_before;
             file_before = foldername + "\\" + name_before + ".m3d";
 
+            string file_front1;
+            file_front1 = foldername + "\\" + name_front1 + ".m3d";
+
+            string file_front2;
+            file_front2 = foldername + "\\" + name_front2 + ".m3d";
+
+            string file_around1;
+            file_around1 = foldername + "\\" + name_around1 + ".m3d";
+
+            string file_around2;
+            file_around2 = foldername + "\\" + name_around2 + ".m3d";
+
             ksEntityCollection pCol;
             ksEntity[] namePlane = new ksEntity[5];
 
@@ -519,12 +889,81 @@ namespace WoodenBox
             ksEntityCollection pCol5;
             ksEntity[] namePlane5 = new ksEntity[5];
 
-            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //дно
-            ksDoc3d1.SetPartFromFile(file_side, partAs, false); //боковой щит 1
-            ksDoc3d1.SetPartFromFile(file_side, partAs, false); //боковой щит 2
-            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //крышка
-            ksDoc3d1.SetPartFromFile(file_before, partAs, false); //торец 1
-            ksDoc3d1.SetPartFromFile(file_before, partAs, false); //торец 2
+            ksEntityCollection pCol6;
+            ksEntity[] namePlane6 = new ksEntity[5];
+
+            ksEntityCollection pCol7;
+            ksEntity[] namePlane7 = new ksEntity[5];
+
+            ksEntityCollection pCol8;
+            ksEntity[] namePlane8 = new ksEntity[5];
+
+            ksEntityCollection pCol9;
+            ksEntity[] namePlane9 = new ksEntity[5];
+
+            ksEntityCollection pCol10;
+            ksEntity[] namePlane10 = new ksEntity[5];
+
+            ksEntityCollection pCol11;
+            ksEntity[] namePlane11 = new ksEntity[5];
+
+            ksEntityCollection pCol12;
+            ksEntity[] namePlane12 = new ksEntity[5];
+
+            ksEntityCollection pCol13;
+            ksEntity[] namePlane13 = new ksEntity[5];
+
+            ksEntityCollection pCol14;
+            ksEntity[] namePlane14 = new ksEntity[5];
+
+            ksEntityCollection pCol15;
+            ksEntity[] namePlane15 = new ksEntity[5];
+
+            ksEntityCollection pCol16;
+            ksEntity[] namePlane16 = new ksEntity[5];
+
+            ksEntityCollection pCol17;
+            ksEntity[] namePlane17 = new ksEntity[5];
+
+            ksEntityCollection pCol18;
+            ksEntity[] namePlane18 = new ksEntity[5];
+
+            ksEntityCollection pCol19;
+            ksEntity[] namePlane19 = new ksEntity[5];
+
+            ksEntityCollection pCol20;
+            ksEntity[] namePlane20 = new ksEntity[5];
+
+            ksEntityCollection pCol21;
+            ksEntity[] namePlane21 = new ksEntity[5];
+
+
+            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //0 дно
+            ksDoc3d1.SetPartFromFile(file_side, partAs, false); // 1 боковой щит 1 
+            ksDoc3d1.SetPartFromFile(file_side, partAs, false); //2 боковой щит 2
+            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //3 крышка
+            ksDoc3d1.SetPartFromFile(file_before, partAs, false); //4 торец 1
+            ksDoc3d1.SetPartFromFile(file_before, partAs, false); //5 торец 2
+
+            ksDoc3d1.SetPartFromFile(file_front1, partAs, false); //6 Планка торцевого щита - вертикальная
+            ksDoc3d1.SetPartFromFile(file_front1, partAs, false); //7 Планка торцевого щита - вертикальная
+            ksDoc3d1.SetPartFromFile(file_front2, partAs, false); //8 Планка торцевого щита - горизонтальная
+            ksDoc3d1.SetPartFromFile(file_front2, partAs, false); //9 Планка торцевого щита - горизонтальная
+
+            ksDoc3d1.SetPartFromFile(file_front1, partAs, false); //10 Планка торцевого щита - вертикальная
+            ksDoc3d1.SetPartFromFile(file_front1, partAs, false); //11 Планка торцевого щита - вертикальная
+            ksDoc3d1.SetPartFromFile(file_front2, partAs, false); //12 Планка торцевого щита - горизонтальная
+            ksDoc3d1.SetPartFromFile(file_front2, partAs, false); //13 Планка торцевого щита - горизонтальная
+
+            ksDoc3d1.SetPartFromFile(file_around1, partAs, false); // 14 Планка пояса - вверхняя
+            ksDoc3d1.SetPartFromFile(file_around1, partAs, false); // 15 Планка пояса - вверхняя
+            ksDoc3d1.SetPartFromFile(file_around1, partAs, false); // 16 Планка пояса - вверхняя
+            ksDoc3d1.SetPartFromFile(file_around1, partAs, false); // 17 Планка пояса - вверхняя
+
+            ksDoc3d1.SetPartFromFile(file_around2, partAs, false); // 18 Планка пояса - боковая
+            ksDoc3d1.SetPartFromFile(file_around2, partAs, false); // 19 Планка пояса - боковая
+            ksDoc3d1.SetPartFromFile(file_around2, partAs, false); // 20 Планка пояса - боковая
+            ksDoc3d1.SetPartFromFile(file_around2, partAs, false); // 21 Планка пояса - боковая
 
             ksPartCollection partColl = ksDoc3d1.PartCollection(true);
 
@@ -622,7 +1061,247 @@ namespace WoodenBox
             ksDoc3d1.AddMateConstraint(5, namePlane1[1], namePlane5[3], 1, 1, -(y + 2 * heightBoard));
             ksDoc3d1.AddMateConstraint(0, namePlane[4], namePlane5[0], -1, 1, 0);
 
-            string save = foldername + "\\" + "Ящик типа I-2" + ".m3d";
+
+
+
+            /////// Планка торцевого щита - вертикальная 2 штуки
+
+            partAs = partColl.GetByIndex(6);
+            pCol6 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane6[0] = pCol6.GetByName("Number0", true, true);
+            namePlane6[1] = pCol6.GetByName("Number1", true, true);
+            namePlane6[2] = pCol6.GetByName("Number2", true, true);
+            namePlane6[3] = pCol6.GetByName("Number3", true, true);
+            namePlane6[4] = pCol6.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane4[3], namePlane6[3], -1, 1, 0); // торец
+            ksDoc3d1.AddMateConstraint(0, namePlane1[3], namePlane6[0], -1, 1, 0); // бок1
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane6[2], -1, 1, 0); // крышка
+
+
+            partAs = partColl.GetByIndex(7);
+            pCol7 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane7[0] = pCol7.GetByName("Number0", true, true);
+            namePlane7[1] = pCol7.GetByName("Number1", true, true);
+            namePlane7[2] = pCol7.GetByName("Number2", true, true);
+            namePlane7[3] = pCol7.GetByName("Number3", true, true);
+            namePlane7[4] = pCol7.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane4[3], namePlane7[3], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(5, namePlane1[3], namePlane7[0], -1, 1, lenghtBT - w_front);
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane7[2], -1, 1, 0);
+
+            //Планка торцевого щита - горизонтальная 2 штуки
+
+            partAs = partColl.GetByIndex(8);
+            pCol8 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane8[0] = pCol8.GetByName("Number0", true, true);
+            namePlane8[1] = pCol8.GetByName("Number1", true, true);
+            namePlane8[2] = pCol8.GetByName("Number2", true, true);
+            namePlane8[3] = pCol8.GetByName("Number3", true, true);
+            namePlane8[4] = pCol8.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane4[3], namePlane8[3], -1, 1, 0); //торец
+            ksDoc3d1.AddMateConstraint(0, namePlane7[0], namePlane8[2], -1, 1, 0); // планка 2
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane8[0], -1, 1, 0); //крышка
+
+            partAs = partColl.GetByIndex(9);
+            pCol9 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane9[0] = pCol9.GetByName("Number0", true, true);
+            namePlane9[1] = pCol9.GetByName("Number1", true, true);
+            namePlane9[2] = pCol9.GetByName("Number2", true, true);
+            namePlane9[3] = pCol9.GetByName("Number3", true, true);
+            namePlane9[4] = pCol9.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane4[3], namePlane9[4], -1, 1, 0); //торец
+            ksDoc3d1.AddMateConstraint(0, namePlane7[0], namePlane9[2], -1, 1, 0); // планка 2
+            ksDoc3d1.AddMateConstraint(5, namePlane3[3], namePlane9[0],
+                1, 1, w_fact_side * col_side + gap * (col_side - 1)); //крышка
+
+            //ДАЛЬНИЕ Планка торцевого щита - вертикальная 2 штуки
+
+            partAs = partColl.GetByIndex(10);
+            pCol10 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane10[0] = pCol10.GetByName("Number0", true, true);
+            namePlane10[1] = pCol10.GetByName("Number1", true, true);
+            namePlane10[2] = pCol10.GetByName("Number2", true, true);
+            namePlane10[3] = pCol10.GetByName("Number3", true, true);
+            namePlane10[4] = pCol10.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane5[4], namePlane10[4], -1, 1, 0); // торец
+            ksDoc3d1.AddMateConstraint(0, namePlane1[3], namePlane10[0], -1, 1, 0); // бок1
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane10[2], -1, 1, 0); // крышка
+
+            partAs = partColl.GetByIndex(11);
+            pCol11 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane11[0] = pCol11.GetByName("Number0", true, true);
+            namePlane11[1] = pCol11.GetByName("Number1", true, true);
+            namePlane11[2] = pCol11.GetByName("Number2", true, true);
+            namePlane11[3] = pCol11.GetByName("Number3", true, true);
+            namePlane11[4] = pCol11.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane5[4], namePlane11[4], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(5, namePlane1[3], namePlane11[0], -1, 1, lenghtBT - w_front);
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane11[2], -1, 1, 0);
+
+            //ДАЛЬНИЕ Планка торцевого щита - горизонтальные 2 штуки
+
+            partAs = partColl.GetByIndex(12);
+            pCol12 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane12[0] = pCol12.GetByName("Number0", true, true);
+            namePlane12[1] = pCol12.GetByName("Number1", true, true);
+            namePlane12[2] = pCol12.GetByName("Number2", true, true);
+            namePlane12[3] = pCol12.GetByName("Number3", true, true);
+            namePlane12[4] = pCol12.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane5[4], namePlane12[4], -1, 1, 0); //торец
+            ksDoc3d1.AddMateConstraint(0, namePlane7[0], namePlane12[2], -1, 1, 0); // планка 2
+            ksDoc3d1.AddMateConstraint(0, namePlane3[3], namePlane12[0], -1, 1, 0); //крышка
+
+            partAs = partColl.GetByIndex(13);
+            pCol13 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane13[0] = pCol13.GetByName("Number0", true, true);
+            namePlane13[1] = pCol13.GetByName("Number1", true, true);
+            namePlane13[2] = pCol13.GetByName("Number2", true, true);
+            namePlane13[3] = pCol13.GetByName("Number3", true, true);
+            namePlane13[4] = pCol13.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane5[4], namePlane13[3], -1, 1, 0); //торец
+            ksDoc3d1.AddMateConstraint(0, namePlane7[0], namePlane13[2], -1, 1, 0); // планка 2
+            ksDoc3d1.AddMateConstraint(5, namePlane3[3], namePlane13[0],
+                1, 1, w_fact_side * col_side + gap * (col_side - 1)); //крышка
+
+
+            /////Планка пояса верхние - первая пара
+
+            double distance = (y + 4 * heightBoard) / 6;
+            if (distance > 700)
+                distance = ((y + 4 * heightBoard) - 700 - 2 * w_fact_bottom) / 2;
+            distance = Math.Round(distance);
+
+            partAs = partColl.GetByIndex(14);
+            pCol14 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane14[0] = pCol14.GetByName("Number0", true, true);
+            namePlane14[1] = pCol14.GetByName("Number1", true, true);
+            namePlane14[2] = pCol14.GetByName("Number2", true, true);
+            namePlane14[3] = pCol14.GetByName("Number3", true, true);
+            namePlane14[4] = pCol14.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane3[4], namePlane14[4], -1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(0, namePlane3[0], namePlane14[1], 1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(5, namePlane6[4], namePlane14[0], 1, 1, -distance); //планка 1
+
+
+            partAs = partColl.GetByIndex(15);
+            pCol15 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane15[0] = pCol15.GetByName("Number0", true, true);
+            namePlane15[1] = pCol15.GetByName("Number1", true, true);
+            namePlane15[2] = pCol15.GetByName("Number2", true, true);
+            namePlane15[3] = pCol15.GetByName("Number3", true, true);
+            namePlane15[4] = pCol15.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane[3], namePlane15[3], -1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(0, namePlane3[0], namePlane15[1], 1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(5, namePlane6[4], namePlane15[0], 1, 1, -distance); //планка 1
+
+            /////Планка пояса верхние - вторая пара
+
+            partAs = partColl.GetByIndex(16);
+            pCol16 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane16[0] = pCol16.GetByName("Number0", true, true);
+            namePlane16[1] = pCol16.GetByName("Number1", true, true);
+            namePlane16[2] = pCol16.GetByName("Number2", true, true);
+            namePlane16[3] = pCol16.GetByName("Number3", true, true);
+            namePlane16[4] = pCol16.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane3[4], namePlane16[4], -1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(0, namePlane3[0], namePlane16[1], 1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(5, namePlane10[3], namePlane16[0], -1, 1, -distance - w_around); //планка 1
+
+            partAs = partColl.GetByIndex(17);
+            pCol17 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane17[0] = pCol17.GetByName("Number0", true, true);
+            namePlane17[1] = pCol17.GetByName("Number1", true, true);
+            namePlane17[2] = pCol17.GetByName("Number2", true, true);
+            namePlane17[3] = pCol17.GetByName("Number3", true, true);
+            namePlane17[4] = pCol17.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane[3], namePlane17[3], -1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(0, namePlane3[0], namePlane17[1], 1, 1, 0); //крышка
+            ksDoc3d1.AddMateConstraint(5, namePlane10[3], namePlane17[0], -1, 1, -distance - w_around); //планка 1
+
+            //Планка пояса боковая - первая пара 
+
+            partAs = partColl.GetByIndex(18);
+            pCol18 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane18[0] = pCol18.GetByName("Number0", true, true);
+            namePlane18[1] = pCol18.GetByName("Number1", true, true);
+            namePlane18[2] = pCol18.GetByName("Number2", true, true);
+            namePlane18[3] = pCol18.GetByName("Number3", true, true);
+            namePlane18[4] = pCol18.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane1[4], namePlane18[4], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane14[3], namePlane18[2], 1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane14[0], namePlane18[0], 1, 1, 0);
+
+            partAs = partColl.GetByIndex(19);
+            pCol19 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane19[0] = pCol19.GetByName("Number0", true, true);
+            namePlane19[1] = pCol19.GetByName("Number1", true, true);
+            namePlane19[2] = pCol19.GetByName("Number2", true, true);
+            namePlane19[3] = pCol19.GetByName("Number3", true, true);
+            namePlane19[4] = pCol19.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane1[4], namePlane19[4], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane16[3], namePlane19[2], 1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane16[0], namePlane19[0], 1, 1, 0);
+
+            //Планка пояса боковая - вторая пара 
+
+            partAs = partColl.GetByIndex(20);
+            pCol20 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane20[0] = pCol20.GetByName("Number0", true, true);
+            namePlane20[1] = pCol20.GetByName("Number1", true, true);
+            namePlane20[2] = pCol20.GetByName("Number2", true, true);
+            namePlane20[3] = pCol20.GetByName("Number3", true, true);
+            namePlane20[4] = pCol20.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane2[3], namePlane20[3], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane14[3], namePlane20[2], 1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane14[0], namePlane20[0], 1, 1, 0);
+
+            partAs = partColl.GetByIndex(21);
+            pCol21 = partAs.EntityCollection((short)Obj3dType.o3d_face);
+
+            namePlane21[0] = pCol21.GetByName("Number0", true, true);
+            namePlane21[1] = pCol21.GetByName("Number1", true, true);
+            namePlane21[2] = pCol21.GetByName("Number2", true, true);
+            namePlane21[3] = pCol21.GetByName("Number3", true, true);
+            namePlane21[4] = pCol21.GetByName("Number4", true, true);
+
+            ksDoc3d1.AddMateConstraint(0, namePlane2[3], namePlane21[3], -1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane16[3], namePlane21[2], 1, 1, 0);
+            ksDoc3d1.AddMateConstraint(0, namePlane16[0], namePlane21[0], 1, 1, 0);
+
+
+            string save;
+
+            save = foldername + "\\" + "Ящик деревянный I-2" + ".a3d";
 
             ksDoc3d1.SaveAs(save);
 

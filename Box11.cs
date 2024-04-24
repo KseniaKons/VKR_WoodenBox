@@ -95,7 +95,7 @@ namespace WoodenBox
 
             part = ksDoc3d.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой детали
             part.name = name;
-
+            part.Update();
 
             //ksColorParam kscolor = (ksColorParam)part.ColorParam();
             //kscolor.color = color;
@@ -103,7 +103,7 @@ namespace WoodenBox
             //kscolor.specularity = 0;
 
             //part.SetAdvancedColor(2059292);
-            
+
             //int i;
             //part.useColor = 0;
             //i = part.useColor;

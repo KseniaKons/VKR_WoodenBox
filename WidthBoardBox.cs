@@ -120,7 +120,8 @@ namespace WoodenBox
         public void butSave_Click(object sender, EventArgs e)
         {
             
-            if (cbBottomBoards.SelectedIndex == -1 || cbSideBoard.SelectedIndex == -1)
+            if (cbBottomBoards.SelectedIndex == -1 || cbSideBoard.SelectedIndex == -1
+                || cbFrontBoard.SelectedIndex == -1 || cbBeltBoard.SelectedIndex == -1)
             {
                 MessageBox.Show("Ошибка: введите значение ширины досок!!");
             }

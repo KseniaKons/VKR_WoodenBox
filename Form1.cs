@@ -116,10 +116,33 @@ namespace WoodenBox
             }
             if (cbTypeBox.SelectedIndex == 1 & !int.TryParse(tbGap.Text, out int result))
             {
-                MessageBox.Show("Ошибка: значение зазора должно быть целым числом!!");
+                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!!");
                 return;
             }
-            
+
+            if (!int.TryParse(tbHeightBox.Text, out int result1) ||
+                !int.TryParse(tbLengthBox.Text, out int result2) ||
+                !int.TryParse(tbWidthBox.Text, out int result3) ||
+                !int.TryParse(tbMassa.Text, out int result4))
+            {
+                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!!");
+                return;
+            }
+
+            if (int.Parse(tbHeightBox.Text) <= 0 ||
+                int.Parse(tbLengthBox.Text) <= 0 ||
+                int.Parse(tbWidthBox.Text) <= 0 ||
+                int.Parse(tbMassa.Text) <= 0)
+            {
+                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!");
+                return;
+            }
+            if (cbTypeBox.SelectedIndex == 1 & int.Parse(tbGap.Text) <=0 )
+            {
+                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!!");
+                return;
+            }
+
             int x = Convert.ToInt32(tbWidthBox.Text);  //ширина
             int y = Convert.ToInt32(tbLengthBox.Text); //длинна
             int z = Convert.ToInt32(tbHeightBox.Text); //высота
@@ -160,7 +183,7 @@ namespace WoodenBox
 
                 if (widthBoard == 1)
                     box12.СreatingBox12Manually(x, y, z, massa, gap, GOST, heightBoard, 
-                        savedValue1, savedValue2, foldername);
+                        savedValue1, savedValue2, savedValue3, savedValue4, foldername);
             }
         }
 
