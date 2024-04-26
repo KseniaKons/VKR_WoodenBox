@@ -224,7 +224,7 @@ namespace WoodenBox
         }
 
 
-        public void СreatingBox12(int x, int y, int z, double massa, int gap, int GOST, int heightBoard, string foldername)
+        public void СreatingBox12(int x, int y, int z, int gap, int GOST, int heightBoard, string foldername)
         { //gap зазор
             try
             {
@@ -773,7 +773,7 @@ namespace WoodenBox
             }
         }
 
-        public void СreatingBox12Manually(int x, int y, int z, double massa , int gap, int GOST, int heightBoard,
+        public void СreatingBox12Manually(int x, int y, int z , int gap, int heightBoard,
             string bottomBoards, string sideBoard, string aroundBoard, string frontBoard, string foldername)
         { //дно бок торец
             try

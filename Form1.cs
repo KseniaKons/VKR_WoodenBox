@@ -166,10 +166,10 @@ namespace WoodenBox
             {
                 
                 if(widthBoard == 0) // вычислить оптимальное
-                    box11.СreatingBox11(x, y, z, massa, GOST, heightBoard, foldername);
+                    box11.СreatingBox11(x, y, z, GOST, heightBoard, foldername);
 
                 if (widthBoard == 1) // вписать вручную
-                    box11.СreatingBox11Manually(x, y, z, massa, GOST, heightBoard, 
+                    box11.СreatingBox11Manually(x, y, z, heightBoard, 
                         savedValue1, savedValue2, savedValue3, savedValue4, foldername);
                 
             }
@@ -179,10 +179,10 @@ namespace WoodenBox
                 int gap = Convert.ToInt32(tbGap.Text); //зазор 
 
                 if (widthBoard == 0)
-                    box12.СreatingBox12(x, y, z, massa, gap, GOST, heightBoard, foldername);
+                    box12.СreatingBox12(x, y, z, gap, GOST, heightBoard, foldername);
 
                 if (widthBoard == 1)
-                    box12.СreatingBox12Manually(x, y, z, massa, gap, GOST, heightBoard, 
+                    box12.СreatingBox12Manually(x, y, z, gap, heightBoard, 
                         savedValue1, savedValue2, savedValue3, savedValue4, foldername);
             }
         }
@@ -197,12 +197,6 @@ namespace WoodenBox
                 foldername = folderBrowserDialog1.SelectedPath;
             }
             tbSave.Text = foldername;
-        }
-
-        private void Information_Click(object sender, EventArgs e)
-        {
-            Information newForm = new Information();
-            newForm.ShowDialog();
         }
 
        
