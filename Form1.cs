@@ -16,6 +16,7 @@ using Kompas6Constants3D;
 using KAPITypes;
 using KompasAPI7;
 using System.Runtime.InteropServices;
+using TreeBox;
 
 
 
@@ -28,7 +29,8 @@ namespace WoodenBox
  
         Box11 box11 = new Box11();
         Box12 box12 = new Box12();
-        //string foldername;
+
+        SpecificationBox specification = new SpecificationBox();
 
         string savedValue1;
         string savedValue2;
@@ -47,8 +49,8 @@ namespace WoodenBox
             cbWidthBoards.SelectedIndex = 0;
             tbSave.Text = "C:\\Users\\Ksenia\\Desktop\\дт";
             foldername = tbSave.Text;
-            textBox1.Text = "МПСТ";
-            textBox3.Text = "001";
+            tbMPST.Text = "МПСТ";
+            tbNumber.Text = "001";
         }
 
       
@@ -111,12 +113,12 @@ namespace WoodenBox
                 tbMassa.Text == String.Empty ||
                 tbGap.Text == String.Empty)
             {
-                MessageBox.Show("Ошибка: поля не могут быть пустыми!");
+                MessageBox.Show("Поля не могут быть пустыми!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (cbTypeBox.SelectedIndex == 1 & !int.TryParse(tbGap.Text, out int result))
             {
-                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!!");
+                MessageBox.Show("Значения должны быть целыми положительными числами!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -125,7 +127,7 @@ namespace WoodenBox
                 !int.TryParse(tbWidthBox.Text, out int result3) ||
                 !int.TryParse(tbMassa.Text, out int result4))
             {
-                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!!");
+                MessageBox.Show("Значения должны быть целыми положительными числами!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -134,12 +136,12 @@ namespace WoodenBox
                 int.Parse(tbWidthBox.Text) <= 0 ||
                 int.Parse(tbMassa.Text) <= 0)
             {
-                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!");
+                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (cbTypeBox.SelectedIndex == 1 & int.Parse(tbGap.Text) <=0 )
             {
-                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!!");
+                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -199,6 +201,14 @@ namespace WoodenBox
             tbSave.Text = foldername;
         }
 
-       
+        private void btSpecification_Click(object sender, EventArgs e)
+        {
+            int GOST = cbGOST.SelectedIndex;
+            string name = tbMPST.Text;  
+            int number = Convert.ToInt32(tbNumber.Text);
+           
+            specification.CreateSpecification(GOST, name, number, foldername);
+
+        }
     }
 }

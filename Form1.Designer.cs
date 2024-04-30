@@ -50,16 +50,17 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tbSave = new System.Windows.Forms.TextBox();
             this.pbImageBox = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbMPST = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbNumber = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tbGap = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.btSpecification = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).BeginInit();
             this.panel2.SuspendLayout();
@@ -81,11 +82,11 @@
             // btBuild
             // 
             this.btBuild.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btBuild.Location = new System.Drawing.Point(597, 542);
+            this.btBuild.Location = new System.Drawing.Point(489, 540);
             this.btBuild.Name = "btBuild";
             this.btBuild.Size = new System.Drawing.Size(180, 55);
             this.btBuild.TabIndex = 2;
-            this.btBuild.Text = "Построить";
+            this.btBuild.Text = "Построить ящик";
             this.btBuild.UseVisualStyleBackColor = false;
             this.btBuild.Click += new System.EventHandler(this.btBuild_Click);
             // 
@@ -273,12 +274,12 @@
             this.pbImageBox.TabIndex = 6;
             this.pbImageBox.TabStop = false;
             // 
-            // textBox1
+            // tbMPST
             // 
-            this.textBox1.Location = new System.Drawing.Point(476, 426);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(128, 22);
-            this.textBox1.TabIndex = 23;
+            this.tbMPST.Location = new System.Drawing.Point(476, 426);
+            this.tbMPST.Name = "tbMPST";
+            this.tbMPST.Size = new System.Drawing.Size(128, 22);
+            this.tbMPST.TabIndex = 23;
             // 
             // label11
             // 
@@ -309,12 +310,12 @@
             this.label12.TabIndex = 26;
             this.label12.Text = ".";
             // 
-            // textBox3
+            // tbNumber
             // 
-            this.textBox3.Location = new System.Drawing.Point(812, 426);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(90, 22);
-            this.textBox3.TabIndex = 27;
+            this.tbNumber.Location = new System.Drawing.Point(812, 426);
+            this.tbNumber.Name = "tbNumber";
+            this.tbNumber.Size = new System.Drawing.Size(90, 22);
+            this.tbNumber.TabIndex = 27;
             // 
             // label10
             // 
@@ -364,20 +365,32 @@
             this.label17.TabIndex = 31;
             this.label17.Text = "Директория сохранения файлов";
             // 
+            // btSpecification
+            // 
+            this.btSpecification.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btSpecification.Location = new System.Drawing.Point(707, 540);
+            this.btSpecification.Name = "btSpecification";
+            this.btSpecification.Size = new System.Drawing.Size(180, 55);
+            this.btSpecification.TabIndex = 32;
+            this.btSpecification.Text = "Составить спецификацию";
+            this.btSpecification.UseVisualStyleBackColor = false;
+            this.btSpecification.Click += new System.EventHandler(this.btSpecification_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(982, 617);
+            this.Controls.Add(this.btSpecification);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.tbNumber);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbMPST);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.tbSave);
@@ -423,16 +436,17 @@
         private System.Windows.Forms.Button butSave;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox tbSave;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbMPST;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbNumber;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox tbGap;
+        private System.Windows.Forms.Button btSpecification;
     }
 }
 

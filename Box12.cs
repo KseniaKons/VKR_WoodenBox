@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static TreeBox.SpecificationBox;
 
 namespace WoodenBox
 {
@@ -295,6 +296,27 @@ namespace WoodenBox
             NewShield(heightBoard, w_fact_bottom, 
                 w_fact_side * col_fact_side + 4 * heightBoard 
                 + gap * (col_fact_side - 1), 0, 0, name_around2, foldername, false);
+
+            DataSpecificationBox.ValueBox.Clear();
+            DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
+            {
+                cap = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //крышка
+                cap_col = $"{col_fact_bottom}",
+                bottom = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //дно
+                bottom_col = $"{col_fact_bottom}",
+
+                before = $"{heightBoard}x{w_fact_side}x{lenghtBT}", //торцевой щит
+                before_col = $"{col_fact_side}",
+                side = $"{heightBoard}x{w_fact_side}x{y + 4 * heightBoard}", //боковой щит
+                side_col = $"{col_fact_side}",
+                
+                around1 = $"{heightBoard}x{w_fact_bottom}x{w_fact_bottom * col_fact_bottom + gap * (col_fact_bottom - 1)}", //Планка пояса 
+                around2 = $"{heightBoard}x{w_fact_bottom}x{w_fact_side * col_fact_side + 4 * heightBoard + gap * (col_fact_side - 1)}", //Планка пояса 
+                
+                front1 = $"{heightBoard}x{w_fact_side}x{w_fact_side * col_fact_side + gap * (col_fact_side - 1)}", //Планка торцевого щита - вертикальная
+                front2 = $"{heightBoard}x{w_fact_side}x{lenghtBT - 2 * w_fact_side}", //Планка торцевого щита - горизонтальная
+
+            }); 
 
 
             ////////////////СБОРКА
@@ -840,6 +862,27 @@ namespace WoodenBox
             NewShield(heightBoard, w_around,
                 w_fact_side * col_side + 4 * heightBoard
                 + gap * (col_side - 1), 0, 0, name_around2, foldername, false);
+
+            DataSpecificationBox.ValueBox.Clear();
+            DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
+            {
+                cap = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //крышка
+                cap_col = $"{col_bottom}",
+                bottom = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //дно
+                bottom_col = $"{col_bottom}",
+
+                before = $"{heightBoard}x{w_fact_side}x{lenghtBT}", //торцевой щит
+                before_col = $"{col_side}",
+                side = $"{heightBoard}x{w_fact_side}x{y + 4 * heightBoard}", //боковой щит
+                side_col = $"{col_side}",
+
+                around1 = $"{heightBoard}x{w_fact_bottom}x{w_fact_bottom * col_bottom + gap * (col_bottom - 1)}", //Планка пояса 
+                around2 = $"{heightBoard}x{w_fact_bottom}x{w_fact_side * col_side + 4 * heightBoard + gap * (col_side - 1)}", //Планка пояса 
+
+                front1 = $"{heightBoard}x{w_fact_side}x{w_fact_side * col_side + gap * (col_side - 1)}", //Планка торцевого щита - вертикальная
+                front2 = $"{heightBoard}x{w_fact_side}x{lenghtBT - 2 * w_fact_side}", //Планка торцевого щита - горизонтальная
+
+            });
 
             ////////////////СБОРКА
 

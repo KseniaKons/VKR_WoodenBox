@@ -6,12 +6,14 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 using KAPITypes;
 using Kompas6API5;
 using Kompas6Constants;
 using Kompas6Constants3D;
 using KompasAPI7;
+using static TreeBox.SpecificationBox;
 
 namespace WoodenBox
 {
@@ -215,189 +217,6 @@ namespace WoodenBox
 
             ksDoc3d.SaveAs(save);
 
-
-
-        }
-
-        public void CreatingSpecification(int r)
-        {
-            ksSpcDocument iDocumentSpc = (ksSpcDocument)kompas.SpcDocument();
-            
-            ksDocumentParam iDocumentParam = (ksDocumentParam)kompas.
-            GetParamStruct((short)StructType2DEnum.ko_DocumentParam);
-            if (iDocumentParam == null)
-                return;
-            iDocumentParam.Init();
-            iDocumentParam.type = (int)DocType.lt_DocSpc;
-            ksSheetPar iSheetParam = (ksSheetPar)iDocumentParam.GetLayoutParam();
-            iSheetParam.Init();
-            iSheetParam.layoutName = @"C:\Program Files\ASCON\KOMPAS-3D v21 Study\Sys\graphic.lyt";
-            iSheetParam.shtType = 1;
-            iDocumentSpc.ksCreateDocument(iDocumentParam);
-
-            // 1 секция
-            ksSpecification iSpc = (ksSpecification)iDocumentSpc.GetSpecification();
-            iSpc.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference = iSpc.ksSpcObjectEnd();
-            
-            ksSpcObjParam iSpcObjParam =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc.ksSpcObjectEdit(reference);
-            iDocumentSpc.ksGetObjParam(reference, iSpcObjParam, ldefin2d.ALLPARAM);
-            iSpcObjParam.blockNumber = 0;
-            iSpcObjParam.draw = 1;
-            iSpcObjParam.firstOnSheet = 0;
-            iSpcObjParam.ispoln = 0;
-            iSpcObjParam.posInc = 1;
-            iSpcObjParam.posNotDraw = 0;
-            iDocumentSpc.ksSetObjParam(reference, iSpcObjParam, ldefin2d.ALLPARAM);
-            iSpc.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
-            iSpc.ksSetSpcObjectColumnText(3, 1, 0, "1");
-            iSpc.ksSetSpcObjectColumnText(4, 1, 0, "МПСТ.321174.01");
-            iSpc.ksSetSpcObjectColumnText(5, 1, 0, "Крышка");
-            iSpc.ksSetSpcObjectColumnText(6, 1, 0, "1");
-            reference = iSpc.ksSpcObjectEnd();
-
-
-
-            ksSpecification iSpc103 = (ksSpecification)iDocumentSpc.GetSpecification();
-            iSpc103.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference103 = iSpc103.ksSpcObjectEnd();
-            
-            ksSpcObjParam iSpcObjParam103 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc103.ksSpcObjectEdit(reference103);
-            iDocumentSpc.ksGetObjParam(reference103, iSpcObjParam103, ldefin2d.ALLPARAM);
-            iSpcObjParam103.blockNumber = 0;
-            iSpcObjParam103.draw = 2;
-            iSpcObjParam103.firstOnSheet = 0;
-            iSpcObjParam103.ispoln = 0;
-            iSpcObjParam103.posInc = 2;
-            iSpcObjParam103.posNotDraw = 0;
-            iDocumentSpc.ksSetObjParam(reference103, iSpcObjParam103, ldefin2d.ALLPARAM);
-            iSpc103.ksSetSpcObjectColumnText(5, 1, 0, "Доска");
-            reference103 = iSpc103.ksSpcObjectEnd();
-
-            ksSpecification iSpc104 = (ksSpecification)iDocumentSpc.GetSpecification();
-            iSpc104.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference104 = iSpc104.ksSpcObjectEnd();
-            
-            ksSpcObjParam iSpcObjParam104 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc104.ksSpcObjectEdit(reference104);
-            iDocumentSpc.ksGetObjParam(reference104, iSpcObjParam104, ldefin2d.ALLPARAM);
-            iSpcObjParam104.blockNumber = 0;
-            iSpcObjParam104.draw = 2;
-            iSpcObjParam104.firstOnSheet = 0;
-            iSpcObjParam104.ispoln = 0;
-            iSpcObjParam104.posInc = 2;
-            iSpcObjParam104.posNotDraw = 0;
-            iDocumentSpc.ksSetObjParam(reference104, iSpcObjParam104, ldefin2d.ALLPARAM);
-            iSpc104.ksSetSpcObjectColumnText(5, 1, 0, "ГОСТ 2695");
-            reference104 = iSpc104.ksSpcObjectEnd();
-
-
-            ksSpecification iSpc105 = (ksSpecification)iDocumentSpc.GetSpecification();
-            iSpc105.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference105 = iSpc105.ksSpcObjectEnd();
-
-            ksSpcObjParam iSpcObjParam105 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc105.ksSpcObjectEdit(reference105);
-            iDocumentSpc.ksGetObjParam(reference105, iSpcObjParam105, ldefin2d.ALLPARAM);
-            iSpcObjParam105.blockNumber = 0;
-            iSpcObjParam105.draw = 2;
-            iSpcObjParam105.firstOnSheet = 0;
-            iSpcObjParam105.ispoln = 0;
-            iSpcObjParam105.posInc = 2;
-            iSpcObjParam105.posNotDraw = 0;
-            iDocumentSpc.ksSetObjParam(reference105, iSpcObjParam105, ldefin2d.ALLPARAM);
-            iSpc105.ksSetSpcObjectColumnText(5, 1, 0, "22х80х600");
-            reference105 = iSpc105.ksSpcObjectEnd();
-
-
-
-            // 2 секция
-            ksSpecification iSpc106 = (ksSpecification)iDocumentSpc.GetSpecification();
-            iSpc106.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference106 = iSpc106.ksSpcObjectEnd();
-
-            ksSpcObjParam iSpcObjParam106 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc106.ksSpcObjectEdit(reference106);
-            iDocumentSpc.ksGetObjParam(reference106, iSpcObjParam106, ldefin2d.ALLPARAM);
-            iSpcObjParam106.blockNumber = 0;
-            iSpcObjParam106.draw = 1;
-            iSpcObjParam106.firstOnSheet = 0;
-            iSpcObjParam106.ispoln = 0;
-            iSpcObjParam106.posInc = 1;
-            iSpcObjParam106.posNotDraw = 0;
-            iDocumentSpc.ksSetObjParam(reference106, iSpcObjParam106, ldefin2d.ALLPARAM);
-            iSpc106.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
-            iSpc106.ksSetSpcObjectColumnText(3, 1, 0, "1");
-            iSpc106.ksSetSpcObjectColumnText(4, 1, 0, "МПСТ.321172.01");
-            iSpc106.ksSetSpcObjectColumnText(5, 1, 0, "Дно");
-            iSpc106.ksSetSpcObjectColumnText(6, 1, 0, "1");
-            reference106 = iSpc106.ksSpcObjectEnd();
-
-
-
-            ksSpecification iSpc107 = (ksSpecification)iDocumentSpc.GetSpecification();
-            iSpc107.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference107 = iSpc107.ksSpcObjectEnd();
-
-            ksSpcObjParam iSpcObjParam107 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc107.ksSpcObjectEdit(reference107);
-            iDocumentSpc.ksGetObjParam(reference107, iSpcObjParam107, ldefin2d.ALLPARAM);
-            iSpcObjParam107.blockNumber = 0;
-            iSpcObjParam107.draw = 2;
-            iSpcObjParam107.firstOnSheet = 0;
-            iSpcObjParam107.ispoln = 0;
-            iSpcObjParam103.posInc = 2;
-            iSpcObjParam107.posNotDraw = 0;
-            iDocumentSpc.ksSetObjParam(reference107, iSpcObjParam107, ldefin2d.ALLPARAM);
-            iSpc107.ksSetSpcObjectColumnText(5, 1, 0, "Доска");
-            reference107 = iSpc107.ksSpcObjectEnd();
-
-            ksSpecification iSpc108 = (ksSpecification)iDocumentSpc.GetSpecification();
-            iSpc108.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference108 = iSpc108.ksSpcObjectEnd();
-
-            ksSpcObjParam iSpcObjParam108 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc108.ksSpcObjectEdit(reference108);
-            iDocumentSpc.ksGetObjParam(reference108, iSpcObjParam108, ldefin2d.ALLPARAM);
-            iSpcObjParam108.blockNumber = 0;
-            iSpcObjParam108.draw = 2;
-            iSpcObjParam108.firstOnSheet = 0;
-            iSpcObjParam108.ispoln = 0;
-            iSpcObjParam108.posInc = 2;
-            iSpcObjParam108.posNotDraw = 0;
-            iDocumentSpc.ksSetObjParam(reference108, iSpcObjParam108, ldefin2d.ALLPARAM);
-            iSpc108.ksSetSpcObjectColumnText(5, 1, 0, "ГОСТ 2695");
-            reference108 = iSpc108.ksSpcObjectEnd();
-
-
-            ksSpecification iSpc109 = (ksSpecification)iDocumentSpc.GetSpecification();
-            iSpc109.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference109 = iSpc109.ksSpcObjectEnd();
-
-            ksSpcObjParam iSpcObjParam109 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc109.ksSpcObjectEdit(reference109);
-            iDocumentSpc.ksGetObjParam(reference109, iSpcObjParam109, ldefin2d.ALLPARAM);
-            iSpcObjParam109.blockNumber = 0;
-            iSpcObjParam109.draw = 2;
-            iSpcObjParam109.firstOnSheet = 0;
-            iSpcObjParam109.ispoln = 0;
-            iSpcObjParam109.posInc = 2;
-            iSpcObjParam109.posNotDraw = 0;
-            iDocumentSpc.ksSetObjParam(reference109, iSpcObjParam109, ldefin2d.ALLPARAM);
-            iSpc109.ksSetSpcObjectColumnText(5, 1, 0, "22х80х600");
-            reference109 = iSpc109.ksSpcObjectEnd();
-
-
         }
 
         public void СreatingBox11(int x, int y, int z, 
@@ -418,7 +237,7 @@ namespace WoodenBox
 
             kompas.Visible = true;
 
-            CreatingSpecification(7);
+            //CreatingSpecification(7);
 
             double w_fact_bottom = 0, col_fact_bottom = 0;
             double w_fact_side = 0, col_fact_side = 0;
@@ -479,6 +298,24 @@ namespace WoodenBox
             //Планка пояса - боковая
             NewShield(heightBoard, w_fact_bottom, w_fact_side * col_fact_side + 4 * heightBoard, 
                 0, name_around2, foldername, false);
+
+            DataSpecificationBox.ValueBox.Clear();
+            DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
+            {
+                cap = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //крышка
+                cap_col = $"{col_fact_bottom}",
+                bottom = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //дно
+                bottom_col = $"{col_fact_bottom}",
+                before = $"{heightBoard}x{w_fact_side}x{lenghtBT}", //торцевой щит
+                before_col = $"{col_fact_side}",
+                side = $"{heightBoard}x{w_fact_side}x{y + 4 * heightBoard}", //боковой щит
+                side_col = $"{col_fact_side}",
+                around1 = $"{heightBoard}x{w_fact_bottom}x{w_fact_bottom * col_fact_bottom}", //боковой щит
+                around2 = $"{heightBoard}x{w_fact_bottom}x{w_fact_side * col_fact_side + 4 * heightBoard}", //боковой щит
+                front1 = $"{heightBoard}x{w_fact_side}x{w_fact_side * col_fact_side}", //Планка торцевого щита - вертикальная
+                front2 = $"{heightBoard}x{w_fact_side}x{lenghtBT - 2 * w_fact_side}", //Планка торцевого щита - горизонтальная
+
+            });;
 
             //////////////СБОРКА
 
@@ -1019,6 +856,24 @@ namespace WoodenBox
 
             //Планка пояса - боковая
             NewShield(heightBoard, w_around, w_fact_side * col_side + 4 * heightBoard, 0, name_around2, foldername, false);
+
+            DataSpecificationBox.ValueBox.Clear();
+            DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
+            {
+                cap = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //крышка
+                cap_col = $"{col_bottom}",
+                bottom = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //дно
+                bottom_col = $"{col_bottom}",
+                before = $"{heightBoard}x{w_fact_side}x{lenghtBT}", //торцевой щит
+                before_col = $"{col_side}",
+                side = $"{heightBoard}x{w_fact_side}x{y + 4 * heightBoard}", //боковой щит
+                side_col = $"{col_side}",
+                around1 = $"{heightBoard}x{w_fact_bottom}x{w_fact_bottom * col_bottom}", //боковой щит
+                around2 = $"{heightBoard}x{w_fact_bottom}x{w_fact_side * col_side + 4 * heightBoard}", //боковой щит
+                front1 = $"{heightBoard}x{w_fact_side}x{w_fact_side * col_side}", //Планка торцевого щита - вертикальная
+                front2 = $"{heightBoard}x{w_fact_side}x{lenghtBT - 2 * w_fact_side}", //Планка торцевого щита - горизонтальная
+
+            }); ;
 
 
             ////////////////СБОРКА
