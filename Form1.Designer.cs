@@ -61,6 +61,7 @@
             this.tbGap = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.btSpecification = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).BeginInit();
             this.panel2.SuspendLayout();
@@ -376,12 +377,23 @@
             this.btSpecification.UseVisualStyleBackColor = false;
             this.btSpecification.Click += new System.EventHandler(this.btSpecification_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(322, 546);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 49);
+            this.button1.TabIndex = 33;
+            this.button1.Text = "Цвет";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(982, 617);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btSpecification);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label13);
@@ -447,6 +459,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox tbGap;
         private System.Windows.Forms.Button btSpecification;
+        private System.Windows.Forms.Button button1;
     }
 }
 

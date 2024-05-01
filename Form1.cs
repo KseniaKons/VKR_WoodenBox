@@ -17,6 +17,7 @@ using KAPITypes;
 using KompasAPI7;
 using System.Runtime.InteropServices;
 using TreeBox;
+using System.Xml.Linq;
 
 
 
@@ -164,15 +165,18 @@ namespace WoodenBox
             int GOST = cbGOST.SelectedIndex;
             int widthBoard = cbWidthBoards.SelectedIndex;
 
+            string marking = tbMPST.Text;
+            int number = Convert.ToInt32(tbNumber.Text);
+
             if (cbTypeBox.SelectedIndex == 0) //тип I-1
             {
                 
                 if(widthBoard == 0) // вычислить оптимальное
-                    box11.СreatingBox11(x, y, z, GOST, heightBoard, foldername);
+                    box11.СreatingBox11(x, y, z, GOST, heightBoard, foldername, marking, number);
 
                 if (widthBoard == 1) // вписать вручную
                     box11.СreatingBox11Manually(x, y, z, heightBoard, 
-                        savedValue1, savedValue2, savedValue3, savedValue4, foldername);
+                        savedValue1, savedValue2, savedValue3, savedValue4, foldername, marking, number);
                 
             }
 
@@ -181,11 +185,11 @@ namespace WoodenBox
                 int gap = Convert.ToInt32(tbGap.Text); //зазор 
 
                 if (widthBoard == 0)
-                    box12.СreatingBox12(x, y, z, gap, GOST, heightBoard, foldername);
+                    box12.СreatingBox12(x, y, z, gap, GOST, heightBoard, foldername, marking, number);
 
                 if (widthBoard == 1)
                     box12.СreatingBox12Manually(x, y, z, gap, heightBoard, 
-                        savedValue1, savedValue2, savedValue3, savedValue4, foldername);
+                        savedValue1, savedValue2, savedValue3, savedValue4, foldername, marking, number);
             }
         }
 
@@ -204,10 +208,40 @@ namespace WoodenBox
         private void btSpecification_Click(object sender, EventArgs e)
         {
             int GOST = cbGOST.SelectedIndex;
-            string name = tbMPST.Text;  
+            string marking = tbMPST.Text;  
             int number = Convert.ToInt32(tbNumber.Text);
            
-            specification.CreateSpecification(GOST, name, number, foldername);
+            specification.CreateSpecification(GOST, marking, number, foldername);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            KompasObject kompas;
+
+            try
+            {
+                kompas = (KompasObject)Marshal.
+                    GetActiveObject("KOMPAS.Application.5");
+            }
+            catch
+            {
+                kompas = (KompasObject)Activator.
+                    CreateInstance(Type.GetTypeFromProgID("KOMPAS.Application.5"));
+            }
+            if (kompas == null)
+                return;
+
+            kompas.Visible = true;
+           
+            ksDocument3D kompas_document_3D = (ksDocument3D)kompas.ActiveDocument3D();
+            ksPart part = kompas_document_3D.GetPart((int)Part_Type.pTop_Part);
+
+            ksColorParam kscolor = (ksColorParam)part.ColorParam();
+            var u = kscolor.color;
+            MessageBox.Show($"Цвет   {u}   ");
+            part.Update();
+
 
         }
     }

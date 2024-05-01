@@ -36,7 +36,7 @@ namespace TreeBox
             public string front2 { get; set; } //планка торцевого щита - горизонтальная
         }
 
-        public void CreateSpecification(int gost1, string name, int number, string foldername)
+        public void CreateSpecification(int gost1, string marking, int number, string foldername)
         {
             if (!DataSpecificationBox.ValueBox.Any())
             {
@@ -129,7 +129,7 @@ namespace TreeBox
             iDocumentSpc.ksSetObjParam(reference1, iSpcObjParam1, ldefin2d.ALLPARAM);
             iSpc1.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
             iSpc1.ksSetSpcObjectColumnText(3, 1, 0, $"{count}");
-            iSpc1.ksSetSpcObjectColumnText(4, 1, 0, $"{name}.{CL_cap}.{numDesignation}");
+            iSpc1.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_cap}.{numDesignation}");
             iSpc1.ksSetSpcObjectColumnText(5, 1, 0, "Крышка");
             iSpc1.ksSetSpcObjectColumnText(6, 1, 0, "1");
             reference1 = iSpc1.ksSpcObjectEnd();
@@ -213,7 +213,7 @@ namespace TreeBox
             iDocumentSpc.ksSetObjParam(reference5, iSpcObjParam5, ldefin2d.ALLPARAM);
             iSpc5.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
             iSpc5.ksSetSpcObjectColumnText(3, 1, 0, $"{count}");
-            iSpc5.ksSetSpcObjectColumnText(4, 1, 0, $"{name}.{CL_bottom}.{numDesignation}");
+            iSpc5.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_bottom}.{numDesignation}");
             iSpc5.ksSetSpcObjectColumnText(5, 1, 0, "Дно");
             iSpc5.ksSetSpcObjectColumnText(6, 1, 0, "1");
             reference5 = iSpc5.ksSpcObjectEnd();
@@ -297,7 +297,7 @@ namespace TreeBox
             iDocumentSpc.ksSetObjParam(reference9, iSpcObjParam9, ldefin2d.ALLPARAM);
             iSpc9.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
             iSpc9.ksSetSpcObjectColumnText(3, 1, 0, $"{count}");
-            iSpc9.ksSetSpcObjectColumnText(4, 1, 0, $"{name}.{CL_before}.{numDesignation}");
+            iSpc9.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_before}.{numDesignation}");
             iSpc9.ksSetSpcObjectColumnText(5, 1, 0, "Торцевой щит");
             iSpc9.ksSetSpcObjectColumnText(6, 1, 0, "2");
             reference9 = iSpc9.ksSpcObjectEnd();
@@ -380,7 +380,7 @@ namespace TreeBox
             iDocumentSpc.ksSetObjParam(reference13, iSpcObjParam13, ldefin2d.ALLPARAM);
             iSpc13.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
             iSpc13.ksSetSpcObjectColumnText(3, 1, 0, $"{count}");
-            iSpc13.ksSetSpcObjectColumnText(4, 1, 0, $"{name}.{CL_side}.{numDesignation}");
+            iSpc13.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_side}.{numDesignation}");
             iSpc13.ksSetSpcObjectColumnText(5, 1, 0, "Боковой щит");
             iSpc13.ksSetSpcObjectColumnText(6, 1, 0, "2");
             reference13 = iSpc13.ksSpcObjectEnd();
@@ -463,7 +463,7 @@ namespace TreeBox
             iDocumentSpc.ksSetObjParam(reference17, iSpcObjParam17, ldefin2d.ALLPARAM);
             iSpc17.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
             iSpc17.ksSetSpcObjectColumnText(3, 1, 0, $"{count}");
-            iSpc17.ksSetSpcObjectColumnText(4, 1, 0, $"{name}.{CL_around}.{numDesignation}");
+            iSpc17.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_around}.{numDesignation}");
             iSpc17.ksSetSpcObjectColumnText(5, 1, 0, "Планка пояса");
             iSpc17.ksSetSpcObjectColumnText(6, 1, 0, "4");
             reference17 = iSpc17.ksSpcObjectEnd();
@@ -545,7 +545,7 @@ namespace TreeBox
             iDocumentSpc.ksSetObjParam(reference21, iSpcObjParam21, ldefin2d.ALLPARAM);
             iSpc21.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
             iSpc21.ksSetSpcObjectColumnText(3, 1, 0, $"{count}");
-            iSpc21.ksSetSpcObjectColumnText(4, 1, 0, $"{name}.{CL_around}.{numDesignation}");
+            iSpc21.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_around}.{numDesignation}");
             iSpc21.ksSetSpcObjectColumnText(5, 1, 0, "Планка пояса");
             iSpc21.ksSetSpcObjectColumnText(6, 1, 0, "4");
             reference21 = iSpc21.ksSpcObjectEnd();
@@ -628,7 +628,7 @@ namespace TreeBox
             iDocumentSpc.ksSetObjParam(reference25, iSpcObjParam25, ldefin2d.ALLPARAM);
             iSpc25.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
             iSpc25.ksSetSpcObjectColumnText(3, 1, 0, $"{count}");
-            iSpc25.ksSetSpcObjectColumnText(4, 1, 0, $"{name}.{CL_front}.{numDesignation}");
+            iSpc25.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_front}.{numDesignation}");
             iSpc25.ksSetSpcObjectColumnText(5, 1, 0, "Планка торцевого щита");
             iSpc25.ksSetSpcObjectColumnText(6, 1, 0, "4");
             reference25 = iSpc25.ksSpcObjectEnd();
@@ -710,7 +710,7 @@ namespace TreeBox
             iDocumentSpc.ksSetObjParam(reference29, iSpcObjParam29, ldefin2d.ALLPARAM);
             iSpc29.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
             iSpc29.ksSetSpcObjectColumnText(3, 1, 0, $"{count}");
-            iSpc29.ksSetSpcObjectColumnText(4, 1, 0, $"{name}.{CL_front}.{numDesignation}");
+            iSpc29.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_front}.{numDesignation}");
             iSpc29.ksSetSpcObjectColumnText(5, 1, 0, "Планка торцевого щита");
             iSpc29.ksSetSpcObjectColumnText(6, 1, 0, "4");
             reference29 = iSpc29.ksSpcObjectEnd();
