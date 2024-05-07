@@ -112,14 +112,13 @@ namespace WoodenBox
 
         }
 
-        public string selectedValue1;
-        public string selectedValue2;
-        public string selectedValue3;
-        public string selectedValue4;
+        public string selectedValue1GOST;
+        public string selectedValue2GOST;
+        public string selectedValue3GOST;
+        public string selectedValue4GOST;
 
         public void butSave_Click(object sender, EventArgs e)
         {
-            
             if (cbBottomBoards.SelectedIndex == -1 || cbSideBoard.SelectedIndex == -1
                 || cbFrontBoard.SelectedIndex == -1 || cbBeltBoard.SelectedIndex == -1)
             {
@@ -127,10 +126,10 @@ namespace WoodenBox
             }
             else
             {
-                selectedValue1 = cbBottomBoards.SelectedItem.ToString(); //дно и крышка
-                selectedValue2 = cbSideBoard.SelectedItem.ToString(); //бок и торец щит
-                selectedValue3 = cbBeltBoard.SelectedItem.ToString(); // планки пояса
-                selectedValue4 = cbFrontBoard.SelectedItem.ToString(); // планки торецевого щита
+                selectedValue1GOST = cbBottomBoards.SelectedItem.ToString(); //дно и крышка
+                selectedValue2GOST = cbSideBoard.SelectedItem.ToString(); //бок и торец щит
+                selectedValue3GOST = cbBeltBoard.SelectedItem.ToString(); // планки пояса
+                selectedValue4GOST = cbFrontBoard.SelectedItem.ToString(); // планки торецевого щита
                 
 
                 this.Close();

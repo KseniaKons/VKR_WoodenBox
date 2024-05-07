@@ -33,51 +33,124 @@ namespace WoodenBox
 
         SpecificationBox specification = new SpecificationBox();
 
-        string savedValue1;
-        string savedValue2;
-        string savedValue3;
-        string savedValue4;
+        string savedValue1GOST;
+        string savedValue2GOST;
+        string savedValue3GOST;
+        string savedValue4GOST;
+
+        string savedValue1Manually;
+        string savedValue2Manually;
+        string savedValue3Manually;
+        string savedValue4Manually;
+
+
+        string savedGOSTWood = "ГОСТ 2695-83 Пиломатериалы лиственных пород";
+        string savedWood = "Береза";
+        string savedNails = "ГОСТ 4034-63 Гвозди тарные круглые";
+        string savedTape = "ГОСТ 503-81 Лента из низкоуглеродистой стали";
+        string savedTapeHeight = "0,50";
+        string savedTapeWidth = "20";
+
+        //string savedGOSTWood;
+        //string savedWood;
+        //string savedNails;
+        //string savedTape;
+        //string savedTapeHeight;
+        //string savedTapeWidth;
 
 
         string foldername;
+
         public Form1()
         {
             InitializeComponent();
             cbTypeBox.SelectedIndexChanged += SelectedIndexChangedTypeBox;
             cbWidthBoards.SelectedIndexChanged += SelectedIndexChangedWidthBoards;
-            cbGOST.SelectedIndex = 0;
             cbTypeBox.SelectedIndex = 0;
             cbWidthBoards.SelectedIndex = 0;
             tbSave.Text = "C:\\Users\\Ksenia\\Desktop\\дт";
             foldername = tbSave.Text;
             tbMPST.Text = "МПСТ";
             tbNumber.Text = "001";
-        }
 
-      
+            tbWoodGOST.Enabled = false;
+            tbNailsGOST.Enabled = false;
+            tbTapeGOST.Enabled = false; 
+
+            tbWoodGOST.Text = $"{savedGOSTWood}; {savedWood}";
+            tbNailsGOST.Text = savedNails;
+            tbTapeGOST.Text = $"{savedTape}; {savedTapeHeight} x {savedTapeWidth}";
+        }
 
         private void SelectedIndexChangedWidthBoards(object sender, EventArgs e)
         {
            if (cbWidthBoards.SelectedIndex == 1)
-            {
-                string selectedValue = cbGOST.SelectedItem.ToString();
+           {
+                string selectedValue = "111";
                 WidthBoardBox newForm = new WidthBoardBox();
                 newForm.SetLabelValue(selectedValue);
 
-                newForm.cbBottomBoards.SelectedItem = savedValue1;
-                newForm.cbSideBoard.SelectedItem = savedValue2;
-                newForm.cbBeltBoard.SelectedItem = savedValue3;
-                newForm.cbFrontBoard.SelectedItem = savedValue4;
+                newForm.cbBottomBoards.SelectedItem = savedValue1GOST;
+                newForm.cbSideBoard.SelectedItem = savedValue2GOST;
+                newForm.cbBeltBoard.SelectedItem = savedValue3GOST;
+                newForm.cbFrontBoard.SelectedItem = savedValue4GOST;
 
                 newForm.ShowDialog();
 
-                savedValue1 = newForm.selectedValue1;
-                savedValue2 = newForm.selectedValue2;
-                savedValue3 = newForm.selectedValue3;
-                savedValue4 = newForm.selectedValue4;
+                savedValue1GOST = newForm.selectedValue1GOST;
+                savedValue2GOST = newForm.selectedValue2GOST;
+                savedValue3GOST = newForm.selectedValue3GOST;
+                savedValue4GOST = newForm.selectedValue4GOST;
+
+           }
+
+            if (cbWidthBoards.SelectedIndex == 2)
+            {
+                string selectedValue = "111";
+                WidthBoardManually newForm = new WidthBoardManually();
+                newForm.SetLabelValue(selectedValue);
+
+                newForm.tbBottomBoards.Text = savedValue1Manually;
+                newForm.tbSideBoard.Text = savedValue2Manually;
+                newForm.tbBeltBoard.Text = savedValue3Manually;
+                newForm.tbFrontBoard.Text = savedValue4Manually;
+
+                newForm.ShowDialog();
+
+                savedValue1Manually = newForm.selectedValue1Manually;
+                savedValue2Manually = newForm.selectedValue2Manually;
+                savedValue3Manually = newForm.selectedValue3Manually;
+                savedValue4Manually = newForm.selectedValue4Manually;
 
             }
+        }
+
+        private void btChooseGOST_Click(object sender, EventArgs e)
+        {
+            ChooseGOST newForm = new ChooseGOST();
+
+            newForm.cbGOSTWood.SelectedItem = savedGOSTWood;
+            newForm.cbWood.SelectedItem = savedWood;
+            newForm.cbNails.SelectedItem = savedNails;
+            newForm.cbTape.SelectedItem = savedTape;
+            newForm.cbTapeHeight.SelectedItem = savedTapeHeight;
+            newForm.cbTapeWidth.SelectedItem = savedTapeWidth;
+
+            newForm.ShowDialog();
+
+            savedGOSTWood = newForm.selectedGOSTWood;
+            savedWood = newForm.selectedWood;
+            savedNails = newForm.selectedNails;
+            savedTape = newForm.selectedTape;
+            savedTapeHeight = newForm.selectedTapeHeight;
+            savedTapeWidth = newForm.selectedTapeWidth;
+
+            tbWoodGOST.Text = $"{savedGOSTWood}, {savedWood}";
+            tbNailsGOST.Text = savedNails;
+            tbTapeGOST.Text = $"{savedTape}, {savedTapeHeight}x{savedTapeWidth}";
             
+
+
         }
 
         private void SelectedIndexChangedTypeBox(object sender, EventArgs e)
@@ -162,7 +235,12 @@ namespace WoodenBox
             if (PackingDensity > 3)
                 heightBoard = 32;
 
-            int GOST = cbGOST.SelectedIndex;
+            int WoodGOST = 0;
+            if (savedGOSTWood == "ГОСТ 2695-83 Пиломатериалы лиственных пород")
+                WoodGOST = 0;
+            else if (savedGOSTWood == "ГОСТ 24454-80 Пиломатериалы хвойных пород")
+                WoodGOST = 1;
+
             int widthBoard = cbWidthBoards.SelectedIndex;
 
             string marking = tbMPST.Text;
@@ -172,12 +250,16 @@ namespace WoodenBox
             {
                 
                 if(widthBoard == 0) // вычислить оптимальное
-                    box11.СreatingBox11(x, y, z, GOST, heightBoard, foldername, marking, number);
+                    box11.СreatingBox11(x, y, z, WoodGOST, heightBoard, foldername, marking, number);
 
                 if (widthBoard == 1) // вписать вручную
                     box11.СreatingBox11Manually(x, y, z, heightBoard, 
-                        savedValue1, savedValue2, savedValue3, savedValue4, foldername, marking, number);
-                
+                        savedValue1GOST, savedValue2GOST, savedValue3GOST, savedValue4GOST, foldername, marking, number);
+
+                if (widthBoard == 2) // вписать вручную
+                    box11.СreatingBox11Manually(x, y, z, heightBoard,
+                        savedValue1Manually, savedValue2Manually, savedValue3Manually, savedValue4Manually, foldername, marking, number);
+
             }
 
             if (cbTypeBox.SelectedIndex == 1) //тип I-2
@@ -185,11 +267,15 @@ namespace WoodenBox
                 int gap = Convert.ToInt32(tbGap.Text); //зазор 
 
                 if (widthBoard == 0)
-                    box12.СreatingBox12(x, y, z, gap, GOST, heightBoard, foldername, marking, number);
+                    box12.СreatingBox12(x, y, z, gap, WoodGOST, heightBoard, foldername, marking, number);
 
                 if (widthBoard == 1)
                     box12.СreatingBox12Manually(x, y, z, gap, heightBoard, 
-                        savedValue1, savedValue2, savedValue3, savedValue4, foldername, marking, number);
+                        savedValue1GOST, savedValue2GOST, savedValue3GOST, savedValue4GOST, foldername, marking, number);
+                
+                if (widthBoard == 2)
+                    box12.СreatingBox12Manually(x, y, z, gap, heightBoard,
+                        savedValue1Manually, savedValue2Manually, savedValue3Manually, savedValue4Manually, foldername, marking, number);
             }
         }
 
@@ -205,13 +291,12 @@ namespace WoodenBox
             tbSave.Text = foldername;
         }
 
-        private void btSpecification_Click(object sender, EventArgs e)
+        private void Specification_Click(object sender, EventArgs e)
         {
-            int GOST = cbGOST.SelectedIndex;
             string marking = tbMPST.Text;  
             int number = Convert.ToInt32(tbNumber.Text);
            
-            specification.CreateSpecification(GOST, marking, number, foldername);
+            specification.CreateSpecification(savedGOSTWood, savedNails, savedTape, savedTapeHeight, savedTapeWidth, marking, number, foldername);
 
         }
 
@@ -239,10 +324,13 @@ namespace WoodenBox
 
             ksColorParam kscolor = (ksColorParam)part.ColorParam();
             var u = kscolor.color;
-            MessageBox.Show($"Цвет   {u}   ");
+            var t = part.material;
+            MessageBox.Show($"Материал   {t}   ");
             part.Update();
 
 
         }
+
+        
     }
 }

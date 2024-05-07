@@ -89,7 +89,7 @@
             // 
             // butSave
             // 
-            this.butSave.Location = new System.Drawing.Point(319, 311);
+            this.butSave.Location = new System.Drawing.Point(313, 326);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(96, 27);
             this.butSave.TabIndex = 27;
@@ -140,7 +140,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(439, 351);
+            this.ClientSize = new System.Drawing.Size(436, 368);
             this.Controls.Add(this.cbFrontBoard);
             this.Controls.Add(this.cbBeltBoard);
             this.Controls.Add(this.label16);
@@ -152,7 +152,7 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.cbBottomBoards);
             this.Name = "WidthBoardBox";
-            this.Text = "Ширина досок ящика";
+            this.Text = "Ширина досок ящика по ГОСТу";
             this.ResumeLayout(false);
             this.PerformLayout();
 

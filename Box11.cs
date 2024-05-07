@@ -96,6 +96,10 @@ namespace WoodenBox
             part.useColor = 0;           
             ksColorParam kscolor = (ksColorParam)part.ColorParam();
             kscolor.color = 10092543;
+            double density = 0.9;
+            part.SetMaterial("Пиломатериал дуб ГОСТ 2695-83", density);
+            //плотность гр/куб.см
+            
             part.Update();
 
             ksEntity basePlaneXOY = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
@@ -345,13 +349,9 @@ namespace WoodenBox
             DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
             {
                 cap = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //крышка
-                cap_col = $"{col_fact_bottom}",
                 bottom = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //дно
-                bottom_col = $"{col_fact_bottom}",
                 before = $"{heightBoard}x{w_fact_side}x{lenghtBT}", //торцевой щит
-                before_col = $"{col_fact_side}",
                 side = $"{heightBoard}x{w_fact_side}x{y + 4 * heightBoard}", //боковой щит
-                side_col = $"{col_fact_side}",
                 around1 = $"{heightBoard}x{w_fact_bottom}x{w_fact_bottom * col_fact_bottom}", //боковой щит
                 around2 = $"{heightBoard}x{w_fact_bottom}x{w_fact_side * col_fact_side + 4 * heightBoard}", //боковой щит
                 front1 = $"{heightBoard}x{w_fact_side}x{w_fact_side * col_fact_side}", //Планка торцевого щита - вертикальная
@@ -934,13 +934,9 @@ namespace WoodenBox
             DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
             {
                 cap = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //крышка
-                cap_col = $"{col_bottom}",
                 bottom = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //дно
-                bottom_col = $"{col_bottom}",
                 before = $"{heightBoard}x{w_fact_side}x{lenghtBT}", //торцевой щит
-                before_col = $"{col_side}",
                 side = $"{heightBoard}x{w_fact_side}x{y + 4 * heightBoard}", //боковой щит
-                side_col = $"{col_side}",
                 around1 = $"{heightBoard}x{w_fact_bottom}x{w_fact_bottom * col_bottom}", //боковой щит
                 around2 = $"{heightBoard}x{w_fact_bottom}x{w_fact_side * col_side + 4 * heightBoard}", //боковой щит
                 front1 = $"{heightBoard}x{w_fact_side}x{w_fact_side * col_side}", //Планка торцевого щита - вертикальная

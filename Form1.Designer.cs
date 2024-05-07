@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cbGOST = new System.Windows.Forms.ComboBox();
             this.btBuild = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.tbMassa = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -58,47 +56,47 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btChooseGOST = new System.Windows.Forms.Button();
+            this.tbNailsGOST = new System.Windows.Forms.TextBox();
+            this.tbTapeGOST = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.tbWoodGOST = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.tbGap = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.btSpecification = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cbFrontBoard = new System.Windows.Forms.ComboBox();
+            this.cbBeltBoard = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.cbSideBoard = new System.Windows.Forms.ComboBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.cbBottomBoards = new System.Windows.Forms.ComboBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).BeginInit();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // cbGOST
-            // 
-            this.cbGOST.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbGOST.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbGOST.FormattingEnabled = true;
-            this.cbGOST.Items.AddRange(new object[] {
-            "ГОСТ 2695. Пиломатериалы лиственных пород",
-            "ГОСТ 24454-80. Пиломатериалы хвойных пород"});
-            this.cbGOST.Location = new System.Drawing.Point(20, 34);
-            this.cbGOST.Name = "cbGOST";
-            this.cbGOST.Size = new System.Drawing.Size(360, 24);
-            this.cbGOST.TabIndex = 0;
             // 
             // btBuild
             // 
             this.btBuild.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btBuild.Location = new System.Drawing.Point(489, 540);
+            this.btBuild.Location = new System.Drawing.Point(972, 528);
             this.btBuild.Name = "btBuild";
             this.btBuild.Size = new System.Drawing.Size(180, 55);
             this.btBuild.TabIndex = 2;
             this.btBuild.Text = "Построить ящик";
             this.btBuild.UseVisualStyleBackColor = false;
             this.btBuild.Click += new System.EventHandler(this.btBuild_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 16);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(102, 16);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "ГОСТ на доски";
             // 
             // tbMassa
             // 
@@ -120,7 +118,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 138);
+            this.label6.Location = new System.Drawing.Point(647, 50);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(133, 16);
             this.label6.TabIndex = 13;
@@ -129,7 +127,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(503, 21);
+            this.label7.Location = new System.Drawing.Point(20, 14);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 16);
             this.label7.TabIndex = 15;
@@ -144,9 +142,9 @@
             this.cbTypeBox.Items.AddRange(new object[] {
             "I-1",
             "I-2"});
-            this.cbTypeBox.Location = new System.Drawing.Point(506, 39);
+            this.cbTypeBox.Location = new System.Drawing.Point(23, 32);
             this.cbTypeBox.Name = "cbTypeBox";
-            this.cbTypeBox.Size = new System.Drawing.Size(323, 24);
+            this.cbTypeBox.Size = new System.Drawing.Size(381, 24);
             this.cbTypeBox.TabIndex = 14;
             // 
             // label1
@@ -211,7 +209,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.tbMassa);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Location = new System.Drawing.Point(33, 35);
+            this.panel1.Location = new System.Drawing.Point(428, 32);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(399, 269);
             this.panel1.TabIndex = 17;
@@ -219,7 +217,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(49, 26);
+            this.label8.Location = new System.Drawing.Point(444, 23);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(324, 16);
             this.label8.TabIndex = 10;
@@ -228,11 +226,11 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(16, 74);
+            this.label9.Location = new System.Drawing.Point(476, 604);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(188, 16);
+            this.label9.Size = new System.Drawing.Size(123, 16);
             this.label9.TabIndex = 19;
-            this.label9.Text = "Ширина досок по ГОСТу, мм";
+            this.label9.Text = "Ширина досок, мм";
             // 
             // cbWidthBoards
             // 
@@ -241,8 +239,9 @@
             this.cbWidthBoards.FormattingEnabled = true;
             this.cbWidthBoards.Items.AddRange(new object[] {
             "Вычислить оптимальную",
+            "Выбрать самостоятельно из ГОСТа",
             "Вписать вручную"});
-            this.cbWidthBoards.Location = new System.Drawing.Point(19, 93);
+            this.cbWidthBoards.Location = new System.Drawing.Point(479, 623);
             this.cbWidthBoards.Name = "cbWidthBoards";
             this.cbWidthBoards.Size = new System.Drawing.Size(360, 24);
             this.cbWidthBoards.TabIndex = 18;
@@ -250,7 +249,7 @@
             // butSave
             // 
             this.butSave.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.butSave.Location = new System.Drawing.Point(827, 490);
+            this.butSave.Location = new System.Drawing.Point(329, 476);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(75, 29);
             this.butSave.TabIndex = 20;
@@ -261,14 +260,14 @@
             // tbSave
             // 
             this.tbSave.Enabled = false;
-            this.tbSave.Location = new System.Drawing.Point(475, 493);
+            this.tbSave.Location = new System.Drawing.Point(22, 479);
             this.tbSave.Name = "tbSave";
-            this.tbSave.Size = new System.Drawing.Size(339, 22);
+            this.tbSave.Size = new System.Drawing.Size(301, 22);
             this.tbSave.TabIndex = 10;
             // 
             // pbImageBox
             // 
-            this.pbImageBox.Location = new System.Drawing.Point(506, 82);
+            this.pbImageBox.Location = new System.Drawing.Point(23, 75);
             this.pbImageBox.Name = "pbImageBox";
             this.pbImageBox.Size = new System.Drawing.Size(381, 307);
             this.pbImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -277,16 +276,16 @@
             // 
             // tbMPST
             // 
-            this.tbMPST.Location = new System.Drawing.Point(476, 426);
+            this.tbMPST.Location = new System.Drawing.Point(23, 409);
             this.tbMPST.Name = "tbMPST";
-            this.tbMPST.Size = new System.Drawing.Size(128, 22);
+            this.tbMPST.Size = new System.Drawing.Size(148, 22);
             this.tbMPST.TabIndex = 23;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(607, 425);
+            this.label11.Location = new System.Drawing.Point(177, 408);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(13, 20);
             this.label11.TabIndex = 24;
@@ -295,9 +294,9 @@
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(623, 426);
+            this.textBox2.Location = new System.Drawing.Point(193, 409);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(170, 22);
+            this.textBox2.Size = new System.Drawing.Size(101, 22);
             this.textBox2.TabIndex = 25;
             this.textBox2.Text = "32117.";
             // 
@@ -305,7 +304,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(796, 425);
+            this.label12.Location = new System.Drawing.Point(296, 408);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(13, 20);
             this.label12.TabIndex = 26;
@@ -313,7 +312,7 @@
             // 
             // tbNumber
             // 
-            this.tbNumber.Location = new System.Drawing.Point(812, 426);
+            this.tbNumber.Location = new System.Drawing.Point(312, 409);
             this.tbNumber.Name = "tbNumber";
             this.tbNumber.Size = new System.Drawing.Size(90, 22);
             this.tbNumber.TabIndex = 27;
@@ -321,7 +320,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(473, 407);
+            this.label10.Location = new System.Drawing.Point(20, 390);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(97, 16);
             this.label10.TabIndex = 22;
@@ -330,37 +329,107 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(49, 321);
+            this.label13.Location = new System.Drawing.Point(870, 23);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(263, 16);
+            this.label13.Size = new System.Drawing.Size(82, 16);
             this.label13.TabIndex = 28;
-            this.label13.Text = "Размеры досок и зазора (при наличии)";
+            this.label13.Text = "ГОСТы на ...";
             // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.tbGap);
-            this.panel2.Controls.Add(this.cbWidthBoards);
-            this.panel2.Controls.Add(this.label9);
-            this.panel2.Controls.Add(this.cbGOST);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(33, 330);
+            this.panel2.Controls.Add(this.btChooseGOST);
+            this.panel2.Controls.Add(this.tbNailsGOST);
+            this.panel2.Controls.Add(this.tbTapeGOST);
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.label15);
+            this.panel2.Controls.Add(this.label16);
+            this.panel2.Controls.Add(this.tbWoodGOST);
+            this.panel2.Location = new System.Drawing.Point(854, 32);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(399, 203);
+            this.panel2.Size = new System.Drawing.Size(500, 269);
             this.panel2.TabIndex = 29;
+            // 
+            // btChooseGOST
+            // 
+            this.btChooseGOST.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btChooseGOST.Location = new System.Drawing.Point(21, 206);
+            this.btChooseGOST.Name = "btChooseGOST";
+            this.btChooseGOST.Size = new System.Drawing.Size(458, 41);
+            this.btChooseGOST.TabIndex = 34;
+            this.btChooseGOST.Text = "Выбрать ГОСТы";
+            this.btChooseGOST.UseVisualStyleBackColor = false;
+            this.btChooseGOST.Click += new System.EventHandler(this.btChooseGOST_Click);
+            // 
+            // tbNailsGOST
+            // 
+            this.tbNailsGOST.Location = new System.Drawing.Point(21, 105);
+            this.tbNailsGOST.Name = "tbNailsGOST";
+            this.tbNailsGOST.Size = new System.Drawing.Size(458, 22);
+            this.tbNailsGOST.TabIndex = 16;
+            // 
+            // tbTapeGOST
+            // 
+            this.tbTapeGOST.Location = new System.Drawing.Point(21, 163);
+            this.tbTapeGOST.Name = "tbTapeGOST";
+            this.tbTapeGOST.Size = new System.Drawing.Size(458, 22);
+            this.tbTapeGOST.TabIndex = 17;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(18, 27);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(114, 16);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "Пиломатериалы";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(18, 144);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(144, 16);
+            this.label15.TabIndex = 14;
+            this.label15.Text = "Металическая лента";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(18, 86);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(54, 16);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "Гвозди";
+            // 
+            // tbWoodGOST
+            // 
+            this.tbWoodGOST.Location = new System.Drawing.Point(21, 46);
+            this.tbWoodGOST.Name = "tbWoodGOST";
+            this.tbWoodGOST.Size = new System.Drawing.Size(458, 22);
+            this.tbWoodGOST.TabIndex = 13;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(26, 678);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(358, 27);
+            this.button1.TabIndex = 33;
+            this.button1.Text = "Цвет";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // tbGap
             // 
-            this.tbGap.Location = new System.Drawing.Point(18, 159);
+            this.tbGap.Location = new System.Drawing.Point(650, 71);
             this.tbGap.Name = "tbGap";
-            this.tbGap.Size = new System.Drawing.Size(362, 22);
+            this.tbGap.Size = new System.Drawing.Size(212, 22);
             this.tbGap.TabIndex = 32;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(473, 474);
+            this.label17.Location = new System.Drawing.Point(20, 460);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(218, 16);
             this.label17.TabIndex = 31;
@@ -369,33 +438,176 @@
             // btSpecification
             // 
             this.btSpecification.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btSpecification.Location = new System.Drawing.Point(707, 540);
+            this.btSpecification.Location = new System.Drawing.Point(1174, 528);
             this.btSpecification.Name = "btSpecification";
             this.btSpecification.Size = new System.Drawing.Size(180, 55);
             this.btSpecification.TabIndex = 32;
             this.btSpecification.Text = "Составить спецификацию";
             this.btSpecification.UseVisualStyleBackColor = false;
-            this.btSpecification.Click += new System.EventHandler(this.btSpecification_Click);
+            this.btSpecification.Click += new System.EventHandler(this.Specification_Click);
             // 
-            // button1
+            // cbFrontBoard
             // 
-            this.button1.Location = new System.Drawing.Point(322, 546);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 49);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "Цвет";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cbFrontBoard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFrontBoard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbFrontBoard.FormattingEnabled = true;
+            this.cbFrontBoard.Location = new System.Drawing.Point(349, 135);
+            this.cbFrontBoard.Name = "cbFrontBoard";
+            this.cbFrontBoard.Size = new System.Drawing.Size(212, 24);
+            this.cbFrontBoard.TabIndex = 49;
+            // 
+            // cbBeltBoard
+            // 
+            this.cbBeltBoard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBeltBoard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbBeltBoard.FormattingEnabled = true;
+            this.cbBeltBoard.Location = new System.Drawing.Point(350, 73);
+            this.cbBeltBoard.Name = "cbBeltBoard";
+            this.cbBeltBoard.Size = new System.Drawing.Size(211, 24);
+            this.cbBeltBoard.TabIndex = 48;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(346, 115);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(239, 16);
+            this.label18.TabIndex = 47;
+            this.label18.Text = "Ширина планок торцевого щита, мм";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(346, 54);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(173, 16);
+            this.label19.TabIndex = 46;
+            this.label19.Text = "Ширина планок пояса, мм";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(52, 104);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(174, 16);
+            this.label20.TabIndex = 45;
+            this.label20.Text = "Ширина досок бокового и";
+            // 
+            // cbSideBoard
+            // 
+            this.cbSideBoard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSideBoard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbSideBoard.FormattingEnabled = true;
+            this.cbSideBoard.Location = new System.Drawing.Point(55, 138);
+            this.cbSideBoard.Name = "cbSideBoard";
+            this.cbSideBoard.Size = new System.Drawing.Size(209, 24);
+            this.cbSideBoard.TabIndex = 44;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(52, 54);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(212, 16);
+            this.label21.TabIndex = 43;
+            this.label21.Text = "Ширина досок дна и крышки, мм";
+            // 
+            // cbBottomBoards
+            // 
+            this.cbBottomBoards.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBottomBoards.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbBottomBoards.FormattingEnabled = true;
+            this.cbBottomBoards.Location = new System.Drawing.Point(55, 73);
+            this.cbBottomBoards.Name = "cbBottomBoards";
+            this.cbBottomBoards.Size = new System.Drawing.Size(209, 24);
+            this.cbBottomBoards.TabIndex = 42;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.radioButton3);
+            this.panel3.Controls.Add(this.radioButton2);
+            this.panel3.Controls.Add(this.radioButton1);
+            this.panel3.Controls.Add(this.label22);
+            this.panel3.Controls.Add(this.cbBottomBoards);
+            this.panel3.Controls.Add(this.cbFrontBoard);
+            this.panel3.Controls.Add(this.label21);
+            this.panel3.Controls.Add(this.tbGap);
+            this.panel3.Controls.Add(this.cbBeltBoard);
+            this.panel3.Controls.Add(this.cbSideBoard);
+            this.panel3.Controls.Add(this.label18);
+            this.panel3.Controls.Add(this.label20);
+            this.panel3.Controls.Add(this.label19);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Location = new System.Drawing.Point(428, 322);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(926, 183);
+            this.panel3.TabIndex = 50;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(592, 16);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(143, 20);
+            this.radioButton3.TabIndex = 53;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Вписать вручную";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(276, 16);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(259, 20);
+            this.radioButton2.TabIndex = 52;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Выбрать самостоятельно из ГОСТа";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(32, 16);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(166, 20);
+            this.radioButton1.TabIndex = 51;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Вычислить оптимало";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(52, 120);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(135, 16);
+            this.label22.TabIndex = 50;
+            this.label22.Text = "торцевого щита, мм";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(448, 315);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(255, 16);
+            this.label23.TabIndex = 51;
+            this.label23.Text = "Ширина досок и зазора (при наличии)";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(982, 617);
+            this.ClientSize = new System.Drawing.Size(1420, 715);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btSpecification);
+            this.Controls.Add(this.cbWidthBoards);
             this.Controls.Add(this.label17);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tbNumber);
@@ -419,17 +631,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cbGOST;
         private System.Windows.Forms.Button btBuild;
         private System.Windows.Forms.PictureBox pbImageBox;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbMassa;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -460,6 +671,27 @@
         private System.Windows.Forms.TextBox tbGap;
         private System.Windows.Forms.Button btSpecification;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox tbNailsGOST;
+        private System.Windows.Forms.TextBox tbTapeGOST;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox tbWoodGOST;
+        private System.Windows.Forms.Button btChooseGOST;
+        public System.Windows.Forms.ComboBox cbFrontBoard;
+        public System.Windows.Forms.ComboBox cbBeltBoard;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        public System.Windows.Forms.ComboBox cbSideBoard;
+        private System.Windows.Forms.Label label21;
+        public System.Windows.Forms.ComboBox cbBottomBoards;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Label label23;
     }
 }
 
