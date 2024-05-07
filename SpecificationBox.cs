@@ -23,7 +23,6 @@ namespace TreeBox
         public class ValueSpecificationBox
         {
             public string cap { get; set; } //крышка
-            public string bottom { get; set; } //дно
             public string before { get; set; } //торцевой щит
             public string side { get; set; } //боковой щит
             public string around1 { get; set; } //планка пояса - верхняя
@@ -32,7 +31,7 @@ namespace TreeBox
             public string front2 { get; set; } //планка торцевого щита - горизонтальная
         }
 
-        public void CreateSpecification(string WoodGOST, string NailsGOST, string TapeGOST, string TapeHeight, string TapeWidth,
+        public void CreateSpecification(string WoodGOST, string Wood, string NailsGOST, string TapeGOST, string TapeHeight, string TapeWidth, int heightBoard,
             string marking, int number, string foldername)
         {
             if (!DataSpecificationBox.ValueBox.Any())
@@ -60,32 +59,16 @@ namespace TreeBox
 
             //Классификаторы 
 
-            string CL_cap = "321174"; // крышка
-            string CL_bottom = "321172"; // дно
+            string CL_cap = "321174"; // крышка 2 шт
             string CL_before = "321179"; // торцевой щит
             string CL_side = "321179"; // боковой щит
             string CL_around = "321175"; // планка пояса 
             string CL_front = "321175"; // планка торцевого щита
+           
+            // Доска - 2 - сосна - (ширина доски)
+            // ГОСТ
 
-            
-
-            string GOST = "ГОСТ";
-            string board = "Доска";
-
-            //if (WoodGOST == 0)
-            //{ 
-            //    GOST = "ГОСТ 2695-83"; 
-            //    board = "Доска-2-дуб";
-            //}
-
-            //if (WoodGOST == 1)
-            //{ 
-            //    GOST = "ГОСТ 24454-80"; 
-            //    board = "Доска-2-сосна";
-            //}
-            
-            //Доска - 2 - дуб - 40 х 60 ГОСТ 2695-83
-            // Доска - 2 - сосна - 20х70х300 ГОСТ...
+            string board = $"Доска-2-{Wood}-{heightBoard}";            
 
 
             ksSpcDocument documentSpc = (ksSpcDocument)kompas.SpcDocument();
@@ -104,6 +87,7 @@ namespace TreeBox
             //путь до библиотеки стилей спецификации
             sheetParam.shtType = 1; //номер стиля из библиотеки
             documentSpc.ksCreateDocument(documentParam);
+          
 
             
             int count = 1;
@@ -136,7 +120,7 @@ namespace TreeBox
             iSpc1.ksSetSpcObjectColumnText(3, 1, 0, $"{count}");
             iSpc1.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_cap}.{numDesignation}");
             iSpc1.ksSetSpcObjectColumnText(5, 1, 0, "Крышка");
-            iSpc1.ksSetSpcObjectColumnText(6, 1, 0, "1");
+            iSpc1.ksSetSpcObjectColumnText(6, 1, 0, "2");
             iSpc1.ksSetSpcObjectColumnText(7, 1, 0, "n кг");
             reference1 = iSpc1.ksSpcObjectEnd();
 
@@ -157,6 +141,23 @@ namespace TreeBox
             iSpc2.ksSetSpcObjectColumnText(5, 1, 0, board);
             reference2 = iSpc2.ksSpcObjectEnd();
 
+            ksSpecification iSpc3 = (ksSpecification)documentSpc.GetSpecification();
+            iSpc3.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
+            int reference3 = iSpc3.ksSpcObjectEnd();
+            ksSpcObjParam iSpcObjParam3 =
+           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
+            iSpc3.ksSpcObjectEdit(reference3);
+            documentSpc.ksGetObjParam(reference3, iSpcObjParam3, ldefin2d.ALLPARAM);
+            iSpcObjParam3.blockNumber = 0;
+            iSpcObjParam3.draw = 2;
+            iSpcObjParam3.firstOnSheet = 0;
+            iSpcObjParam3.ispoln = 0;
+            iSpcObjParam3.posInc = 2;
+            iSpcObjParam3.posNotDraw = 0;
+            documentSpc.ksSetObjParam(reference3, iSpcObjParam3, ldefin2d.ALLPARAM);
+            iSpc3.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
+            reference3 = iSpc3.ksSpcObjectEnd();
+
             ksSpecification iSpc4 = (ksSpecification)documentSpc.GetSpecification();
             iSpc4.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
             int reference4 = iSpc4.ksSpcObjectEnd();
@@ -174,111 +175,10 @@ namespace TreeBox
             iSpc4.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].cap);
             reference4 = iSpc4.ksSpcObjectEnd();
 
-            ksSpecification iSpc3 = (ksSpecification)documentSpc.GetSpecification();
-            iSpc3.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference3 = iSpc3.ksSpcObjectEnd();
-            ksSpcObjParam iSpcObjParam3 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc3.ksSpcObjectEdit(reference3);
-            documentSpc.ksGetObjParam(reference3, iSpcObjParam3, ldefin2d.ALLPARAM);
-            iSpcObjParam3.blockNumber = 0;
-            iSpcObjParam3.draw = 2;
-            iSpcObjParam3.firstOnSheet = 0;
-            iSpcObjParam3.ispoln = 0;
-            iSpcObjParam3.posInc = 2;
-            iSpcObjParam3.posNotDraw = 0;
-            documentSpc.ksSetObjParam(reference3, iSpcObjParam3, ldefin2d.ALLPARAM);
-            iSpc3.ksSetSpcObjectColumnText(5, 1, 0, GOST);
-            reference3 = iSpc3.ksSpcObjectEnd();
             count++;
             number++;
-
 
             // 2 секция           
-            if (number < 10)
-                numDesignation = $"00{number}";
-            if (number >= 10 && number < 100)
-                numDesignation = $"0{number}";
-            if (number >= 100 && number < 1000)
-                numDesignation = $"{number}";            
-
-            ksSpecification iSpc5 = (ksSpecification)documentSpc.GetSpecification();
-            iSpc5.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference5 = iSpc5.ksSpcObjectEnd();
-            ksSpcObjParam iSpcObjParam5 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc5.ksSpcObjectEdit(reference5);
-            documentSpc.ksGetObjParam(reference5, iSpcObjParam5, ldefin2d.ALLPARAM);
-            iSpcObjParam5.blockNumber = 0;
-            iSpcObjParam5.draw = 1;
-            iSpcObjParam5.firstOnSheet = 0;
-            iSpcObjParam5.ispoln = 0;
-            iSpcObjParam5.posInc = 1;
-            iSpcObjParam5.posNotDraw = 0;
-            documentSpc.ksSetObjParam(reference5, iSpcObjParam5, ldefin2d.ALLPARAM);
-            iSpc5.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
-            iSpc5.ksSetSpcObjectColumnText(3, 1, 0, $"{count}");
-            iSpc5.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_bottom}.{numDesignation}");
-            iSpc5.ksSetSpcObjectColumnText(5, 1, 0, "Дно");
-            iSpc5.ksSetSpcObjectColumnText(6, 1, 0, "1");
-            iSpc5.ksSetSpcObjectColumnText(7, 1, 0, "n кг");
-            reference5 = iSpc5.ksSpcObjectEnd();
-            count++;
-            number++;
-
-            ksSpecification iSpc6 = (ksSpecification)documentSpc.GetSpecification();
-            iSpc6.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference6 = iSpc6.ksSpcObjectEnd();
-            ksSpcObjParam iSpcObjParam6 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc6.ksSpcObjectEdit(reference6);
-            documentSpc.ksGetObjParam(reference6, iSpcObjParam6, ldefin2d.ALLPARAM);
-            iSpcObjParam6.blockNumber = 0;
-            iSpcObjParam6.draw = 1;
-            iSpcObjParam6.firstOnSheet = 0;
-            iSpcObjParam6.ispoln = 0;
-            iSpcObjParam6.posInc = 1;
-            iSpcObjParam6.posNotDraw = 0;
-            documentSpc.ksSetObjParam(reference6, iSpcObjParam6, ldefin2d.ALLPARAM);
-            iSpc6.ksSetSpcObjectColumnText(5, 1, 0, board);
-            reference6 = iSpc6.ksSpcObjectEnd();
-
-            ksSpecification iSpc8 = (ksSpecification)documentSpc.GetSpecification();
-            iSpc8.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference8 = iSpc8.ksSpcObjectEnd();
-            ksSpcObjParam iSpcObjParam8 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc8.ksSpcObjectEdit(reference8);
-            documentSpc.ksGetObjParam(reference8, iSpcObjParam8, ldefin2d.ALLPARAM);
-            iSpcObjParam8.blockNumber = 0;
-            iSpcObjParam8.draw = 2;
-            iSpcObjParam8.firstOnSheet = 0;
-            iSpcObjParam8.ispoln = 0;
-            iSpcObjParam8.posInc = 2;
-            iSpcObjParam8.posNotDraw = 0;
-            documentSpc.ksSetObjParam(reference8, iSpcObjParam8, ldefin2d.ALLPARAM);
-            iSpc8.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].cap);
-            reference8 = iSpc8.ksSpcObjectEnd();
-
-            ksSpecification iSpc7 = (ksSpecification)documentSpc.GetSpecification();
-            iSpc7.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
-            int reference7 = iSpc7.ksSpcObjectEnd();
-            ksSpcObjParam iSpcObjParam7 =
-           (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
-            iSpc7.ksSpcObjectEdit(reference7);
-            documentSpc.ksGetObjParam(reference7, iSpcObjParam7, ldefin2d.ALLPARAM);
-            iSpcObjParam7.blockNumber = 0;
-            iSpcObjParam7.draw = 2;
-            iSpcObjParam7.firstOnSheet = 0;
-            iSpcObjParam7.ispoln = 0;
-            iSpcObjParam7.posInc = 2;
-            iSpcObjParam7.posNotDraw = 0;
-            documentSpc.ksSetObjParam(reference7, iSpcObjParam7, ldefin2d.ALLPARAM);
-            iSpc7.ksSetSpcObjectColumnText(5, 1, 0, GOST);
-            reference7 = iSpc7.ksSpcObjectEnd();
-
-
-            // 3 секция           
             if (number < 10)
                 numDesignation = $"00{number}";
             if (number >= 10 && number < 100)
@@ -341,7 +241,7 @@ namespace TreeBox
             iSpcObjParam11.posInc = 2;
             iSpcObjParam11.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference11, iSpcObjParam11, ldefin2d.ALLPARAM);
-            iSpc11.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].before);
+            iSpc11.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
             reference11 = iSpc11.ksSpcObjectEnd();
 
             ksSpecification iSpc12 = (ksSpecification)documentSpc.GetSpecification();
@@ -358,10 +258,10 @@ namespace TreeBox
             iSpcObjParam12.posInc = 2;
             iSpcObjParam12.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference12, iSpcObjParam12, ldefin2d.ALLPARAM);
-            iSpc12.ksSetSpcObjectColumnText(5, 1, 0, GOST);
+            iSpc12.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].before);
             reference12 = iSpc12.ksSpcObjectEnd();
 
-            // 4 секция           
+            // 3 секция           
             if (number < 10)
                 numDesignation = $"00{number}";
             if (number >= 10 && number < 100)
@@ -424,7 +324,7 @@ namespace TreeBox
             iSpcObjParam15.posInc = 2;
             iSpcObjParam15.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference15, iSpcObjParam15, ldefin2d.ALLPARAM);
-            iSpc15.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].side);
+            iSpc15.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
             reference15 = iSpc15.ksSpcObjectEnd();
 
             ksSpecification iSpc16 = (ksSpecification)documentSpc.GetSpecification();
@@ -441,10 +341,11 @@ namespace TreeBox
             iSpcObjParam16.posInc = 2;
             iSpcObjParam16.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference16, iSpcObjParam16, ldefin2d.ALLPARAM);
-            iSpc16.ksSetSpcObjectColumnText(5, 1, 0, GOST);
+            iSpc16.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].side);
             reference16 = iSpc16.ksSpcObjectEnd();
 
-            // 5 секция - планка пояса - верхняя     
+
+            // 4 секция - планка пояса - верхняя     
             if (number < 10)
                 numDesignation = $"00{number}";
             if (number >= 10 && number < 100)
@@ -507,7 +408,7 @@ namespace TreeBox
             iSpcObjParam19.posInc = 2;
             iSpcObjParam19.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference19, iSpcObjParam19, ldefin2d.ALLPARAM);
-            iSpc19.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].around1);
+            iSpc19.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
             reference19 = iSpc19.ksSpcObjectEnd();
 
             ksSpecification iSpc20 = (ksSpecification)documentSpc.GetSpecification();
@@ -524,10 +425,11 @@ namespace TreeBox
             iSpcObjParam20.posInc = 2;
             iSpcObjParam20.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference20, iSpcObjParam20, ldefin2d.ALLPARAM);
-            iSpc20.ksSetSpcObjectColumnText(5, 1, 0, GOST);
+            iSpc20.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].around1);
             reference20 = iSpc20.ksSpcObjectEnd();
 
-            // 6 секция - планка пояса - боковая    
+
+            // 5 секция - планка пояса - боковая    
             if (number < 10)
                 numDesignation = $"00{number}";
             if (number >= 10 && number < 100)
@@ -590,7 +492,7 @@ namespace TreeBox
             iSpcObjParam23.posInc = 2;
             iSpcObjParam23.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference23, iSpcObjParam23, ldefin2d.ALLPARAM);
-            iSpc23.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].around2);
+            iSpc23.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
             reference23 = iSpc23.ksSpcObjectEnd();
 
             ksSpecification iSpc24 = (ksSpecification)documentSpc.GetSpecification();
@@ -607,11 +509,11 @@ namespace TreeBox
             iSpcObjParam24.posInc = 2;
             iSpcObjParam24.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference24, iSpcObjParam24, ldefin2d.ALLPARAM);
-            iSpc24.ksSetSpcObjectColumnText(5, 1, 0, GOST);
+            iSpc24.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].around2);
             reference24 = iSpc24.ksSpcObjectEnd();
 
 
-            // 7 секция - планка пояса - вертикальная
+            // 6 секция - планка пояса - вертикальная
             if (number < 10)
                 numDesignation = $"00{number}";
             if (number >= 10 && number < 100)
@@ -674,7 +576,7 @@ namespace TreeBox
             iSpcObjParam27.posInc = 2;
             iSpcObjParam27.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference27, iSpcObjParam27, ldefin2d.ALLPARAM);
-            iSpc27.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].front1);
+            iSpc27.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
             reference27 = iSpc27.ksSpcObjectEnd();
 
             ksSpecification iSpc28 = (ksSpecification)documentSpc.GetSpecification();
@@ -691,10 +593,10 @@ namespace TreeBox
             iSpcObjParam28.posInc = 2;
             iSpcObjParam28.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference28, iSpcObjParam28, ldefin2d.ALLPARAM);
-            iSpc28.ksSetSpcObjectColumnText(5, 1, 0, GOST);
+            iSpc28.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].front1);
             reference28 = iSpc28.ksSpcObjectEnd();
 
-            //8 секция - планка пояса - горизонтальная
+            //7 секция - планка пояса - горизонтальная
             if (number < 10)
                 numDesignation = $"00{number}";
             if (number >= 10 && number < 100)
@@ -757,7 +659,7 @@ namespace TreeBox
             iSpcObjParam31.posInc = 2;
             iSpcObjParam31.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference31, iSpcObjParam31, ldefin2d.ALLPARAM);
-            iSpc31.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].front2);
+            iSpc31.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
             reference31 = iSpc31.ksSpcObjectEnd();
 
             ksSpecification iSpc32 = (ksSpecification)documentSpc.GetSpecification();
@@ -774,7 +676,7 @@ namespace TreeBox
             iSpcObjParam32.posInc = 2;
             iSpcObjParam32.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference32, iSpcObjParam32, ldefin2d.ALLPARAM);
-            iSpc32.ksSetSpcObjectColumnText(5, 1, 0, GOST);
+            iSpc32.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].front2);
             reference32 = iSpc32.ksSpcObjectEnd();
 
 
@@ -783,6 +685,22 @@ namespace TreeBox
 
             // // Гвозди П 2,5х50 ГОСТ 4034-63
             // //Гвозди К 2,5х50 ГОСТ 4034-63
+
+
+            int indexNails = NailsGOST.IndexOf('-');
+            int indexTape = TapeGOST.IndexOf('-');
+            string Nails = "ГОСТ", Tape = "ГОСТ";
+            
+            if (indexNails >= 0)
+            {
+                Nails = NailsGOST.Substring(0, indexNails + 3);
+            }
+
+            if (indexTape >= 0)
+            {
+                Tape = TapeGOST.Substring(0, indexNails + 3);
+            }
+
 
             ksSpecification iSpc33 = (ksSpecification)documentSpc.GetSpecification();
             iSpc33.ksSpcObjectCreate("", 0, 25, 0, 0, 1);
@@ -816,7 +734,7 @@ namespace TreeBox
             iSpcObjParam34.posInc = 2;
             iSpcObjParam34.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference34, iSpcObjParam34, ldefin2d.ALLPARAM);
-            iSpc34.ksSetSpcObjectColumnText(5, 1, 0, "ГОСТ 4034 - 63");
+            iSpc34.ksSetSpcObjectColumnText(5, 1, 0, Nails);
             reference34 = iSpc34.ksSpcObjectEnd();
 
             //Лента Н — 0.5х30 ГОСТ3560—73
@@ -836,7 +754,7 @@ namespace TreeBox
             iSpcObjParam35.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference35, iSpcObjParam35, ldefin2d.ALLPARAM);
             iSpc35.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
-            iSpc35.ksSetSpcObjectColumnText(5, 1, 0, "Лента Н - 0.5х30");
+            iSpc35.ksSetSpcObjectColumnText(5, 1, 0, $"Лента Н - {TapeHeight}х{TapeWidth}");
             reference35 = iSpc35.ksSpcObjectEnd();
 
             ksSpecification iSpc36 = (ksSpecification)documentSpc.GetSpecification();
@@ -853,12 +771,12 @@ namespace TreeBox
             iSpcObjParam36.posInc = 2;
             iSpcObjParam36.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference36, iSpcObjParam36, ldefin2d.ALLPARAM);
-            iSpc36.ksSetSpcObjectColumnText(5, 1, 0, "ГОСТ 3560 - 73");
+            iSpc36.ksSetSpcObjectColumnText(5, 1, 0, Tape);
             reference36 = iSpc36.ksSpcObjectEnd();
 
             string save;
 
-            save = foldername + "\\Спецификация.spw";
+            save = foldername + "\\Спецификация на Ящик.spw";
 
             documentSpc.ksSaveDocument(save);
 

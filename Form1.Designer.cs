@@ -63,7 +63,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.tbWoodGOST = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.tbGap = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.btSpecification = new System.Windows.Forms.Button();
@@ -409,16 +408,6 @@
             this.tbWoodGOST.Size = new System.Drawing.Size(458, 22);
             this.tbWoodGOST.TabIndex = 13;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(26, 678);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(358, 27);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "Цвет";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // tbGap
             // 
             this.tbGap.Location = new System.Drawing.Point(650, 71);
@@ -603,7 +592,6 @@
             this.ClientSize = new System.Drawing.Size(1420, 715);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btSpecification);
             this.Controls.Add(this.cbWidthBoards);
             this.Controls.Add(this.label17);
@@ -670,7 +658,6 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox tbGap;
         private System.Windows.Forms.Button btSpecification;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox tbNailsGOST;
         private System.Windows.Forms.TextBox tbTapeGOST;
         private System.Windows.Forms.Label label14;

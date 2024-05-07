@@ -87,7 +87,7 @@ namespace WoodenBox
         {
             ksDoc3d = (ksDocument3D)kompas.Document3D();
             ksDoc3d.Create(false, true);
-            ksDoc3d.fileName = name; // указание названия файла
+            ksDoc3d.fileName = $"{marking}.{CL}.{numDesignation} {name}"; // указание названия файла
 
             part = ksDoc3d.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой детали
             part.name = name;
@@ -96,8 +96,8 @@ namespace WoodenBox
             part.useColor = 0;           
             ksColorParam kscolor = (ksColorParam)part.ColorParam();
             kscolor.color = 10092543;
-            double density = 0.9;
-            part.SetMaterial("Пиломатериал дуб ГОСТ 2695-83", density);
+            //double density = 0.9;
+            //part.SetMaterial("Пиломатериал дуб ГОСТ 2695-83", density);
             //плотность гр/куб.см
             
             part.Update();
@@ -222,7 +222,7 @@ namespace WoodenBox
 
             string save;
 
-            save = foldername + "\\" + name + ".m3d";
+            save = foldername + "\\" + $"{marking}.{CL}.{numDesignation} {name}" + ".m3d";
 
             ksDoc3d.SaveAs(save);
 
@@ -281,16 +281,16 @@ namespace WoodenBox
             }
 
 
-            string name_bottom = "Щит дна и крышки";
+            string name_bottom = "Крышка";
             string name_side = "Боковой щит";
             string name_before = "Торцевой щит";
-            string name_front1 = "Планка торцевого щита - вертикальная";
-            string name_front2 = "Планка торцевого щита - горизонтальная";
-            string name_around1 = "Планка пояса - вверхняя"; 
-            string name_around2 = "Планка пояса - боковая";
+            string name_front1 = "Планка торцевого щита"; // вертикальная
+            string name_front2 = "Планка торцевого щита"; // - горизонтальная
+            string name_around1 = "Планка пояса"; // - вверхняя
+            string name_around2 = "Планка пояса"; // - боковая
 
             //Классификаторы 
-            string CL_bottom = "321172"; // дно
+            string CL_bottom = "321174"; // крышка 2шт
             string CL_before = "321179"; // торцевой щит
             string CL_side = "321179"; // боковой щит
             string CL_around = "321175"; // планка пояса 
@@ -301,61 +301,66 @@ namespace WoodenBox
             //длинна торцевых досок 
             double lenghtBT = w_fact_bottom * col_fact_bottom - 2 * heightBoard;
 
-            //ЩИТ дна и крышки
+            //ЩИТ Крышка 2 шт
             MarkingBox(number, out numDesignation);
-            number++;
             number++;
             NewShield(heightBoard, w_fact_bottom, y + 4 * heightBoard, col_fact_bottom, 
                 name_bottom, foldername, marking, CL_bottom, numDesignation, true);
+            name_bottom = $"{marking}.{CL_bottom}.{numDesignation} {name_bottom}";
 
             //торцевой щит
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_side, lenghtBT, col_fact_side, name_before, 
                 foldername, marking, CL_before, numDesignation, true);
+            name_before = $"{marking}.{CL_before}.{numDesignation} {name_before}";
 
             //боковой щит
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_side, y + 4 * heightBoard, col_fact_side,
                 name_side, foldername, marking, CL_side, numDesignation, true);
+            name_side = $"{marking}.{CL_side}.{numDesignation} {name_side}";
 
             //Планка пояса - вверхняя
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_bottom, w_fact_bottom * col_fact_bottom, 0, 
                 name_around1, foldername, marking, CL_around, numDesignation, false);
+            name_around1 = $"{marking}.{CL_around}.{numDesignation} {name_around1}";
 
             //Планка пояса - боковая
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_bottom, w_fact_side * col_fact_side + 4 * heightBoard, 
                 0, name_around2, foldername, marking, CL_around, numDesignation, false);
+            name_around2 = $"{marking}.{CL_around}.{numDesignation} {name_around2}";
 
             //Планка торцевого щита - вертикальная
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_side, w_fact_side * col_fact_side, 0,
                 name_front1, foldername, marking, CL_front, numDesignation, false);
+            name_front1 = $"{marking}.{CL_front}.{numDesignation} {name_front1}";
 
             //Планка торцевого щита - горизонтальная
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_side, lenghtBT - 2 * w_fact_side, 0,
                 name_front2, foldername, marking, CL_front, numDesignation, false);
+            name_front2 = $"{marking}.{CL_front}.{numDesignation} {name_front2}";
 
 
             DataSpecificationBox.ValueBox.Clear();
             DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
             {
-                cap = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //крышка
-                bottom = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //дно
-                before = $"{heightBoard}x{w_fact_side}x{lenghtBT}", //торцевой щит
-                side = $"{heightBoard}x{w_fact_side}x{y + 4 * heightBoard}", //боковой щит
-                around1 = $"{heightBoard}x{w_fact_bottom}x{w_fact_bottom * col_fact_bottom}", //боковой щит
-                around2 = $"{heightBoard}x{w_fact_bottom}x{w_fact_side * col_fact_side + 4 * heightBoard}", //боковой щит
-                front1 = $"{heightBoard}x{w_fact_side}x{w_fact_side * col_fact_side}", //Планка торцевого щита - вертикальная
-                front2 = $"{heightBoard}x{w_fact_side}x{lenghtBT - 2 * w_fact_side}", //Планка торцевого щита - горизонтальная
+                cap = $"{w_fact_bottom*col_fact_bottom}x{y + 4 * heightBoard}", //крышка
+                before = $"{w_fact_side*col_fact_side}x{lenghtBT}", //торцевой щит
+                side = $"{w_fact_side*col_fact_side}x{y + 4 * heightBoard}", //боковой щит
+                around1 = $"{w_fact_bottom}x{w_fact_bottom * col_fact_bottom}", //боковой щит
+                around2 = $"{w_fact_bottom}x{w_fact_side * col_fact_side + 4 * heightBoard}", //боковой щит
+                front1 = $"{w_fact_side}x{w_fact_side * col_fact_side}", //Планка торцевого щита - вертикальная
+                front2 = $"{w_fact_side}x{lenghtBT - 2 * w_fact_side}", //Планка торцевого щита - горизонтальная
 
             });;
 
@@ -363,9 +368,11 @@ namespace WoodenBox
 
             ksDocument3D ksDoc3d1 = (ksDocument3D)kompas.Document3D();
             ksDoc3d1.Create(false, false);
-            ksDoc3d1.fileName = "Ящик деревянный I-1"; // указание названия файла
+            ksDoc3d1.fileName = $"{marking}.321169.000 Ящик деревянный I-1"; // указание названия файла
             ksPart partAs = ksDoc3d1.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой сборки
             partAs.name = "Ящик деревянный I-1";
+            partAs.marking = $"{marking}.321169.000";
+            partAs.Update();
 
             string file_bottom;
             file_bottom = foldername + "\\" + name_bottom + ".m3d";
@@ -455,10 +462,10 @@ namespace WoodenBox
             ksEntity[] namePlane21 = new ksEntity[5];
 
 
-            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //0 дно
+            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //0 дно (крышка 1)
             ksDoc3d1.SetPartFromFile(file_side, partAs, false); // 1 боковой щит 1 
             ksDoc3d1.SetPartFromFile(file_side, partAs, false); //2 боковой щит 2
-            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //3 крышка
+            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //3 крышка2
             ksDoc3d1.SetPartFromFile(file_before, partAs, false); //4 торец 1
             ksDoc3d1.SetPartFromFile(file_before, partAs, false); //5 торец 2
 
@@ -484,7 +491,7 @@ namespace WoodenBox
 
             ksPartCollection partColl = ksDoc3d1.PartCollection(true);
 
-            ////ДНО
+            ////ДНО (крышка1)
 
             partAs = partColl.GetByIndex(0);
             partAs.fixedComponent = true;   
@@ -815,9 +822,11 @@ namespace WoodenBox
 
             string save;
 
-            save = foldername + "\\" + "Ящик деревянный I-1" + ".a3d";
+            save = foldername + "\\" + $"{marking}.321169.000 Ящик деревянный I-1" + ".a3d";
 
             ksDoc3d1.SaveAs(save);
+
+            
 
 
         }
@@ -855,92 +864,97 @@ namespace WoodenBox
             int col_bottom = 0;
             int col_side = 0;
 
-            int w_fact_bottom = int.Parse(bottomBoards);
-            int w_fact_side = int.Parse(sideBoard);
+            int w_bottom = int.Parse(bottomBoards);
+            int w_side = int.Parse(sideBoard);
             int w_front = int.Parse(frontBoard);
             int w_around = int.Parse(aroundBoard);
 
             //дно
-            CalculationLenghtManually(w_fact_bottom, x + 2 * heightBoard, out col_bottom);
+            CalculationLenghtManually(w_bottom, x + 2 * heightBoard, out col_bottom);
 
             //бок
-            CalculationLenghtManually(w_fact_side, z, out col_side);
+            CalculationLenghtManually(w_side, z, out col_side);
             
             
             
             //длинна торцевых досок 
-            double lenghtBT = w_fact_bottom * col_bottom - 2 * heightBoard;
+            double lenghtBT = w_bottom * col_bottom - 2 * heightBoard;
 
-            string name_bottom = "Щит дна и крышки";
+            string name_bottom = "Крышка";
             string name_side = "Боковой щит";
             string name_before = "Торцевой щит";
-            string name_front1 = "Планка торцевого щита - вертикальная";
-            string name_front2 = "Планка торцевого щита - горизонтальная";
-            string name_around1 = "Планка пояса - вверхняя"; //размером с щит
-            string name_around2 = "Планка пояса - боковая"; //высокая
+            string name_front1 = "Планка торцевого щита"; // - вертикальная
+            string name_front2 = "Планка торцевого щита"; // - горизонтальная
+            string name_around1 = "Планка пояса"; //размером с щит - вверхняя
+            string name_around2 = "Планка пояса"; //высокая  - боковая
 
             //Классификаторы 
-            string CL_bottom = "321172"; // дно
+            string CL_bottom = "321174"; // крышка 2шт
             string CL_before = "321179"; // торцевой щит
             string CL_side = "321179"; // боковой щит
             string CL_around = "321175"; // планка пояса 
             string CL_front = "321175"; // планка торцевого щита
             string numDesignation = "000";
 
-            //ЩИТ дна и крышки
+            //Крышка 2шт
             MarkingBox(number, out numDesignation);
             number++;
-            number++;
-            NewShield(heightBoard, w_fact_bottom, y + 4 * heightBoard, col_bottom, name_bottom, 
+            NewShield(heightBoard, w_bottom, y + 4 * heightBoard, col_bottom, name_bottom, 
                 foldername, marking, CL_bottom, numDesignation, true); // передать параметры досок  ширина высота длинна
+            name_bottom = $"{marking}.{CL_bottom}.{numDesignation} {name_bottom}";
 
             //торцевой щит
             MarkingBox(number, out numDesignation);
             number++;
-            NewShield(heightBoard, w_fact_side, lenghtBT, col_side, name_before, 
+            NewShield(heightBoard, w_side, lenghtBT, col_side, name_before, 
                 foldername, marking, CL_before, numDesignation, true);
+            name_before = $"{marking}.{CL_before}.{numDesignation} {name_before}";
 
             //боковой щит
             MarkingBox(number, out numDesignation);
             number++;
-            NewShield(heightBoard, w_fact_side, y + 4 * heightBoard, col_side, name_side, foldername,
+            NewShield(heightBoard, w_side, y + 4 * heightBoard, col_side, name_side, foldername,
                 marking, CL_side, numDesignation, true);
+            name_side = $"{marking}.{CL_side}.{numDesignation} {name_side}";
 
             //Планка пояса - вверхняя
             MarkingBox(number, out numDesignation);
             number++;
-            NewShield(heightBoard, w_around, w_fact_bottom * col_bottom, 0, name_around1, 
+            NewShield(heightBoard, w_around, w_bottom * col_bottom, 0, name_around1, 
                 foldername, marking, CL_around, numDesignation, false);
+            name_around1 = $"{marking}.{CL_around}.{numDesignation} {name_around1}";
 
             //Планка пояса - боковая
             MarkingBox(number, out numDesignation);
             number++;
-            NewShield(heightBoard, w_around, w_fact_side * col_side + 4 * heightBoard, 0, name_around2, 
+            NewShield(heightBoard, w_around, w_side * col_side + 4 * heightBoard, 0, name_around2, 
                 foldername, marking, CL_around, numDesignation, false);
+            name_around2 = $"{marking}.{CL_around}.{numDesignation} {name_around2}";
 
             //Планка торцевого щита - вертикальная
             MarkingBox(number, out numDesignation);
             number++;
-            NewShield(heightBoard, w_front, w_fact_side * col_side, 0, name_front1,
+            NewShield(heightBoard, w_front, w_side * col_side, 0, name_front1,
                 foldername, marking, CL_front, numDesignation, false);
+            name_front1 = $"{marking}.{CL_front}.{numDesignation} {name_front1}";
 
             //Планка торцевого щита - горизонтальная
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_front, lenghtBT - 2 * w_front, 0, name_front2,
                 foldername, marking, CL_front, numDesignation, false);
+            name_front2 = $"{marking}.{CL_front}.{numDesignation} {name_front2}";
 
             DataSpecificationBox.ValueBox.Clear();
             DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
             {
-                cap = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //крышка
-                bottom = $"{heightBoard}x{w_fact_bottom}x{y + 4 * heightBoard}", //дно
-                before = $"{heightBoard}x{w_fact_side}x{lenghtBT}", //торцевой щит
-                side = $"{heightBoard}x{w_fact_side}x{y + 4 * heightBoard}", //боковой щит
-                around1 = $"{heightBoard}x{w_fact_bottom}x{w_fact_bottom * col_bottom}", //боковой щит
-                around2 = $"{heightBoard}x{w_fact_bottom}x{w_fact_side * col_side + 4 * heightBoard}", //боковой щит
-                front1 = $"{heightBoard}x{w_fact_side}x{w_fact_side * col_side}", //Планка торцевого щита - вертикальная
-                front2 = $"{heightBoard}x{w_fact_side}x{lenghtBT - 2 * w_fact_side}", //Планка торцевого щита - горизонтальная
+                cap = $"{w_bottom*col_bottom}x{y + 4 * heightBoard}", //крышка
+                before = $"{w_side*col_side}x{lenghtBT}", //торцевой щит
+                side = $"{w_side*col_side}x{y + 4 * heightBoard}", //боковой щит
+                around1 = $"{w_bottom}x{w_bottom * col_bottom}", //боковой щит
+                around2 = $"{w_bottom}x{w_side * col_side + 4 * heightBoard}", //боковой щит
+                front1 = $"{w_side}x{w_side * col_side}", //Планка торцевого щита - вертикальная
+                front2 = $"{w_side}x{lenghtBT - 2 * w_side}", //Планка торцевого щита - горизонтальная
 
             }); ;
 
@@ -949,9 +963,11 @@ namespace WoodenBox
 
             ksDocument3D ksDoc3d1 = (ksDocument3D)kompas.Document3D();
             ksDoc3d1.Create(false, false);
-            ksDoc3d1.fileName = "Ящик деревянный I-1"; // указание названия файла
+            ksDoc3d1.fileName = $"{marking}.321169.000 Ящик деревянный I-1"; // указание названия файла
             ksPart partAs = ksDoc3d1.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой сборки
             partAs.name = "Ящик деревянный I-1";
+            partAs.marking = $"{marking}.321169.000";
+            partAs.Update();
 
             string file_bottom;
             file_bottom = foldername + "\\" + name_bottom + ".m3d";
@@ -1041,10 +1057,10 @@ namespace WoodenBox
             ksEntity[] namePlane21 = new ksEntity[5];
 
 
-            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //0 дно
+            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //0 дно (крышка1)
             ksDoc3d1.SetPartFromFile(file_side, partAs, false); //1 боковой щит 1
             ksDoc3d1.SetPartFromFile(file_side, partAs, false); //2 боковой щит 2
-            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //3 крышка
+            ksDoc3d1.SetPartFromFile(file_bottom, partAs, false); //3 крышка2
             ksDoc3d1.SetPartFromFile(file_before, partAs, false); //4 торец 1
             ksDoc3d1.SetPartFromFile(file_before, partAs, false); //5 торец 2
 
@@ -1110,7 +1126,7 @@ namespace WoodenBox
 
             //дно и бок 2, бок 1
             ksDoc3d1.AddMateConstraint(0, namePlane[4], namePlane2[0], -1, 1, 0);
-            ksDoc3d1.AddMateConstraint(5, namePlane1[3], namePlane2[3], 1, 1, w_fact_bottom * col_bottom - heightBoard);
+            ksDoc3d1.AddMateConstraint(5, namePlane1[3], namePlane2[3], 1, 1, w_bottom * col_bottom - heightBoard);
             ksDoc3d1.AddMateConstraint(0, namePlane[2], namePlane2[2], 1, 1, 0);
 
             ////КРЫШКА
@@ -1127,7 +1143,7 @@ namespace WoodenBox
             //бок 1 и крышка, дно
             ksDoc3d1.AddMateConstraint(0, namePlane1[4], namePlane3[0], 1, 1, 0);
             ksDoc3d1.AddMateConstraint(0, namePlane1[2], namePlane3[2], 1, 1, 0);
-            ksDoc3d1.AddMateConstraint(5, namePlane1[0], namePlane3[4], -1, 1, -(w_fact_side * col_side + heightBoard));
+            ksDoc3d1.AddMateConstraint(5, namePlane1[0], namePlane3[4], -1, 1, -(w_side * col_side + heightBoard));
 
             ////ТОРЦЕВОЙ ЩИТ 1
 
@@ -1218,7 +1234,7 @@ namespace WoodenBox
 
             ksDoc3d1.AddMateConstraint(0, namePlane4[3], namePlane9[4], -1, 1, 0); //торец
             ksDoc3d1.AddMateConstraint(0, namePlane7[0], namePlane9[2], -1, 1, 0); // планка 2
-            ksDoc3d1.AddMateConstraint(5, namePlane3[3], namePlane9[0], 1, 1, w_fact_side * col_side); //крышка
+            ksDoc3d1.AddMateConstraint(5, namePlane3[3], namePlane9[0], 1, 1, w_side * col_side); //крышка
 
             //ДАЛЬНИЕ Планка торцевого щита - вертикальная 2 штуки
 
@@ -1274,7 +1290,7 @@ namespace WoodenBox
 
             ksDoc3d1.AddMateConstraint(0, namePlane5[4], namePlane13[3], -1, 1, 0); //торец
             ksDoc3d1.AddMateConstraint(0, namePlane7[0], namePlane13[2], -1, 1, 0); // планка 2
-            ksDoc3d1.AddMateConstraint(5, namePlane3[3], namePlane13[0], 1, 1, w_fact_side * col_side); //крышка
+            ksDoc3d1.AddMateConstraint(5, namePlane3[3], namePlane13[0], 1, 1, w_side * col_side); //крышка
 
 
             /////Планка пояса верхние - первая пара
@@ -1397,7 +1413,7 @@ namespace WoodenBox
 
             string save;
 
-            save = foldername + "\\" + "Ящик деревянный I-1" + ".a3d";
+            save = foldername + "\\" + $"{marking}.321169.000 Ящик деревянный I-1" + ".a3d";
 
             ksDoc3d1.SaveAs(save);
 

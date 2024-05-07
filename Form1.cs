@@ -44,12 +44,12 @@ namespace WoodenBox
         string savedValue4Manually;
 
 
-        string savedGOSTWood = "ГОСТ 2695-83 Пиломатериалы лиственных пород";
-        string savedWood = "Береза";
-        string savedNails = "ГОСТ 4034-63 Гвозди тарные круглые";
-        string savedTape = "ГОСТ 503-81 Лента из низкоуглеродистой стали";
-        string savedTapeHeight = "0,50";
-        string savedTapeWidth = "20";
+        public string savedGOSTWood = "ГОСТ 2695-83 Пиломатериалы лиственных пород";
+        public string savedWood = "Береза";
+        public string savedNails = "ГОСТ 4034-63 Гвозди тарные круглые";
+        public string savedTape = "ГОСТ 503-81 Лента из низкоуглеродистой стали";
+        public string savedTapeHeight = "0,50";
+        public string savedTapeWidth = "20";
 
         //string savedGOSTWood;
         //string savedWood;
@@ -145,9 +145,9 @@ namespace WoodenBox
             savedTapeHeight = newForm.selectedTapeHeight;
             savedTapeWidth = newForm.selectedTapeWidth;
 
-            tbWoodGOST.Text = $"{savedGOSTWood}, {savedWood}";
+            tbWoodGOST.Text = $"{savedGOSTWood}; {savedWood}";
             tbNailsGOST.Text = savedNails;
-            tbTapeGOST.Text = $"{savedTape}, {savedTapeHeight}x{savedTapeWidth}";
+            tbTapeGOST.Text = $"{savedTape}; {savedTapeHeight} x {savedTapeWidth}";
             
 
 
@@ -295,41 +295,63 @@ namespace WoodenBox
         {
             string marking = tbMPST.Text;  
             int number = Convert.ToInt32(tbNumber.Text);
-           
-            specification.CreateSpecification(savedGOSTWood, savedNails, savedTape, savedTapeHeight, savedTapeWidth, marking, number, foldername);
+
+            string WoodGOST = "ГОСТ";
+            if (savedGOSTWood == "ГОСТ 2695-83 Пиломатериалы лиственных пород")
+                WoodGOST = "ГОСТ 2695-83";
+            else if (savedGOSTWood == "ГОСТ 24454-80 Пиломатериалы хвойных пород")
+                WoodGOST = "ГОСТ 24454-80";
+
+            int x = Convert.ToInt32(tbWidthBox.Text);  //ширина
+            int y = Convert.ToInt32(tbLengthBox.Text); //длинна
+            int z = Convert.ToInt32(tbHeightBox.Text); //высота
+
+            double massa = Convert.ToInt32(tbMassa.Text); //масса груза
+            double VBox = x * y * z / 1000; //внутренний объем ящика, дм3
+            double PackingDensity = massa / VBox; //Плотность упаковывания, кг/дм3 
+
+            int heightBoard = 22;
+            if (PackingDensity <= 1)
+                heightBoard = 22;
+            if (PackingDensity > 1 & PackingDensity <= 3)
+                heightBoard = 25;
+            if (PackingDensity > 3)
+                heightBoard = 32;
+
+            specification.CreateSpecification(WoodGOST, savedWood, savedNails, savedTape, savedTapeHeight, savedTapeWidth, heightBoard, marking, number, foldername);
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            KompasObject kompas;
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    KompasObject kompas;
 
-            try
-            {
-                kompas = (KompasObject)Marshal.
-                    GetActiveObject("KOMPAS.Application.5");
-            }
-            catch
-            {
-                kompas = (KompasObject)Activator.
-                    CreateInstance(Type.GetTypeFromProgID("KOMPAS.Application.5"));
-            }
-            if (kompas == null)
-                return;
+        //    try
+        //    {
+        //        kompas = (KompasObject)Marshal.
+        //            GetActiveObject("KOMPAS.Application.5");
+        //    }
+        //    catch
+        //    {
+        //        kompas = (KompasObject)Activator.
+        //            CreateInstance(Type.GetTypeFromProgID("KOMPAS.Application.5"));
+        //    }
+        //    if (kompas == null)
+        //        return;
 
-            kompas.Visible = true;
+        //    kompas.Visible = true;
            
-            ksDocument3D kompas_document_3D = (ksDocument3D)kompas.ActiveDocument3D();
-            ksPart part = kompas_document_3D.GetPart((int)Part_Type.pTop_Part);
+        //    ksDocument3D kompas_document_3D = (ksDocument3D)kompas.ActiveDocument3D();
+        //    ksPart part = kompas_document_3D.GetPart((int)Part_Type.pTop_Part);
 
-            ksColorParam kscolor = (ksColorParam)part.ColorParam();
-            var u = kscolor.color;
-            var t = part.material;
-            MessageBox.Show($"Материал   {t}   ");
-            part.Update();
+        //    ksColorParam kscolor = (ksColorParam)part.ColorParam();
+        //    var u = kscolor.color;
+        //    var t = part.material;
+        //    MessageBox.Show($"Материал   {t}   ");
+        //    part.Update();
 
 
-        }
+        //}
 
         
     }

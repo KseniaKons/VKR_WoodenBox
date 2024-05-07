@@ -7,11 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WoodenBox;
 
 namespace TreeBox
 {
     public partial class ChooseGOST : Form
     {
+        string defaultGOSTWood;
+        string defaultWood;
+        string defaultNails;
+        string defaultTape;
+        string defaultTapeHeight;
+        string defaultTapeWidth;
+
         public ChooseGOST()
         {
             InitializeComponent();
@@ -19,10 +27,12 @@ namespace TreeBox
             cbGOSTWood.SelectedIndexChanged += cbGOST_SelectedIndexChanged;
             cbTape.SelectedIndexChanged += cbTape_SelectedIndexChanged;
             cbTapeHeight.SelectedIndexChanged += cbTapeHeight_SelectedIndexChanged;
-            cbGOSTWood.SelectedIndex = 0;
-            cbNails.SelectedIndex = 0;  
-            cbTape.SelectedIndex = 0;
+            this.FormClosing += new FormClosingEventHandler(MyForm_FormClosing);
+            
+
         }
+
+        
 
         private void cbGOST_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -182,6 +192,7 @@ namespace TreeBox
         public string selectedTape;
         public string selectedTapeHeight;
         public string selectedTapeWidth;
+        bool saving = false;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -200,7 +211,34 @@ namespace TreeBox
                 selectedTapeWidth = cbTapeWidth.SelectedItem.ToString();
                 selectedTape = cbTape.SelectedItem.ToString();
 
+                saving = true;
                 this.Close();
+            }
+        }
+
+        private void MyForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Проверяем, что причиной закрытия формы была кнопка закрытия "X"
+            if (e.CloseReason == CloseReason.UserClosing && saving == false)
+            {
+                if (cbNails.SelectedIndex == -1 || cbGOSTWood.SelectedIndex == -1 ||
+                cbTape.SelectedIndex == -1 || cbTapeHeight.SelectedIndex == -1 ||
+                cbTapeWidth.SelectedIndex == -1 || cbWood.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Ошибка: выберите все значения!!");
+                    e.Cancel = true;
+                }
+                else
+                {
+                    Form1 newForm = new Form1();
+                    selectedGOSTWood = newForm.savedGOSTWood;
+                    selectedWood = newForm.savedWood;
+                    selectedNails = newForm.savedNails;
+                    selectedTapeHeight = newForm.savedTapeHeight;
+                    selectedTapeWidth = newForm.savedTapeWidth;
+                    selectedTape = newForm.savedTape;
+                }
+
             }
         }
     }
