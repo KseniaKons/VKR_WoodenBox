@@ -13,13 +13,6 @@ namespace TreeBox
 {
     public partial class ChooseGOST : Form
     {
-        string defaultGOSTWood;
-        string defaultWood;
-        string defaultNails;
-        string defaultTape;
-        string defaultTapeHeight;
-        string defaultTapeWidth;
-
         public ChooseGOST()
         {
             InitializeComponent();

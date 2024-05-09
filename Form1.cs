@@ -241,6 +241,32 @@ namespace WoodenBox
             else if (savedGOSTWood == "ГОСТ 24454-80 Пиломатериалы хвойных пород")
                 WoodGOST = 1;
 
+            string materials = string.Empty;
+            double density = 0;
+
+            Dictionary<string, (string, double)> woodMaterials = new Dictionary<string, (string, double)>()
+            {
+                { "Береза", ("Пиломатериал береза ГОСТ 2695-83", 0.65) },
+                { "Бук", ("Пиломатериал бук ГОСТ 2695-83", 0.75) },
+                { "Дуб", ("Пиломатериал дуб ГОСТ 2695-83", 0.9) },
+                { "Клен", ("Пиломатериал клен ГОСТ 2695-83", 0.65) },
+                { "Липа", ("Пиломатериал липа ГОСТ 2695-83", 0.45) },
+                { "Ольха", ("Пиломатериал ольха ГОСТ 2695-83", 0.7) },
+                { "Осина", ("Пиломатериал осина ГОСТ 2695-83", 0.7) },
+                { "Ясень", ("Пиломатериал ясень ГОСТ 2695-83", 0.75) },
+                { "Ель", ("Пиломатериал ель ГОСТ 8486-86", 0.45) },
+                { "Кедр", ("Пиломатериал кедр ГОСТ 8486-86", 0.5) },
+                { "Лиственница", ("Пиломатериал лиственница ГОСТ 8486-86", 0.5) },
+                { "Пихта", ("Пиломатериал пихта ГОСТ 8486-86", 0.55) },
+                { "Сосна", ("Пиломатериал сосна ГОСТ 8486-86", 0.6) },
+            };
+
+            if (woodMaterials.ContainsKey(savedWood))
+            {
+                (materials, density) = woodMaterials[savedWood];
+            }
+
+
             int widthBoard = cbWidthBoards.SelectedIndex;
 
             string marking = tbMPST.Text;
@@ -250,15 +276,17 @@ namespace WoodenBox
             {
                 
                 if(widthBoard == 0) // вычислить оптимальное
-                    box11.СreatingBox11(x, y, z, WoodGOST, heightBoard, foldername, marking, number);
+                    box11.СreatingBox11(x, y, z, WoodGOST, heightBoard, foldername, marking, number, materials, density);
 
                 if (widthBoard == 1) // вписать вручную
                     box11.СreatingBox11Manually(x, y, z, heightBoard, 
-                        savedValue1GOST, savedValue2GOST, savedValue3GOST, savedValue4GOST, foldername, marking, number);
+                        savedValue1GOST, savedValue2GOST, savedValue3GOST, savedValue4GOST, foldername, 
+                        marking, number, materials, density);
 
                 if (widthBoard == 2) // вписать вручную
                     box11.СreatingBox11Manually(x, y, z, heightBoard,
-                        savedValue1Manually, savedValue2Manually, savedValue3Manually, savedValue4Manually, foldername, marking, number);
+                        savedValue1Manually, savedValue2Manually, savedValue3Manually, savedValue4Manually, 
+                        foldername, marking, number, materials, density);
 
             }
 
@@ -267,15 +295,16 @@ namespace WoodenBox
                 int gap = Convert.ToInt32(tbGap.Text); //зазор 
 
                 if (widthBoard == 0)
-                    box12.СreatingBox12(x, y, z, gap, WoodGOST, heightBoard, foldername, marking, number);
+                    box12.СreatingBox12(x, y, z, gap, WoodGOST, heightBoard, foldername, marking, number, materials, density);
 
                 if (widthBoard == 1)
                     box12.СreatingBox12Manually(x, y, z, gap, heightBoard, 
-                        savedValue1GOST, savedValue2GOST, savedValue3GOST, savedValue4GOST, foldername, marking, number);
+                        savedValue1GOST, savedValue2GOST, savedValue3GOST, savedValue4GOST, foldername, marking, number, materials, density);
                 
                 if (widthBoard == 2)
                     box12.СreatingBox12Manually(x, y, z, gap, heightBoard,
-                        savedValue1Manually, savedValue2Manually, savedValue3Manually, savedValue4Manually, foldername, marking, number);
+                        savedValue1Manually, savedValue2Manually, savedValue3Manually, savedValue4Manually, 
+                        foldername, marking, number, materials, density);
             }
         }
 
@@ -322,37 +351,39 @@ namespace WoodenBox
 
         }
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    KompasObject kompas;
-
-        //    try
-        //    {
-        //        kompas = (KompasObject)Marshal.
-        //            GetActiveObject("KOMPAS.Application.5");
-        //    }
-        //    catch
-        //    {
-        //        kompas = (KompasObject)Activator.
-        //            CreateInstance(Type.GetTypeFromProgID("KOMPAS.Application.5"));
-        //    }
-        //    if (kompas == null)
-        //        return;
-
-        //    kompas.Visible = true;
-           
-        //    ksDocument3D kompas_document_3D = (ksDocument3D)kompas.ActiveDocument3D();
-        //    ksPart part = kompas_document_3D.GetPart((int)Part_Type.pTop_Part);
-
-        //    ksColorParam kscolor = (ksColorParam)part.ColorParam();
-        //    var u = kscolor.color;
-        //    var t = part.material;
-        //    MessageBox.Show($"Материал   {t}   ");
-        //    part.Update();
 
 
-        //}
+        private void button1_Click(object sender, EventArgs e)
+        {
+            KompasObject kompas;
 
-        
+            try
+            {
+                kompas = (KompasObject)Marshal.
+                    GetActiveObject("KOMPAS.Application.5");
+            }
+            catch
+            {
+                kompas = (KompasObject)Activator.
+                    CreateInstance(Type.GetTypeFromProgID("KOMPAS.Application.5"));
+            }
+            if (kompas == null)
+                return;
+
+            kompas.Visible = true;
+
+            ksDocument3D kompas_document_3D = (ksDocument3D)kompas.ActiveDocument3D();
+            ksPart part = kompas_document_3D.GetPart((int)Part_Type.pTop_Part);
+
+            ksColorParam kscolor = (ksColorParam)part.ColorParam();
+            var u = kscolor.color;
+            var t = part.material;
+            MessageBox.Show($"Материал   {t}   ");
+            part.Update();
+
+
+        }
+
+
     }
 }

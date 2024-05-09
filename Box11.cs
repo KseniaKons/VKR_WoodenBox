@@ -83,7 +83,8 @@ namespace WoodenBox
         }
 
         void NewShield(double height, double width, double length, double col, 
-            string name, string foldername, string marking, string CL, string numDesignation, bool meshCopy)
+            string name, string foldername, string marking, string CL, string numDesignation, 
+            string materials, double density, bool meshCopy, out double mass)
         {
             ksDoc3d = (ksDocument3D)kompas.Document3D();
             ksDoc3d.Create(false, true);
@@ -96,10 +97,8 @@ namespace WoodenBox
             part.useColor = 0;           
             ksColorParam kscolor = (ksColorParam)part.ColorParam();
             kscolor.color = 10092543;
-            //double density = 0.9;
-            //part.SetMaterial("Пиломатериал дуб ГОСТ 2695-83", density);
+            part.SetMaterial(materials, density);
             //плотность гр/куб.см
-            
             part.Update();
 
             ksEntity basePlaneXOY = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
@@ -218,6 +217,8 @@ namespace WoodenBox
                 MeshCopyE.Create(); // создаём массив
             }
 
+            mass = Math.Round(part.GetMass(), 2);
+
             // сохранение //
 
             string save;
@@ -241,7 +242,7 @@ namespace WoodenBox
         }
 
         public void СreatingBox11(int x, int y, int z, 
-            int GOST, int heightBoard, string foldername, string marking, int number)
+            int GOST, int heightBoard, string foldername, string marking, int number, string materials, double density)
         {
             try
             {
@@ -297,6 +298,15 @@ namespace WoodenBox
             string CL_front = "321175"; // планка торцевого щита
             string numDesignation = "000";
 
+            //масса деталей
+            double masscap = 0.0;
+            double massbefore = 0.0;
+            double massside = 0.0;
+            double massaround1 = 0.0;
+            double massaround2 = 0.0;
+            double massfront1 = 0.0;
+            double massfront2 = 0.0;
+
 
             //длинна торцевых досок 
             double lenghtBT = w_fact_bottom * col_fact_bottom - 2 * heightBoard;
@@ -305,49 +315,49 @@ namespace WoodenBox
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_bottom, y + 4 * heightBoard, col_fact_bottom, 
-                name_bottom, foldername, marking, CL_bottom, numDesignation, true);
+                name_bottom, foldername, marking, CL_bottom, numDesignation, materials, density, true, out masscap);
             name_bottom = $"{marking}.{CL_bottom}.{numDesignation} {name_bottom}";
 
             //торцевой щит
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_side, lenghtBT, col_fact_side, name_before, 
-                foldername, marking, CL_before, numDesignation, true);
+                foldername, marking, CL_before, numDesignation, materials, density, true, out massbefore);
             name_before = $"{marking}.{CL_before}.{numDesignation} {name_before}";
 
             //боковой щит
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_side, y + 4 * heightBoard, col_fact_side,
-                name_side, foldername, marking, CL_side, numDesignation, true);
+                name_side, foldername, marking, CL_side, numDesignation, materials, density, true, out massside);
             name_side = $"{marking}.{CL_side}.{numDesignation} {name_side}";
 
             //Планка пояса - вверхняя
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_bottom, w_fact_bottom * col_fact_bottom, 0, 
-                name_around1, foldername, marking, CL_around, numDesignation, false);
+                name_around1, foldername, marking, CL_around, numDesignation, materials, density, false, out massaround1);
             name_around1 = $"{marking}.{CL_around}.{numDesignation} {name_around1}";
 
             //Планка пояса - боковая
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_bottom, w_fact_side * col_fact_side + 4 * heightBoard, 
-                0, name_around2, foldername, marking, CL_around, numDesignation, false);
+                0, name_around2, foldername, marking, CL_around, numDesignation, materials, density, false, out massaround2);
             name_around2 = $"{marking}.{CL_around}.{numDesignation} {name_around2}";
 
             //Планка торцевого щита - вертикальная
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_side, w_fact_side * col_fact_side, 0,
-                name_front1, foldername, marking, CL_front, numDesignation, false);
+                name_front1, foldername, marking, CL_front, numDesignation, materials, density, false, out massfront1);
             name_front1 = $"{marking}.{CL_front}.{numDesignation} {name_front1}";
 
             //Планка торцевого щита - горизонтальная
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_fact_side, lenghtBT - 2 * w_fact_side, 0,
-                name_front2, foldername, marking, CL_front, numDesignation, false);
+                name_front2, foldername, marking, CL_front, numDesignation, materials, density, false, out massfront2);
             name_front2 = $"{marking}.{CL_front}.{numDesignation} {name_front2}";
 
 
@@ -362,7 +372,15 @@ namespace WoodenBox
                 front1 = $"{w_fact_side}x{w_fact_side * col_fact_side}", //Планка торцевого щита - вертикальная
                 front2 = $"{w_fact_side}x{lenghtBT - 2 * w_fact_side}", //Планка торцевого щита - горизонтальная
 
-            });;
+                masscap = $"{masscap}",
+                massbefore = $"{massbefore}",
+                massside = $"{massside}",
+                massaround1 = $"{massaround1}",
+                massaround2 = $"{massaround2}",
+                massfront1 = $"{massfront1}",
+                massfront2 = $"{massfront2}",
+
+            });
 
             //////////////СБОРКА
 
@@ -372,6 +390,7 @@ namespace WoodenBox
             ksPart partAs = ksDoc3d1.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой сборки
             partAs.name = "Ящик деревянный I-1";
             partAs.marking = $"{marking}.321169.000";
+            partAs.SetMaterial(materials, density);
             partAs.Update();
 
             string file_bottom;
@@ -846,7 +865,7 @@ namespace WoodenBox
         }
 
         public void СreatingBox11Manually(int x, int y, int z, int heightBoard,
-            string bottomBoards, string sideBoard, string aroundBoard, string frontBoard, string foldername, string marking, int number)
+            string bottomBoards, string sideBoard, string aroundBoard, string frontBoard, string foldername, string marking, int number, string materials, double density)
         { //дно, бок, торец, пояс, торец планка
             try
             {
@@ -875,8 +894,6 @@ namespace WoodenBox
             //бок
             CalculationLenghtManually(w_side, z, out col_side);
             
-            
-            
             //длинна торцевых досок 
             double lenghtBT = w_bottom * col_bottom - 2 * heightBoard;
 
@@ -896,53 +913,62 @@ namespace WoodenBox
             string CL_front = "321175"; // планка торцевого щита
             string numDesignation = "000";
 
+            //масса деталей
+            double masscap = 0.0;
+            double massbefore = 0.0;
+            double massside = 0.0;
+            double massaround1 = 0.0;
+            double massaround2 = 0.0;
+            double massfront1 = 0.0;
+            double massfront2 = 0.0;
+
             //Крышка 2шт
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_bottom, y + 4 * heightBoard, col_bottom, name_bottom, 
-                foldername, marking, CL_bottom, numDesignation, true); // передать параметры досок  ширина высота длинна
+                foldername, marking, CL_bottom, numDesignation, materials, density, true, out masscap); // передать параметры досок  ширина высота длинна
             name_bottom = $"{marking}.{CL_bottom}.{numDesignation} {name_bottom}";
 
             //торцевой щит
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_side, lenghtBT, col_side, name_before, 
-                foldername, marking, CL_before, numDesignation, true);
+                foldername, marking, CL_before, numDesignation, materials, density, true, out massbefore);
             name_before = $"{marking}.{CL_before}.{numDesignation} {name_before}";
 
             //боковой щит
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_side, y + 4 * heightBoard, col_side, name_side, foldername,
-                marking, CL_side, numDesignation, true);
+                marking, CL_side, numDesignation, materials, density, true, out massside);
             name_side = $"{marking}.{CL_side}.{numDesignation} {name_side}";
 
             //Планка пояса - вверхняя
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_around, w_bottom * col_bottom, 0, name_around1, 
-                foldername, marking, CL_around, numDesignation, false);
+                foldername, marking, CL_around, numDesignation, materials, density, false, out massaround1);
             name_around1 = $"{marking}.{CL_around}.{numDesignation} {name_around1}";
 
             //Планка пояса - боковая
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_around, w_side * col_side + 4 * heightBoard, 0, name_around2, 
-                foldername, marking, CL_around, numDesignation, false);
+                foldername, marking, CL_around, numDesignation, materials, density, false, out massaround2);
             name_around2 = $"{marking}.{CL_around}.{numDesignation} {name_around2}";
 
             //Планка торцевого щита - вертикальная
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_front, w_side * col_side, 0, name_front1,
-                foldername, marking, CL_front, numDesignation, false);
+                foldername, marking, CL_front, numDesignation, materials, density, false, out massfront1);
             name_front1 = $"{marking}.{CL_front}.{numDesignation} {name_front1}";
 
             //Планка торцевого щита - горизонтальная
             MarkingBox(number, out numDesignation);
             number++;
             NewShield(heightBoard, w_front, lenghtBT - 2 * w_front, 0, name_front2,
-                foldername, marking, CL_front, numDesignation, false);
+                foldername, marking, CL_front, numDesignation, materials, density, false, out massfront2);
             name_front2 = $"{marking}.{CL_front}.{numDesignation} {name_front2}";
 
             DataSpecificationBox.ValueBox.Clear();
@@ -956,6 +982,14 @@ namespace WoodenBox
                 front1 = $"{w_side}x{w_side * col_side}", //Планка торцевого щита - вертикальная
                 front2 = $"{w_side}x{lenghtBT - 2 * w_side}", //Планка торцевого щита - горизонтальная
 
+                masscap = $"{masscap}",
+                massbefore = $"{massbefore}",
+                massside = $"{massside}",
+                massaround1 = $"{massaround1}",
+                massaround2 = $"{massaround2}",
+                massfront1 = $"{massfront1}",
+                massfront2 = $"{massfront2}",
+
             }); ;
 
 
@@ -967,6 +1001,7 @@ namespace WoodenBox
             ksPart partAs = ksDoc3d1.GetPart((int)Part_Type.pTop_Part); // получаем интерфейс новой сборки
             partAs.name = "Ящик деревянный I-1";
             partAs.marking = $"{marking}.321169.000";
+            partAs.SetMaterial(materials, density);
             partAs.Update();
 
             string file_bottom;

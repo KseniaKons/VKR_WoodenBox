@@ -80,6 +80,7 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).BeginInit();
             this.panel2.SuspendLayout();
@@ -225,7 +226,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(476, 604);
+            this.label9.Location = new System.Drawing.Point(490, 540);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(123, 16);
             this.label9.TabIndex = 19;
@@ -240,7 +241,7 @@
             "Вычислить оптимальную",
             "Выбрать самостоятельно из ГОСТа",
             "Вписать вручную"});
-            this.cbWidthBoards.Location = new System.Drawing.Point(479, 623);
+            this.cbWidthBoards.Location = new System.Drawing.Point(493, 559);
             this.cbWidthBoards.Name = "cbWidthBoards";
             this.cbWidthBoards.Size = new System.Drawing.Size(360, 24);
             this.cbWidthBoards.TabIndex = 18;
@@ -584,12 +585,23 @@
             this.label23.TabIndex = 51;
             this.label23.Text = "Ширина досок и зазора (при наличии)";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(248, 598);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(162, 64);
+            this.button1.TabIndex = 52;
+            this.button1.Text = "Материал";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1420, 715);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.btSpecification);
@@ -679,6 +691,7 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Button button1;
     }
 }
 
