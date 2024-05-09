@@ -42,8 +42,6 @@
             this.tbLengthBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cbWidthBoards = new System.Windows.Forms.ComboBox();
             this.butSave = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tbSave = new System.Windows.Forms.TextBox();
@@ -67,7 +65,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.btSpecification = new System.Windows.Forms.Button();
             this.cbFrontBoard = new System.Windows.Forms.ComboBox();
-            this.cbBeltBoard = new System.Windows.Forms.ComboBox();
+            this.cbAroundBoard = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -75,12 +73,15 @@
             this.label21 = new System.Windows.Forms.Label();
             this.cbBottomBoards = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.tbFrontBoard = new System.Windows.Forms.TextBox();
+            this.tbAroundBoard = new System.Windows.Forms.TextBox();
+            this.tbSideBoard = new System.Windows.Forms.TextBox();
+            this.tbBottomBoards = new System.Windows.Forms.TextBox();
+            this.rbWrite = new System.Windows.Forms.RadioButton();
+            this.rbChGost = new System.Windows.Forms.RadioButton();
+            this.rbCalculate = new System.Windows.Forms.RadioButton();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).BeginInit();
             this.panel2.SuspendLayout();
@@ -222,29 +223,6 @@
             this.label8.Size = new System.Drawing.Size(324, 16);
             this.label8.TabIndex = 10;
             this.label8.Text = "Внутренние габаритные размеры и масса ящика";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(490, 540);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(123, 16);
-            this.label9.TabIndex = 19;
-            this.label9.Text = "Ширина досок, мм";
-            // 
-            // cbWidthBoards
-            // 
-            this.cbWidthBoards.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbWidthBoards.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbWidthBoards.FormattingEnabled = true;
-            this.cbWidthBoards.Items.AddRange(new object[] {
-            "Вычислить оптимальную",
-            "Выбрать самостоятельно из ГОСТа",
-            "Вписать вручную"});
-            this.cbWidthBoards.Location = new System.Drawing.Point(493, 559);
-            this.cbWidthBoards.Name = "cbWidthBoards";
-            this.cbWidthBoards.Size = new System.Drawing.Size(360, 24);
-            this.cbWidthBoards.TabIndex = 18;
             // 
             // butSave
             // 
@@ -446,15 +424,15 @@
             this.cbFrontBoard.Size = new System.Drawing.Size(212, 24);
             this.cbFrontBoard.TabIndex = 49;
             // 
-            // cbBeltBoard
+            // cbAroundBoard
             // 
-            this.cbBeltBoard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbBeltBoard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbBeltBoard.FormattingEnabled = true;
-            this.cbBeltBoard.Location = new System.Drawing.Point(350, 73);
-            this.cbBeltBoard.Name = "cbBeltBoard";
-            this.cbBeltBoard.Size = new System.Drawing.Size(211, 24);
-            this.cbBeltBoard.TabIndex = 48;
+            this.cbAroundBoard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAroundBoard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbAroundBoard.FormattingEnabled = true;
+            this.cbAroundBoard.Location = new System.Drawing.Point(350, 73);
+            this.cbAroundBoard.Name = "cbAroundBoard";
+            this.cbAroundBoard.Size = new System.Drawing.Size(211, 24);
+            this.cbAroundBoard.TabIndex = 48;
             // 
             // label18
             // 
@@ -515,15 +493,19 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.radioButton3);
-            this.panel3.Controls.Add(this.radioButton2);
-            this.panel3.Controls.Add(this.radioButton1);
+            this.panel3.Controls.Add(this.tbFrontBoard);
+            this.panel3.Controls.Add(this.tbAroundBoard);
+            this.panel3.Controls.Add(this.tbSideBoard);
+            this.panel3.Controls.Add(this.tbBottomBoards);
+            this.panel3.Controls.Add(this.rbWrite);
+            this.panel3.Controls.Add(this.rbChGost);
+            this.panel3.Controls.Add(this.rbCalculate);
             this.panel3.Controls.Add(this.label22);
             this.panel3.Controls.Add(this.cbBottomBoards);
             this.panel3.Controls.Add(this.cbFrontBoard);
             this.panel3.Controls.Add(this.label21);
             this.panel3.Controls.Add(this.tbGap);
-            this.panel3.Controls.Add(this.cbBeltBoard);
+            this.panel3.Controls.Add(this.cbAroundBoard);
             this.panel3.Controls.Add(this.cbSideBoard);
             this.panel3.Controls.Add(this.label18);
             this.panel3.Controls.Add(this.label20);
@@ -534,38 +516,69 @@
             this.panel3.Size = new System.Drawing.Size(926, 183);
             this.panel3.TabIndex = 50;
             // 
-            // radioButton3
+            // tbFrontBoard
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(592, 16);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(143, 20);
-            this.radioButton3.TabIndex = 53;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Вписать вручную";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.tbFrontBoard.Location = new System.Drawing.Point(350, 136);
+            this.tbFrontBoard.Name = "tbFrontBoard";
+            this.tbFrontBoard.Size = new System.Drawing.Size(211, 22);
+            this.tbFrontBoard.TabIndex = 57;
             // 
-            // radioButton2
+            // tbAroundBoard
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(276, 16);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(259, 20);
-            this.radioButton2.TabIndex = 52;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Выбрать самостоятельно из ГОСТа";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.tbAroundBoard.Location = new System.Drawing.Point(350, 74);
+            this.tbAroundBoard.Name = "tbAroundBoard";
+            this.tbAroundBoard.Size = new System.Drawing.Size(211, 22);
+            this.tbAroundBoard.TabIndex = 56;
             // 
-            // radioButton1
+            // tbSideBoard
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(32, 16);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(166, 20);
-            this.radioButton1.TabIndex = 51;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Вычислить оптимало";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.tbSideBoard.Location = new System.Drawing.Point(55, 139);
+            this.tbSideBoard.Name = "tbSideBoard";
+            this.tbSideBoard.Size = new System.Drawing.Size(209, 22);
+            this.tbSideBoard.TabIndex = 55;
+            // 
+            // tbBottomBoards
+            // 
+            this.tbBottomBoards.Location = new System.Drawing.Point(55, 74);
+            this.tbBottomBoards.Name = "tbBottomBoards";
+            this.tbBottomBoards.Size = new System.Drawing.Size(209, 22);
+            this.tbBottomBoards.TabIndex = 54;
+            // 
+            // rbWrite
+            // 
+            this.rbWrite.AutoSize = true;
+            this.rbWrite.Location = new System.Drawing.Point(592, 16);
+            this.rbWrite.Name = "rbWrite";
+            this.rbWrite.Size = new System.Drawing.Size(143, 20);
+            this.rbWrite.TabIndex = 53;
+            this.rbWrite.TabStop = true;
+            this.rbWrite.Text = "Вписать вручную";
+            this.rbWrite.UseVisualStyleBackColor = true;
+            this.rbWrite.CheckedChanged += new System.EventHandler(this.rbWrite_CheckedChanged);
+            // 
+            // rbChGost
+            // 
+            this.rbChGost.AutoSize = true;
+            this.rbChGost.Location = new System.Drawing.Point(276, 16);
+            this.rbChGost.Name = "rbChGost";
+            this.rbChGost.Size = new System.Drawing.Size(259, 20);
+            this.rbChGost.TabIndex = 52;
+            this.rbChGost.TabStop = true;
+            this.rbChGost.Text = "Выбрать самостоятельно из ГОСТа";
+            this.rbChGost.UseVisualStyleBackColor = true;
+            this.rbChGost.CheckedChanged += new System.EventHandler(this.rbChGost_CheckedChanged);
+            // 
+            // rbCalculate
+            // 
+            this.rbCalculate.AutoSize = true;
+            this.rbCalculate.Location = new System.Drawing.Point(32, 16);
+            this.rbCalculate.Name = "rbCalculate";
+            this.rbCalculate.Size = new System.Drawing.Size(166, 20);
+            this.rbCalculate.TabIndex = 51;
+            this.rbCalculate.TabStop = true;
+            this.rbCalculate.Text = "Вычислить оптимало";
+            this.rbCalculate.UseVisualStyleBackColor = true;
+            this.rbCalculate.CheckedChanged += new System.EventHandler(this.rbCalculate_CheckedChanged);
             // 
             // label22
             // 
@@ -585,29 +598,16 @@
             this.label23.TabIndex = 51;
             this.label23.Text = "Ширина досок и зазора (при наличии)";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(248, 598);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(162, 64);
-            this.button1.TabIndex = 52;
-            this.button1.Text = "Материал";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1420, 715);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.btSpecification);
-            this.Controls.Add(this.cbWidthBoards);
             this.Controls.Add(this.label17);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tbNumber);
@@ -654,8 +654,6 @@
         private System.Windows.Forms.TextBox tbLengthBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox cbWidthBoards;
         private System.Windows.Forms.Button butSave;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox tbSave;
@@ -678,7 +676,7 @@
         private System.Windows.Forms.TextBox tbWoodGOST;
         private System.Windows.Forms.Button btChooseGOST;
         public System.Windows.Forms.ComboBox cbFrontBoard;
-        public System.Windows.Forms.ComboBox cbBeltBoard;
+        public System.Windows.Forms.ComboBox cbAroundBoard;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
@@ -687,11 +685,14 @@
         public System.Windows.Forms.ComboBox cbBottomBoards;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rbWrite;
+        private System.Windows.Forms.RadioButton rbChGost;
+        private System.Windows.Forms.RadioButton rbCalculate;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox tbAroundBoard;
+        private System.Windows.Forms.TextBox tbSideBoard;
+        private System.Windows.Forms.TextBox tbBottomBoards;
+        private System.Windows.Forms.TextBox tbFrontBoard;
     }
 }
 

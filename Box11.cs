@@ -865,7 +865,8 @@ namespace WoodenBox
         }
 
         public void СreatingBox11Manually(int x, int y, int z, int heightBoard,
-            string bottomBoards, string sideBoard, string aroundBoard, string frontBoard, string foldername, string marking, int number, string materials, double density)
+            string bottomBoards, string sideBoard, string aroundBoard, string frontBoard, string foldername, 
+            string marking, int number, string materials, double density)
         { //дно, бок, торец, пояс, торец планка
             try
             {

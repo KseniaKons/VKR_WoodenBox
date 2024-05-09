@@ -30,19 +30,7 @@ namespace WoodenBox
  
         Box11 box11 = new Box11();
         Box12 box12 = new Box12();
-
         SpecificationBox specification = new SpecificationBox();
-
-        string savedValue1GOST;
-        string savedValue2GOST;
-        string savedValue3GOST;
-        string savedValue4GOST;
-
-        string savedValue1Manually;
-        string savedValue2Manually;
-        string savedValue3Manually;
-        string savedValue4Manually;
-
 
         public string savedGOSTWood = "ГОСТ 2695-83 Пиломатериалы лиственных пород";
         public string savedWood = "Береза";
@@ -51,23 +39,13 @@ namespace WoodenBox
         public string savedTapeHeight = "0,50";
         public string savedTapeWidth = "20";
 
-        //string savedGOSTWood;
-        //string savedWood;
-        //string savedNails;
-        //string savedTape;
-        //string savedTapeHeight;
-        //string savedTapeWidth;
-
-
         string foldername;
 
         public Form1()
         {
             InitializeComponent();
             cbTypeBox.SelectedIndexChanged += SelectedIndexChangedTypeBox;
-            cbWidthBoards.SelectedIndexChanged += SelectedIndexChangedWidthBoards;
             cbTypeBox.SelectedIndex = 0;
-            cbWidthBoards.SelectedIndex = 0;
             tbSave.Text = "C:\\Users\\Ksenia\\Desktop\\дт";
             foldername = tbSave.Text;
             tbMPST.Text = "МПСТ";
@@ -75,54 +53,13 @@ namespace WoodenBox
 
             tbWoodGOST.Enabled = false;
             tbNailsGOST.Enabled = false;
-            tbTapeGOST.Enabled = false; 
+            tbTapeGOST.Enabled = false;
+
+            rbCalculate.Checked = true;
 
             tbWoodGOST.Text = $"{savedGOSTWood}; {savedWood}";
             tbNailsGOST.Text = savedNails;
             tbTapeGOST.Text = $"{savedTape}; {savedTapeHeight} x {savedTapeWidth}";
-        }
-
-        private void SelectedIndexChangedWidthBoards(object sender, EventArgs e)
-        {
-           if (cbWidthBoards.SelectedIndex == 1)
-           {
-                string selectedValue = "111";
-                WidthBoardBox newForm = new WidthBoardBox();
-                newForm.SetLabelValue(selectedValue);
-
-                newForm.cbBottomBoards.SelectedItem = savedValue1GOST;
-                newForm.cbSideBoard.SelectedItem = savedValue2GOST;
-                newForm.cbBeltBoard.SelectedItem = savedValue3GOST;
-                newForm.cbFrontBoard.SelectedItem = savedValue4GOST;
-
-                newForm.ShowDialog();
-
-                savedValue1GOST = newForm.selectedValue1GOST;
-                savedValue2GOST = newForm.selectedValue2GOST;
-                savedValue3GOST = newForm.selectedValue3GOST;
-                savedValue4GOST = newForm.selectedValue4GOST;
-
-           }
-
-            if (cbWidthBoards.SelectedIndex == 2)
-            {
-                string selectedValue = "111";
-                WidthBoardManually newForm = new WidthBoardManually();
-                newForm.SetLabelValue(selectedValue);
-
-                newForm.tbBottomBoards.Text = savedValue1Manually;
-                newForm.tbSideBoard.Text = savedValue2Manually;
-                newForm.tbBeltBoard.Text = savedValue3Manually;
-                newForm.tbFrontBoard.Text = savedValue4Manually;
-
-                newForm.ShowDialog();
-
-                savedValue1Manually = newForm.selectedValue1Manually;
-                savedValue2Manually = newForm.selectedValue2Manually;
-                savedValue3Manually = newForm.selectedValue3Manually;
-                savedValue4Manually = newForm.selectedValue4Manually;
-
-            }
         }
 
         private void btChooseGOST_Click(object sender, EventArgs e)
@@ -149,8 +86,6 @@ namespace WoodenBox
             tbNailsGOST.Text = savedNails;
             tbTapeGOST.Text = $"{savedTape}; {savedTapeHeight} x {savedTapeWidth}";
             
-
-
         }
 
         private void SelectedIndexChangedTypeBox(object sender, EventArgs e)
@@ -266,26 +201,23 @@ namespace WoodenBox
                 (materials, density) = woodMaterials[savedWood];
             }
 
-
-            int widthBoard = cbWidthBoards.SelectedIndex;
-
             string marking = tbMPST.Text;
             int number = Convert.ToInt32(tbNumber.Text);
 
             if (cbTypeBox.SelectedIndex == 0) //тип I-1
             {
                 
-                if(widthBoard == 0) // вычислить оптимальное
+                if(rbCalculate.Checked) // вычислить оптимальное
                     box11.СreatingBox11(x, y, z, WoodGOST, heightBoard, foldername, marking, number, materials, density);
 
-                if (widthBoard == 1) // вписать вручную
+                if (rbChGost.Checked) // вписать вручную
                     box11.СreatingBox11Manually(x, y, z, heightBoard, 
-                        savedValue1GOST, savedValue2GOST, savedValue3GOST, savedValue4GOST, foldername, 
+                        cbBottomBoards.Text, cbSideBoard.Text, cbAroundBoard.Text, cbFrontBoard.Text, foldername, 
                         marking, number, materials, density);
 
-                if (widthBoard == 2) // вписать вручную
+                if (rbWrite.Checked) // вписать вручную
                     box11.СreatingBox11Manually(x, y, z, heightBoard,
-                        savedValue1Manually, savedValue2Manually, savedValue3Manually, savedValue4Manually, 
+                        tbBottomBoards.Text, tbSideBoard.Text, tbAroundBoard.Text, tbFrontBoard.Text, 
                         foldername, marking, number, materials, density);
 
             }
@@ -294,16 +226,16 @@ namespace WoodenBox
             {
                 int gap = Convert.ToInt32(tbGap.Text); //зазор 
 
-                if (widthBoard == 0)
+                if (rbCalculate.Checked)
                     box12.СreatingBox12(x, y, z, gap, WoodGOST, heightBoard, foldername, marking, number, materials, density);
 
-                if (widthBoard == 1)
-                    box12.СreatingBox12Manually(x, y, z, gap, heightBoard, 
-                        savedValue1GOST, savedValue2GOST, savedValue3GOST, savedValue4GOST, foldername, marking, number, materials, density);
-                
-                if (widthBoard == 2)
+                if (rbChGost.Checked)
                     box12.СreatingBox12Manually(x, y, z, gap, heightBoard,
-                        savedValue1Manually, savedValue2Manually, savedValue3Manually, savedValue4Manually, 
+                        cbBottomBoards.Text, cbSideBoard.Text, cbAroundBoard.Text, cbFrontBoard.Text, foldername, marking, number, materials, density);
+                
+                if (rbWrite.Checked)
+                    box12.СreatingBox12Manually(x, y, z, gap, heightBoard,
+                        tbBottomBoards.Text, tbSideBoard.Text, tbAroundBoard.Text, tbFrontBoard.Text, 
                         foldername, marking, number, materials, density);
             }
         }
@@ -351,39 +283,242 @@ namespace WoodenBox
 
         }
 
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    KompasObject kompas;
+
+        //    try
+        //    {
+        //        kompas = (KompasObject)Marshal.
+        //            GetActiveObject("KOMPAS.Application.5");
+        //    }
+        //    catch
+        //    {
+        //        kompas = (KompasObject)Activator.
+        //            CreateInstance(Type.GetTypeFromProgID("KOMPAS.Application.5"));
+        //    }
+        //    if (kompas == null)
+        //        return;
+
+        //    kompas.Visible = true;
+
+        //    ksDocument3D kompas_document_3D = (ksDocument3D)kompas.ActiveDocument3D();
+        //    ksPart part = kompas_document_3D.GetPart((int)Part_Type.pTop_Part);
+
+        //    ksColorParam kscolor = (ksColorParam)part.ColorParam();
+        //    var u = kscolor.color;
+        //    var t = part.material;
+        //    MessageBox.Show($"Материал   {t}   ");
+        //    part.Update();
 
 
-        private void button1_Click(object sender, EventArgs e)
+        //}
+
+        private void rbCalculate_CheckedChanged(object sender, EventArgs e)
         {
-            KompasObject kompas;
-
-            try
+            if (rbCalculate.Checked)
             {
-                kompas = (KompasObject)Marshal.
-                    GetActiveObject("KOMPAS.Application.5");
+                cbAroundBoard.Enabled = false;
+                cbBottomBoards.Enabled = false;
+                cbFrontBoard.Enabled = false;  
+                cbSideBoard.Enabled = false;
+
+                tbAroundBoard.Enabled = false; 
+                tbBottomBoards.Enabled = false;
+                tbFrontBoard.Enabled = false;   
+                tbSideBoard.Enabled = false;
+
             }
-            catch
-            {
-                kompas = (KompasObject)Activator.
-                    CreateInstance(Type.GetTypeFromProgID("KOMPAS.Application.5"));
-            }
-            if (kompas == null)
-                return;
-
-            kompas.Visible = true;
-
-            ksDocument3D kompas_document_3D = (ksDocument3D)kompas.ActiveDocument3D();
-            ksPart part = kompas_document_3D.GetPart((int)Part_Type.pTop_Part);
-
-            ksColorParam kscolor = (ksColorParam)part.ColorParam();
-            var u = kscolor.color;
-            var t = part.material;
-            MessageBox.Show($"Материал   {t}   ");
-            part.Update();
-
-
         }
 
+        int indexFront = 0;
+        int indexAround = 0;
+        int indexBottom = 0;
+        int indexSide = 0;
 
+        bool leaves = false;
+        bool conifer = false;
+
+
+        private void rbChGost_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbChGost.Checked)
+            {
+                cbAroundBoard.Visible = true;
+                cbBottomBoards.Visible = true;
+                cbFrontBoard.Visible = true;
+                cbSideBoard.Visible = true;
+
+                cbAroundBoard.Enabled = true;
+                cbBottomBoards.Enabled = true;
+                cbFrontBoard.Enabled = true;
+                cbSideBoard.Enabled = true;
+
+                tbAroundBoard.Visible = false;
+                tbBottomBoards.Visible = false;
+                tbFrontBoard.Visible = false;
+                tbSideBoard.Visible = false;
+
+                if (savedGOSTWood == "ГОСТ 2695-83 Пиломатериалы лиственных пород")
+                {
+                    if (leaves == true)
+                    {
+                        indexFront = cbFrontBoard.SelectedIndex;
+                        indexAround = cbAroundBoard.SelectedIndex;
+                        indexSide = cbSideBoard.SelectedIndex;
+                        indexBottom = cbBottomBoards.SelectedIndex;
+                    }
+
+                    if (leaves == false)
+                    {
+                        indexFront = 0;
+                        indexAround = 0;
+                        indexSide = 0;
+                        indexBottom = 0;
+                    }
+
+                    cbFrontBoard.Items.Clear();
+                    cbFrontBoard.Items.Insert(0, "80");
+                    cbFrontBoard.Items.Insert(1, "90");
+                    cbFrontBoard.Items.Insert(2, "100");
+                    cbFrontBoard.Items.Insert(3, "110");
+                    cbFrontBoard.Items.Insert(4, "130");
+                    cbFrontBoard.Items.Insert(5, "150");
+                    cbFrontBoard.Items.Insert(6, "180");
+                    cbFrontBoard.Items.Insert(7, "200");
+                    
+                    cbAroundBoard.Items.Clear();
+                    cbAroundBoard.Items.Insert(0, "80");
+                    cbAroundBoard.Items.Insert(1, "90");
+                    cbAroundBoard.Items.Insert(2, "100");
+                    cbAroundBoard.Items.Insert(3, "110");
+                    cbAroundBoard.Items.Insert(4, "130");
+                    cbAroundBoard.Items.Insert(5, "150");
+                    cbAroundBoard.Items.Insert(6, "180");
+                    cbAroundBoard.Items.Insert(7, "200");
+                    
+                    cbSideBoard.Items.Clear();
+                    cbSideBoard.Items.Insert(0, "80");
+                    cbSideBoard.Items.Insert(1, "90");
+                    cbSideBoard.Items.Insert(2, "100");
+                    cbSideBoard.Items.Insert(3, "110");
+                    cbSideBoard.Items.Insert(4, "130");
+                    cbSideBoard.Items.Insert(5, "150");
+                    cbSideBoard.Items.Insert(6, "180");
+                    cbSideBoard.Items.Insert(7, "200");
+
+                    cbBottomBoards.Items.Clear();
+                    cbBottomBoards.Items.Insert(0, "80");
+                    cbBottomBoards.Items.Insert(1, "90");
+                    cbBottomBoards.Items.Insert(2, "100");
+                    cbBottomBoards.Items.Insert(3, "110");
+                    cbBottomBoards.Items.Insert(4, "130");
+                    cbBottomBoards.Items.Insert(5, "150");
+                    cbBottomBoards.Items.Insert(6, "180");
+                    cbBottomBoards.Items.Insert(7, "200");
+
+
+                    cbFrontBoard.SelectedIndex = indexFront;
+                    cbAroundBoard.SelectedIndex = indexAround;
+                    cbSideBoard.SelectedIndex = indexSide;
+                    cbBottomBoards.SelectedIndex = indexBottom;
+
+                    leaves = true;
+
+                }
+                else if (savedGOSTWood == "ГОСТ 24454-80 Пиломатериалы хвойных пород")
+                {
+
+                    if (conifer == true)
+                    {
+                        indexFront = cbFrontBoard.SelectedIndex;
+                        indexAround = cbAroundBoard.SelectedIndex;
+                        indexSide = cbSideBoard.SelectedIndex;
+                        indexBottom = cbBottomBoards.SelectedIndex;
+                    }
+
+                    if (conifer == false)
+                    {
+                        indexFront = 0;
+                        indexAround = 0;
+                        indexSide = 0;
+                        indexBottom = 0;
+                    }
+
+                    cbFrontBoard.Items.Clear();
+                    cbFrontBoard.Items.Insert(0, "75");
+                    cbFrontBoard.Items.Insert(1, "100");
+                    cbFrontBoard.Items.Insert(2, "125");
+                    cbFrontBoard.Items.Insert(3, "150");
+                    cbFrontBoard.Items.Insert(4, "175");
+                    cbFrontBoard.Items.Insert(5, "200");
+                    cbFrontBoard.Items.Insert(6, "225");
+                    cbFrontBoard.Items.Insert(7, "250");
+                    cbFrontBoard.Items.Insert(8, "275");
+
+                    cbAroundBoard.Items.Clear();
+                    cbAroundBoard.Items.Insert(0, "75");
+                    cbAroundBoard.Items.Insert(1, "100");
+                    cbAroundBoard.Items.Insert(2, "125");
+                    cbAroundBoard.Items.Insert(3, "150");
+                    cbAroundBoard.Items.Insert(4, "175");
+                    cbAroundBoard.Items.Insert(5, "200");
+                    cbAroundBoard.Items.Insert(6, "225");
+                    cbAroundBoard.Items.Insert(7, "250");
+                    cbAroundBoard.Items.Insert(8, "275");
+
+                    cbSideBoard.Items.Clear();
+                    cbSideBoard.Items.Insert(0, "75");
+                    cbSideBoard.Items.Insert(1, "100");
+                    cbSideBoard.Items.Insert(2, "125");
+                    cbSideBoard.Items.Insert(3, "150");
+                    cbSideBoard.Items.Insert(4, "175");
+                    cbSideBoard.Items.Insert(5, "200");
+                    cbSideBoard.Items.Insert(6, "225");
+                    cbSideBoard.Items.Insert(7, "250");
+                    cbSideBoard.Items.Insert(8, "275");
+
+                    cbBottomBoards.Items.Clear();
+                    cbBottomBoards.Items.Insert(0, "75");
+                    cbBottomBoards.Items.Insert(1, "100");
+                    cbBottomBoards.Items.Insert(2, "125");
+                    cbBottomBoards.Items.Insert(3, "150");
+                    cbBottomBoards.Items.Insert(4, "175");
+                    cbBottomBoards.Items.Insert(5, "200");
+                    cbBottomBoards.Items.Insert(6, "225");
+                    cbBottomBoards.Items.Insert(7, "250");
+                    cbBottomBoards.Items.Insert(8, "275");
+
+                    cbFrontBoard.SelectedIndex = indexFront;
+                    cbAroundBoard.SelectedIndex = indexAround;
+                    cbSideBoard.SelectedIndex = indexSide;
+                    cbBottomBoards.SelectedIndex = indexBottom;
+
+                    conifer = true;
+                }
+
+            }
+        }
+
+        private void rbWrite_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbWrite.Checked)
+            {
+                tbAroundBoard.Visible = true;
+                tbBottomBoards.Visible = true;
+                tbFrontBoard.Visible = true;
+                tbSideBoard.Visible = true;
+
+                tbAroundBoard.Enabled = true;
+                tbBottomBoards.Enabled = true;
+                tbFrontBoard.Enabled = true;
+                tbSideBoard.Enabled = true;
+
+                cbAroundBoard.Visible = false;
+                cbBottomBoards.Visible = false;
+                cbFrontBoard.Visible = false;
+                cbSideBoard.Visible = false;
+            }
+        }
     }
 }

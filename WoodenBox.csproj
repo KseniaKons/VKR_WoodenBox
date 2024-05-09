@@ -66,18 +66,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecificationBox.cs" />
-    <Compile Include="WidthBoardBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WidthBoardBox.Designer.cs">
-      <DependentUpon>WidthBoardBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WidthBoardManually.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WidthBoardManually.Designer.cs">
-      <DependentUpon>WidthBoardManually.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="ChooseGOST.resx">
       <DependentUpon>ChooseGOST.cs</DependentUpon>
     </EmbeddedResource>
@@ -94,12 +82,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="WidthBoardBox.resx">
-      <DependentUpon>WidthBoardBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WidthBoardManually.resx">
-      <DependentUpon>WidthBoardManually.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
