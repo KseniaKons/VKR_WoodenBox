@@ -36,10 +36,12 @@ namespace TreeBox
             public string massfront1 { get; set; } //планка торцевого щита - вертикальная
             public string front2 { get; set; } //планка торцевого щита - горизонтальная
             public string massfront2 { get; set; } //планка торцевого щита - горизонтальная
+            public double colNails { get; set; } // количество гвоздей
+            public double lengthTape { get; set; } // длина мет ленты
         }
 
-        public void CreateSpecification(string WoodGOST, string Wood, string NailsGOST, string TapeGOST, string TapeHeight, string TapeWidth, int heightBoard,
-            string marking, int number, string foldername)
+        public void CreateSpecification(string WoodGOST, string Wood, string NailsGOST, string NailsName, double mass1Nail,
+            string TapeGOST, string TapeName, int heightBoard, string marking, int number, string foldername)
         {
             if (!DataSpecificationBox.ValueBox.Any())
             {
@@ -687,27 +689,10 @@ namespace TreeBox
             reference32 = iSpc32.ksSpcObjectEnd();
 
 
-            // // СТАНДАРТНЫЕ ИЗДЕЛИЯ
+            // СТАНДАРТНЫЕ ИЗДЕЛИЯ
 
-
-            // // Гвозди П 2,5х50 ГОСТ 4034-63
-            // //Гвозди К 2,5х50 ГОСТ 4034-63
-
-
-            int indexNails = NailsGOST.IndexOf('-');
-            int indexTape = TapeGOST.IndexOf('-');
-            string Nails = "ГОСТ", Tape = "ГОСТ";
-            
-            if (indexNails >= 0)
-            {
-                Nails = NailsGOST.Substring(0, indexNails + 3);
-            }
-
-            if (indexTape >= 0)
-            {
-                Tape = TapeGOST.Substring(0, indexNails + 3);
-            }
-
+            double massNails = mass1Nail * DataSpecificationBox.ValueBox[0].colNails;
+            massNails = Math.Round(massNails, 2);
 
             ksSpecification iSpc33 = (ksSpecification)documentSpc.GetSpecification();
             iSpc33.ksSpcObjectCreate("", 0, 25, 0, 0, 1);
@@ -724,7 +709,8 @@ namespace TreeBox
             iSpcObjParam33.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference33, iSpcObjParam33, ldefin2d.ALLPARAM);
             iSpc33.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
-            iSpc33.ksSetSpcObjectColumnText(5, 1, 0, "Гвозди П 2, 5х50");
+            iSpc33.ksSetSpcObjectColumnText(5, 1, 0, NailsName);
+            iSpc33.ksSetSpcObjectColumnText(7, 1, 0, $"{massNails} кг") ;
             reference33 = iSpc33.ksSpcObjectEnd();
 
             ksSpecification iSpc34 = (ksSpecification)documentSpc.GetSpecification();
@@ -741,10 +727,11 @@ namespace TreeBox
             iSpcObjParam34.posInc = 2;
             iSpcObjParam34.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference34, iSpcObjParam34, ldefin2d.ALLPARAM);
-            iSpc34.ksSetSpcObjectColumnText(5, 1, 0, Nails);
+            iSpc34.ksSetSpcObjectColumnText(5, 1, 0, NailsGOST);
             reference34 = iSpc34.ksSpcObjectEnd();
 
             //Лента Н — 0.5х30 ГОСТ3560—73
+            //Лента Н-2-2х50 ГОСТ 503
 
             ksSpecification iSpc35 = (ksSpecification)documentSpc.GetSpecification();
             iSpc35.ksSpcObjectCreate("", 0, 25, 0, 0, 1);
@@ -761,7 +748,8 @@ namespace TreeBox
             iSpcObjParam35.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference35, iSpcObjParam35, ldefin2d.ALLPARAM);
             iSpc35.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
-            iSpc35.ksSetSpcObjectColumnText(5, 1, 0, $"Лента Н - {TapeHeight}х{TapeWidth}");
+            iSpc35.ksSetSpcObjectColumnText(5, 1, 0, TapeName);
+            iSpc35.ksSetSpcObjectColumnText(7, 1, 0, $"{DataSpecificationBox.ValueBox[0].lengthTape} м");
             reference35 = iSpc35.ksSpcObjectEnd();
 
             ksSpecification iSpc36 = (ksSpecification)documentSpc.GetSpecification();
@@ -778,7 +766,7 @@ namespace TreeBox
             iSpcObjParam36.posInc = 2;
             iSpcObjParam36.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference36, iSpcObjParam36, ldefin2d.ALLPARAM);
-            iSpc36.ksSetSpcObjectColumnText(5, 1, 0, Tape);
+            iSpc36.ksSetSpcObjectColumnText(5, 1, 0, TapeGOST);
             reference36 = iSpc36.ksSpcObjectEnd();
 
             string save;

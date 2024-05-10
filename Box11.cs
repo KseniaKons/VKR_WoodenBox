@@ -226,6 +226,7 @@ namespace WoodenBox
             save = foldername + "\\" + $"{marking}.{CL}.{numDesignation} {name}" + ".m3d";
 
             ksDoc3d.SaveAs(save);
+            ksDoc3d.close();
 
         }
 
@@ -360,6 +361,12 @@ namespace WoodenBox
                 name_front2, foldername, marking, CL_front, numDesignation, materials, density, false, out massfront2);
             name_front2 = $"{marking}.{CL_front}.{numDesignation} {name_front2}";
 
+            double colNails = 0;
+
+            colNails = (col_fact_bottom * 16 + 16) * 2 + (col_fact_side * 16) * 2 + (col_fact_side * 4 * 4) + 26;
+
+            double lengthTape = col_fact_bottom * w_fact_bottom * 4 +
+                 col_fact_side * w_fact_side * 4 + 100 * 8 + 1000;
 
             DataSpecificationBox.ValueBox.Clear();
             DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
@@ -379,6 +386,9 @@ namespace WoodenBox
                 massaround2 = $"{massaround2}",
                 massfront1 = $"{massfront1}",
                 massfront2 = $"{massfront2}",
+
+                colNails = colNails,
+                lengthTape = Math.Round(lengthTape / 1000, 2),
 
             });
 
@@ -972,6 +982,12 @@ namespace WoodenBox
                 foldername, marking, CL_front, numDesignation, materials, density, false, out massfront2);
             name_front2 = $"{marking}.{CL_front}.{numDesignation} {name_front2}";
 
+            double colNails = 0;
+
+            colNails = (col_bottom * 16 + 16) * 2 + (col_side * 16) * 2 + (col_side * 4 * 4) + 26;
+            double lengthTape = col_bottom * w_bottom * 4 +
+                col_side * w_side * 4 + 100 * 8 + 1000;
+
             DataSpecificationBox.ValueBox.Clear();
             DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
             {
@@ -990,6 +1006,9 @@ namespace WoodenBox
                 massaround2 = $"{massaround2}",
                 massfront1 = $"{massfront1}",
                 massfront2 = $"{massfront2}",
+
+                colNails = colNails,
+                lengthTape = Math.Round(lengthTape / 1000, 2),
 
             }); ;
 

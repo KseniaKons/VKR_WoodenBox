@@ -94,7 +94,7 @@ namespace WoodenBox
             {
                 tbGap.Enabled = false;
                 label6.Enabled = false;
-                tbGap.Text = " 0 ";
+                tbGap.Text = "0";
                 p = new Bitmap(Properties.Resources.I_1);
                 pbImageBox.Image = p;
                 pbImageBox.Invalidate();
@@ -105,7 +105,7 @@ namespace WoodenBox
             {
                 tbGap.Enabled = true;
                 label6.Enabled = true;
-                tbGap.Text = " 10 ";
+                tbGap.Text = "30";
                 p = new Bitmap(Properties.Resources.I_2);
                 pbImageBox.Image = p;
                 pbImageBox.Invalidate();
@@ -145,12 +145,31 @@ namespace WoodenBox
                 int.Parse(tbWidthBox.Text) <= 0 ||
                 int.Parse(tbMassa.Text) <= 0)
             {
-                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Значения должны быть целыми положительными числами!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (cbTypeBox.SelectedIndex == 1 & int.Parse(tbGap.Text) <=0 )
             {
-                MessageBox.Show("Ошибка: значения должны быть целыми положительными числами!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Значения должны быть целыми положительными числами!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (cbTypeBox.SelectedIndex == 1 & int.Parse(tbGap.Text) > 100)
+            {
+                MessageBox.Show("Значения зазора слишком большое!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (int.Parse(tbHeightBox.Text) > 1000 ||
+                int.Parse(tbLengthBox.Text) > 1000 ||
+                int.Parse(tbWidthBox.Text) > 1000)
+            {
+                MessageBox.Show("Габаритные размеры ящика не могут превышать 1000 мм!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (int.Parse(tbHeightBox.Text) < 250 ||
+                int.Parse(tbLengthBox.Text) < 250 ||
+                int.Parse(tbWidthBox.Text) < 250)
+            {
+                MessageBox.Show("Габаритные размеры ящика слишком маленькие (значения меньше 250)!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -254,7 +273,7 @@ namespace WoodenBox
 
         private void Specification_Click(object sender, EventArgs e)
         {
-            string marking = tbMPST.Text;  
+            string marking = tbMPST.Text;
             int number = Convert.ToInt32(tbNumber.Text);
 
             string WoodGOST = "ГОСТ";
@@ -279,8 +298,73 @@ namespace WoodenBox
             if (PackingDensity > 3)
                 heightBoard = 32;
 
-            specification.CreateSpecification(WoodGOST, savedWood, savedNails, savedTape, savedTapeHeight, savedTapeWidth, heightBoard, marking, number, foldername);
+            string nameNails = "Гвозди";
+            string gostNails = "ГОСТ";
+            double massNails = 0;
+            if (savedNails == "ГОСТ 4034-63 Гвозди тарные круглые")
+            {
+                //1000 гвнздей 0,783 кг
+                //1000 гвнздей 1,110 кг
+                //1000 гвнздей 2,290 кг
+                if (heightBoard == 22)
+                { 
+                    nameNails = "Гвозди П 1,8х40";
+                    massNails = 0.000783;
+                }
+                if (heightBoard == 25)
+                { 
+                    nameNails = "Гвозди П 2х45";
+                    massNails = 0.00111;
+                }
 
+                if (heightBoard == 32)
+                { 
+                    nameNails = "Гвозди П 2,5х60";
+                    massNails = 0.00229;
+                }
+                gostNails = "ГОСТ 4034-63";
+            }
+            if (savedNails == "ГОСТ 4029-63 Гвозди толевые круглые")
+            {
+                //1000 гвнздей 1,520 кг
+                nameNails = "Гвозди 2,5х40";
+                massNails = 0.00152;
+                gostNails = "ГОСТ 4029-63";
+            }
+            if (savedNails == "ГОСТ 4028-63 Гвозди строительные")
+            {
+                //1000 гвнздей 0,633 кг
+                //1000 гвнздей 0,791 кг
+                if (heightBoard == 22 || heightBoard == 25)
+                { 
+                    nameNails = "Гвозди П 1,6х40";
+                    massNails = 0.000633;
+                }
+                if (heightBoard == 32)
+                { 
+                    nameNails = "Гвозди П 1,6х50";
+                    massNails = 0.000791;
+                }
+                gostNails = "ГОСТ 4028-63";
+            }
+
+            string nameTape = "Лента";
+            string gostTape = "ГОСТ";
+
+            if (savedTape == "ГОСТ 503-81 Лента из низкоуглеродистой стали")
+            {
+                nameTape = $"Лента Н-{savedTapeHeight}х{savedTapeWidth}";
+                gostTape = "ГОСТ 503-81";
+            }
+
+            if (savedTape == "ГОСТ 3560-73 Лента стальная упаковочная")
+            {
+                nameTape = $"Лента Н-2-{savedTapeHeight}х{savedTapeWidth}";
+                gostTape = "ГОСТ 3560-73";
+            }
+
+            specification.CreateSpecification(WoodGOST, savedWood, gostNails, nameNails, massNails, gostTape, nameTape, 
+                heightBoard, marking, number, foldername);
         }
 
         //private void button1_Click(object sender, EventArgs e)
