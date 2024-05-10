@@ -10,47 +10,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
-namespace TreeBox
+namespace WoodenBox
 {
     internal class SpecificationBox
     {
         private KompasObject kompas; 
 
-        public static class DataSpecificationBox
-        {
-            public static List<ValueSpecificationBox> ValueBox = new List<ValueSpecificationBox>();
-        }
-        public class ValueSpecificationBox
-        {
-            public string cap { get; set; } //крышка
-            public string masscap { get; set; } //крышка
-            public string before { get; set; } //торцевой щит
-            public string massbefore { get; set; } //торцевой щит
-            public string side { get; set; } //боковой щит
-            public string massside { get; set; } //боковой щит
-            public string around1 { get; set; } //планка пояса - верхняя
-            public string massaround1 { get; set; } //планка пояса - верхняя
-            public string around2 { get; set; } //планка пояса - боковая
-            public string massaround2 { get; set; } //планка пояса - боковая
-            public string front1 { get; set; } //планка торцевого щита - вертикальная
-            public string massfront1 { get; set; } //планка торцевого щита - вертикальная
-            public string front2 { get; set; } //планка торцевого щита - горизонтальная
-            public string massfront2 { get; set; } //планка торцевого щита - горизонтальная
-            public double colNails { get; set; } // количество гвоздей
-            public double lengthTape { get; set; } // длина мет ленты
-        }
-
+        
         public void CreateSpecification(string WoodGOST, string Wood, string NailsGOST, string NailsName, double mass1Nail,
             string TapeGOST, string TapeName, int heightBoard, string marking, int number, string foldername)
-        {
-            if (!DataSpecificationBox.ValueBox.Any())
-            {
-                MessageBox.Show("Ошибка: Ящик для спецификации не был построен!", 
-                    "Ошибка создания спецификации!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            
-            
+        {          
             try
             {
                 kompas = (KompasObject)Marshal.
@@ -130,7 +99,7 @@ namespace TreeBox
             iSpc1.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_cap}.{numDesignation}");
             iSpc1.ksSetSpcObjectColumnText(5, 1, 0, "Крышка");
             iSpc1.ksSetSpcObjectColumnText(6, 1, 0, "2");
-            iSpc1.ksSetSpcObjectColumnText(7, 1, 0, $"{DataSpecificationBox.ValueBox[0].masscap} кг");
+            iSpc1.ksSetSpcObjectColumnText(7, 1, 0, $"{InformationAboutBox.ValueBox[0].masscap} кг");
             reference1 = iSpc1.ksSpcObjectEnd();
 
             ksSpecification iSpc2 = (ksSpecification)documentSpc.GetSpecification();
@@ -181,7 +150,7 @@ namespace TreeBox
             iSpcObjParam4.posInc = 2;
             iSpcObjParam4.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference4, iSpcObjParam4, ldefin2d.ALLPARAM);
-            iSpc4.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].cap);
+            iSpc4.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].cap);
             reference4 = iSpc4.ksSpcObjectEnd();
 
             count++;
@@ -214,7 +183,7 @@ namespace TreeBox
             iSpc9.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_before}.{numDesignation}");
             iSpc9.ksSetSpcObjectColumnText(5, 1, 0, "Торцевой щит");
             iSpc9.ksSetSpcObjectColumnText(6, 1, 0, "2");
-            iSpc9.ksSetSpcObjectColumnText(7, 1, 0, $"{DataSpecificationBox.ValueBox[0].massbefore} кг");
+            iSpc9.ksSetSpcObjectColumnText(7, 1, 0, $"{InformationAboutBox.ValueBox[0].massbefore} кг");
             reference9 = iSpc9.ksSpcObjectEnd();
             count++;
             number++;
@@ -267,7 +236,7 @@ namespace TreeBox
             iSpcObjParam12.posInc = 2;
             iSpcObjParam12.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference12, iSpcObjParam12, ldefin2d.ALLPARAM);
-            iSpc12.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].before);
+            iSpc12.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].before);
             reference12 = iSpc12.ksSpcObjectEnd();
 
             // 3 секция           
@@ -297,7 +266,7 @@ namespace TreeBox
             iSpc13.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_side}.{numDesignation}");
             iSpc13.ksSetSpcObjectColumnText(5, 1, 0, "Боковой щит");
             iSpc13.ksSetSpcObjectColumnText(6, 1, 0, "2");
-            iSpc13.ksSetSpcObjectColumnText(7, 1, 0, $"{DataSpecificationBox.ValueBox[0].massside} кг");
+            iSpc13.ksSetSpcObjectColumnText(7, 1, 0, $"{InformationAboutBox.ValueBox[0].massside} кг");
             reference13 = iSpc13.ksSpcObjectEnd();
             count++;
             number++;
@@ -350,7 +319,7 @@ namespace TreeBox
             iSpcObjParam16.posInc = 2;
             iSpcObjParam16.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference16, iSpcObjParam16, ldefin2d.ALLPARAM);
-            iSpc16.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].side);
+            iSpc16.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].side);
             reference16 = iSpc16.ksSpcObjectEnd();
 
 
@@ -381,7 +350,7 @@ namespace TreeBox
             iSpc17.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_around}.{numDesignation}");
             iSpc17.ksSetSpcObjectColumnText(5, 1, 0, "Планка пояса");
             iSpc17.ksSetSpcObjectColumnText(6, 1, 0, "4");
-            iSpc17.ksSetSpcObjectColumnText(7, 1, 0, $"{DataSpecificationBox.ValueBox[0].massaround1} кг");
+            iSpc17.ksSetSpcObjectColumnText(7, 1, 0, $"{InformationAboutBox.ValueBox[0].massaround1} кг");
             reference17 = iSpc17.ksSpcObjectEnd();
             count++;
             number++;
@@ -434,7 +403,7 @@ namespace TreeBox
             iSpcObjParam20.posInc = 2;
             iSpcObjParam20.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference20, iSpcObjParam20, ldefin2d.ALLPARAM);
-            iSpc20.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].around1);
+            iSpc20.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].around1);
             reference20 = iSpc20.ksSpcObjectEnd();
 
 
@@ -465,7 +434,7 @@ namespace TreeBox
             iSpc21.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_around}.{numDesignation}");
             iSpc21.ksSetSpcObjectColumnText(5, 1, 0, "Планка пояса");
             iSpc21.ksSetSpcObjectColumnText(6, 1, 0, "4");
-            iSpc21.ksSetSpcObjectColumnText(7, 1, 0, $"{DataSpecificationBox.ValueBox[0].massaround2} кг");
+            iSpc21.ksSetSpcObjectColumnText(7, 1, 0, $"{InformationAboutBox.ValueBox[0].massaround2} кг");
             reference21 = iSpc21.ksSpcObjectEnd();
             count++;
             number++;
@@ -518,7 +487,7 @@ namespace TreeBox
             iSpcObjParam24.posInc = 2;
             iSpcObjParam24.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference24, iSpcObjParam24, ldefin2d.ALLPARAM);
-            iSpc24.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].around2);
+            iSpc24.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].around2);
             reference24 = iSpc24.ksSpcObjectEnd();
 
 
@@ -549,7 +518,7 @@ namespace TreeBox
             iSpc25.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_front}.{numDesignation}");
             iSpc25.ksSetSpcObjectColumnText(5, 1, 0, "Планка торцевого щита");
             iSpc25.ksSetSpcObjectColumnText(6, 1, 0, "4");
-            iSpc25.ksSetSpcObjectColumnText(7, 1, 0, $"{DataSpecificationBox.ValueBox[0].massfront1} кг");
+            iSpc25.ksSetSpcObjectColumnText(7, 1, 0, $"{InformationAboutBox.ValueBox[0].massfront1} кг");
             reference25 = iSpc25.ksSpcObjectEnd();
             count++;
             number++;
@@ -602,7 +571,7 @@ namespace TreeBox
             iSpcObjParam28.posInc = 2;
             iSpcObjParam28.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference28, iSpcObjParam28, ldefin2d.ALLPARAM);
-            iSpc28.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].front1);
+            iSpc28.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].front1);
             reference28 = iSpc28.ksSpcObjectEnd();
 
             //7 секция - планка пояса - горизонтальная
@@ -632,7 +601,7 @@ namespace TreeBox
             iSpc29.ksSetSpcObjectColumnText(4, 1, 0, $"{marking}.{CL_front}.{numDesignation}");
             iSpc29.ksSetSpcObjectColumnText(5, 1, 0, "Планка торцевого щита");
             iSpc29.ksSetSpcObjectColumnText(6, 1, 0, "4");
-            iSpc29.ksSetSpcObjectColumnText(7, 1, 0, $"{DataSpecificationBox.ValueBox[0].massfront2} кг");
+            iSpc29.ksSetSpcObjectColumnText(7, 1, 0, $"{InformationAboutBox.ValueBox[0].massfront2} кг");
             reference29 = iSpc29.ksSpcObjectEnd();
             count++;
             number++;
@@ -685,13 +654,13 @@ namespace TreeBox
             iSpcObjParam32.posInc = 2;
             iSpcObjParam32.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference32, iSpcObjParam32, ldefin2d.ALLPARAM);
-            iSpc32.ksSetSpcObjectColumnText(5, 1, 0, DataSpecificationBox.ValueBox[0].front2);
+            iSpc32.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].front2);
             reference32 = iSpc32.ksSpcObjectEnd();
 
 
             // СТАНДАРТНЫЕ ИЗДЕЛИЯ
 
-            double massNails = mass1Nail * DataSpecificationBox.ValueBox[0].colNails;
+            double massNails = mass1Nail * InformationAboutBox.ValueBox[0].colNails;
             massNails = Math.Round(massNails, 2);
 
             ksSpecification iSpc33 = (ksSpecification)documentSpc.GetSpecification();
@@ -749,7 +718,7 @@ namespace TreeBox
             documentSpc.ksSetObjParam(reference35, iSpcObjParam35, ldefin2d.ALLPARAM);
             iSpc35.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
             iSpc35.ksSetSpcObjectColumnText(5, 1, 0, TapeName);
-            iSpc35.ksSetSpcObjectColumnText(7, 1, 0, $"{DataSpecificationBox.ValueBox[0].lengthTape} м");
+            iSpc35.ksSetSpcObjectColumnText(7, 1, 0, $"{InformationAboutBox.ValueBox[0].lengthTape} м");
             reference35 = iSpc35.ksSpcObjectEnd();
 
             ksSpecification iSpc36 = (ksSpecification)documentSpc.GetSpecification();

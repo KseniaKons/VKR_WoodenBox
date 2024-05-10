@@ -16,8 +16,9 @@ using Kompas6Constants3D;
 using KAPITypes;
 using KompasAPI7;
 using System.Runtime.InteropServices;
-using TreeBox;
+using WoodenBox;
 using System.Xml.Linq;
+using static WoodenBox.SpecificationBox;
 
 
 
@@ -140,6 +141,12 @@ namespace WoodenBox
                 return;
             }
 
+            if (!int.TryParse(tbNumber.Text, out int result5))
+            {
+                MessageBox.Show("Некорректное значение нумерации в обозначении!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (int.Parse(tbHeightBox.Text) <= 0 ||
                 int.Parse(tbLengthBox.Text) <= 0 ||
                 int.Parse(tbWidthBox.Text) <= 0 ||
@@ -155,21 +162,67 @@ namespace WoodenBox
             }
             if (cbTypeBox.SelectedIndex == 1 & int.Parse(tbGap.Text) > 100)
             {
-                MessageBox.Show("Значения зазора слишком большое!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Значение зазора слишком большое!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (int.Parse(tbHeightBox.Text) > 1000 ||
                 int.Parse(tbLengthBox.Text) > 1000 ||
                 int.Parse(tbWidthBox.Text) > 1000)
             {
-                MessageBox.Show("Габаритные размеры ящика не могут превышать 1000 мм!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Некорректное значение габаритных размеров ящика (значение больше 1000)!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (int.Parse(tbHeightBox.Text) < 250 ||
                 int.Parse(tbLengthBox.Text) < 250 ||
                 int.Parse(tbWidthBox.Text) < 250)
             {
-                MessageBox.Show("Габаритные размеры ящика слишком маленькие (значения меньше 250)!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Некорректное значение габаритных размеров ящика (значение меньше 250)!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (int.Parse(tbMassa.Text) > 1000 || int.Parse(tbMassa.Text) < 200)
+            {
+                MessageBox.Show("Некоректное значение массы груза (от 200 до 1000 кг)!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (rbWrite.Checked && 
+                (tbBottomBoards.Text == String.Empty ||
+                tbAroundBoard.Text == String.Empty ||
+                tbFrontBoard.Text == String.Empty ||
+                tbSideBoard.Text == String.Empty ||
+                tbBottomBoards.Text == String.Empty ||
+                tbAroundBoard.Text == String.Empty ||
+                tbFrontBoard.Text == String.Empty ||
+                tbSideBoard.Text == String.Empty))
+            {
+                MessageBox.Show("Поля не могут быть пустыми!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }           
+
+            if (rbWrite.Checked && 
+                (!int.TryParse(tbBottomBoards.Text, out int result10) ||
+                !int.TryParse(tbAroundBoard.Text, out int result11) ||
+                !int.TryParse(tbFrontBoard.Text, out int result12) ||
+                !int.TryParse(tbSideBoard.Text, out int result13) ||
+                !int.TryParse(tbBottomBoards.Text, out int result14) ||
+                !int.TryParse(tbAroundBoard.Text, out int result15) ||
+                !int.TryParse(tbFrontBoard.Text, out int result16) ||
+                !int.TryParse(tbSideBoard.Text, out int result17)))
+            {
+                MessageBox.Show("Некорректные значения ширины досок (от 50 до 300)!!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (rbWrite.Checked && (int.Parse(tbBottomBoards.Text) < 50 ||
+                int.Parse(tbAroundBoard.Text) < 50 ||
+                int.Parse(tbFrontBoard.Text) < 50 ||
+                int.Parse(tbSideBoard.Text) < 50 ||
+                int.Parse(tbBottomBoards.Text) > 300 ||
+                int.Parse(tbAroundBoard.Text) > 300 ||
+                int.Parse(tbFrontBoard.Text) > 300 ||
+                int.Parse(tbSideBoard.Text) > 300))
+            {
+                MessageBox.Show("Некорректные значения ширины досок (от 50 до 300)!!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -194,6 +247,14 @@ namespace WoodenBox
                 WoodGOST = 0;
             else if (savedGOSTWood == "ГОСТ 24454-80 Пиломатериалы хвойных пород")
                 WoodGOST = 1;
+
+            InformationAboutBox.WoodBoxForReport.Clear();
+            InformationAboutBox.WoodBoxForReport.Add(new WoodBoxForReport
+            {
+                Wood = savedWood,
+                WoodGOST = savedGOSTWood,
+            });
+
 
             string materials = string.Empty;
             double density = 0;
@@ -273,6 +334,14 @@ namespace WoodenBox
 
         private void Specification_Click(object sender, EventArgs e)
         {
+
+            if (!InformationAboutBox.ValueBox.Any())
+            {
+                MessageBox.Show("Ящик не был построен!",
+                    "Ошибка создания спецификации!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string marking = tbMPST.Text;
             int number = Convert.ToInt32(tbNumber.Text);
 
@@ -365,6 +434,20 @@ namespace WoodenBox
 
             specification.CreateSpecification(WoodGOST, savedWood, gostNails, nameNails, massNails, gostTape, nameTape, 
                 heightBoard, marking, number, foldername);
+        }
+
+        private void btReportBox_Click(object sender, EventArgs e)
+        {
+            if (!InformationAboutBox.ValueBox.Any())
+            {
+                MessageBox.Show("Ящик не был построен!",
+                    "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ReportBox report = new ReportBox();
+            report.ShowDialog();
+
         }
 
         //private void button1_Click(object sender, EventArgs e)
@@ -604,5 +687,7 @@ namespace WoodenBox
                 cbSideBoard.Visible = false;
             }
         }
+
+       
     }
 }

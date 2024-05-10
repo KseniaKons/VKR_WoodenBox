@@ -41,6 +41,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbLengthBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.butSave = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -82,6 +83,7 @@
             this.rbCalculate = new System.Windows.Forms.RadioButton();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.btReportBox = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).BeginInit();
             this.panel2.SuspendLayout();
@@ -91,7 +93,7 @@
             // btBuild
             // 
             this.btBuild.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btBuild.Location = new System.Drawing.Point(972, 528);
+            this.btBuild.Location = new System.Drawing.Point(669, 527);
             this.btBuild.Name = "btBuild";
             this.btBuild.Size = new System.Drawing.Size(180, 55);
             this.btBuild.TabIndex = 2;
@@ -101,16 +103,16 @@
             // 
             // tbMassa
             // 
-            this.tbMassa.Location = new System.Drawing.Point(18, 225);
+            this.tbMassa.Location = new System.Drawing.Point(22, 225);
             this.tbMassa.Name = "tbMassa";
-            this.tbMassa.Size = new System.Drawing.Size(360, 22);
+            this.tbMassa.Size = new System.Drawing.Size(256, 22);
             this.tbMassa.TabIndex = 11;
-            this.tbMassa.Text = "150";
+            this.tbMassa.Text = "250";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 206);
+            this.label5.Location = new System.Drawing.Point(19, 206);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(222, 16);
             this.label5.TabIndex = 10;
@@ -119,7 +121,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(647, 50);
+            this.label6.Location = new System.Drawing.Point(577, 50);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(133, 16);
             this.label6.TabIndex = 13;
@@ -151,7 +153,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 27);
+            this.label1.Location = new System.Drawing.Point(19, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 16);
             this.label1.TabIndex = 5;
@@ -159,16 +161,16 @@
             // 
             // tbHeightBox
             // 
-            this.tbHeightBox.Location = new System.Drawing.Point(18, 46);
+            this.tbHeightBox.Location = new System.Drawing.Point(22, 46);
             this.tbHeightBox.Name = "tbHeightBox";
-            this.tbHeightBox.Size = new System.Drawing.Size(360, 22);
+            this.tbHeightBox.Size = new System.Drawing.Size(256, 22);
             this.tbHeightBox.TabIndex = 7;
             this.tbHeightBox.Text = "400";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 86);
+            this.label2.Location = new System.Drawing.Point(19, 86);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 16);
             this.label2.TabIndex = 8;
@@ -176,16 +178,16 @@
             // 
             // tbWidthBox
             // 
-            this.tbWidthBox.Location = new System.Drawing.Point(18, 105);
+            this.tbWidthBox.Location = new System.Drawing.Point(22, 105);
             this.tbWidthBox.Name = "tbWidthBox";
-            this.tbWidthBox.Size = new System.Drawing.Size(360, 22);
+            this.tbWidthBox.Size = new System.Drawing.Size(256, 22);
             this.tbWidthBox.TabIndex = 9;
             this.tbWidthBox.Text = "500";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 144);
+            this.label3.Location = new System.Drawing.Point(19, 144);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 16);
             this.label3.TabIndex = 8;
@@ -193,15 +195,16 @@
             // 
             // tbLengthBox
             // 
-            this.tbLengthBox.Location = new System.Drawing.Point(18, 163);
+            this.tbLengthBox.Location = new System.Drawing.Point(22, 163);
             this.tbLengthBox.Name = "tbLengthBox";
-            this.tbLengthBox.Size = new System.Drawing.Size(360, 22);
+            this.tbLengthBox.Size = new System.Drawing.Size(256, 22);
             this.tbLengthBox.TabIndex = 9;
             this.tbLengthBox.Text = "1000";
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.tbWidthBox);
             this.panel1.Controls.Add(this.tbLengthBox);
             this.panel1.Controls.Add(this.label1);
@@ -212,17 +215,26 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Location = new System.Drawing.Point(428, 32);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(399, 269);
+            this.panel1.Size = new System.Drawing.Size(304, 269);
             this.panel1.TabIndex = 17;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 2);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(101, 16);
+            this.label4.TabIndex = 53;
+            this.label4.Text = " и масса груза";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(444, 23);
+            this.label8.Location = new System.Drawing.Point(444, 19);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(324, 16);
+            this.label8.Size = new System.Drawing.Size(229, 16);
             this.label8.TabIndex = 10;
-            this.label8.Text = "Внутренние габаритные размеры и масса ящика";
+            this.label8.Text = "Внутренние габаритные размеры";
             // 
             // butSave
             // 
@@ -307,7 +319,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(870, 23);
+            this.label13.Location = new System.Drawing.Point(768, 23);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(82, 16);
             this.label13.TabIndex = 28;
@@ -323,7 +335,7 @@
             this.panel2.Controls.Add(this.label15);
             this.panel2.Controls.Add(this.label16);
             this.panel2.Controls.Add(this.tbWoodGOST);
-            this.panel2.Location = new System.Drawing.Point(854, 32);
+            this.panel2.Location = new System.Drawing.Point(752, 32);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(500, 269);
             this.panel2.TabIndex = 29;
@@ -389,7 +401,7 @@
             // 
             // tbGap
             // 
-            this.tbGap.Location = new System.Drawing.Point(650, 71);
+            this.tbGap.Location = new System.Drawing.Point(580, 71);
             this.tbGap.Name = "tbGap";
             this.tbGap.Size = new System.Drawing.Size(212, 22);
             this.tbGap.TabIndex = 32;
@@ -406,7 +418,7 @@
             // btSpecification
             // 
             this.btSpecification.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btSpecification.Location = new System.Drawing.Point(1174, 528);
+            this.btSpecification.Location = new System.Drawing.Point(871, 527);
             this.btSpecification.Name = "btSpecification";
             this.btSpecification.Size = new System.Drawing.Size(180, 55);
             this.btSpecification.TabIndex = 32;
@@ -419,7 +431,7 @@
             this.cbFrontBoard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFrontBoard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbFrontBoard.FormattingEnabled = true;
-            this.cbFrontBoard.Location = new System.Drawing.Point(349, 135);
+            this.cbFrontBoard.Location = new System.Drawing.Point(302, 134);
             this.cbFrontBoard.Name = "cbFrontBoard";
             this.cbFrontBoard.Size = new System.Drawing.Size(212, 24);
             this.cbFrontBoard.TabIndex = 49;
@@ -429,7 +441,7 @@
             this.cbAroundBoard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAroundBoard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbAroundBoard.FormattingEnabled = true;
-            this.cbAroundBoard.Location = new System.Drawing.Point(350, 73);
+            this.cbAroundBoard.Location = new System.Drawing.Point(303, 72);
             this.cbAroundBoard.Name = "cbAroundBoard";
             this.cbAroundBoard.Size = new System.Drawing.Size(211, 24);
             this.cbAroundBoard.TabIndex = 48;
@@ -437,7 +449,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(346, 115);
+            this.label18.Location = new System.Drawing.Point(299, 114);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(239, 16);
             this.label18.TabIndex = 47;
@@ -446,7 +458,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(346, 54);
+            this.label19.Location = new System.Drawing.Point(299, 53);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(173, 16);
             this.label19.TabIndex = 46;
@@ -455,7 +467,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(52, 104);
+            this.label20.Location = new System.Drawing.Point(29, 102);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(174, 16);
             this.label20.TabIndex = 45;
@@ -466,7 +478,7 @@
             this.cbSideBoard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSideBoard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbSideBoard.FormattingEnabled = true;
-            this.cbSideBoard.Location = new System.Drawing.Point(55, 138);
+            this.cbSideBoard.Location = new System.Drawing.Point(32, 136);
             this.cbSideBoard.Name = "cbSideBoard";
             this.cbSideBoard.Size = new System.Drawing.Size(209, 24);
             this.cbSideBoard.TabIndex = 44;
@@ -474,7 +486,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(52, 54);
+            this.label21.Location = new System.Drawing.Point(29, 52);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(212, 16);
             this.label21.TabIndex = 43;
@@ -485,7 +497,7 @@
             this.cbBottomBoards.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBottomBoards.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbBottomBoards.FormattingEnabled = true;
-            this.cbBottomBoards.Location = new System.Drawing.Point(55, 73);
+            this.cbBottomBoards.Location = new System.Drawing.Point(32, 71);
             this.cbBottomBoards.Name = "cbBottomBoards";
             this.cbBottomBoards.Size = new System.Drawing.Size(209, 24);
             this.cbBottomBoards.TabIndex = 42;
@@ -513,33 +525,33 @@
             this.panel3.Controls.Add(this.label6);
             this.panel3.Location = new System.Drawing.Point(428, 322);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(926, 183);
+            this.panel3.Size = new System.Drawing.Size(824, 183);
             this.panel3.TabIndex = 50;
             // 
             // tbFrontBoard
             // 
-            this.tbFrontBoard.Location = new System.Drawing.Point(350, 136);
+            this.tbFrontBoard.Location = new System.Drawing.Point(303, 135);
             this.tbFrontBoard.Name = "tbFrontBoard";
             this.tbFrontBoard.Size = new System.Drawing.Size(211, 22);
             this.tbFrontBoard.TabIndex = 57;
             // 
             // tbAroundBoard
             // 
-            this.tbAroundBoard.Location = new System.Drawing.Point(350, 74);
+            this.tbAroundBoard.Location = new System.Drawing.Point(303, 73);
             this.tbAroundBoard.Name = "tbAroundBoard";
             this.tbAroundBoard.Size = new System.Drawing.Size(211, 22);
             this.tbAroundBoard.TabIndex = 56;
             // 
             // tbSideBoard
             // 
-            this.tbSideBoard.Location = new System.Drawing.Point(55, 139);
+            this.tbSideBoard.Location = new System.Drawing.Point(32, 137);
             this.tbSideBoard.Name = "tbSideBoard";
             this.tbSideBoard.Size = new System.Drawing.Size(209, 22);
             this.tbSideBoard.TabIndex = 55;
             // 
             // tbBottomBoards
             // 
-            this.tbBottomBoards.Location = new System.Drawing.Point(55, 74);
+            this.tbBottomBoards.Location = new System.Drawing.Point(32, 72);
             this.tbBottomBoards.Name = "tbBottomBoards";
             this.tbBottomBoards.Size = new System.Drawing.Size(209, 22);
             this.tbBottomBoards.TabIndex = 54;
@@ -583,7 +595,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(52, 120);
+            this.label22.Location = new System.Drawing.Point(29, 118);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(135, 16);
             this.label22.TabIndex = 50;
@@ -598,12 +610,24 @@
             this.label23.TabIndex = 51;
             this.label23.Text = "Ширина досок и зазора (при наличии)";
             // 
+            // btReportBox
+            // 
+            this.btReportBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btReportBox.Location = new System.Drawing.Point(1072, 527);
+            this.btReportBox.Name = "btReportBox";
+            this.btReportBox.Size = new System.Drawing.Size(180, 55);
+            this.btReportBox.TabIndex = 52;
+            this.btReportBox.Text = "Отчет о построении";
+            this.btReportBox.UseVisualStyleBackColor = false;
+            this.btReportBox.Click += new System.EventHandler(this.btReportBox_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1379, 600);
+            this.ClientSize = new System.Drawing.Size(1268, 594);
+            this.Controls.Add(this.btReportBox);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.btSpecification);
@@ -624,6 +648,8 @@
             this.Controls.Add(this.cbTypeBox);
             this.Controls.Add(this.pbImageBox);
             this.Controls.Add(this.btBuild);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "ГОСТ 10198.91 Ящики деревянные для грузов массой св. 200 до 20000 кг";
             this.panel1.ResumeLayout(false);
@@ -693,6 +719,8 @@
         private System.Windows.Forms.TextBox tbSideBoard;
         private System.Windows.Forms.TextBox tbBottomBoards;
         private System.Windows.Forms.TextBox tbFrontBoard;
+        private System.Windows.Forms.Button btReportBox;
+        private System.Windows.Forms.Label label4;
     }
 }
 

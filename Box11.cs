@@ -13,7 +13,7 @@ using Kompas6API5;
 using Kompas6Constants;
 using Kompas6Constants3D;
 using KompasAPI7;
-using static TreeBox.SpecificationBox;
+using static WoodenBox.SpecificationBox;
 
 namespace WoodenBox
 {
@@ -368,9 +368,10 @@ namespace WoodenBox
             double lengthTape = col_fact_bottom * w_fact_bottom * 4 +
                  col_fact_side * w_fact_side * 4 + 100 * 8 + 1000;
 
-            DataSpecificationBox.ValueBox.Clear();
-            DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
+            InformationAboutBox.ValueBox.Clear();
+            InformationAboutBox.ValueBox.Add(new ValueBox
             {
+                TypeBox = 1,
                 cap = $"{w_fact_bottom*col_fact_bottom}x{y + 4 * heightBoard}", //крышка
                 before = $"{w_fact_side*col_fact_side}x{lenghtBT}", //торцевой щит
                 side = $"{w_fact_side*col_fact_side}x{y + 4 * heightBoard}", //боковой щит
@@ -390,6 +391,22 @@ namespace WoodenBox
                 colNails = colNails,
                 lengthTape = Math.Round(lengthTape / 1000, 2),
 
+                
+
+            });
+
+            InformationAboutBox.ValueBoxForReport.Clear();
+            InformationAboutBox.ValueBoxForReport.Add(new ValueBoxForReport
+            {
+                col_cap = col_fact_bottom,
+                col_side = col_fact_side,
+
+                w_cap = w_fact_bottom,
+                w_side = w_fact_side,
+
+                lenghtBox = y + 4 * heightBoard,
+
+                heightBoard = heightBoard,
             });
 
             //////////////СБОРКА
@@ -855,7 +872,7 @@ namespace WoodenBox
 
             ksDoc3d1.SaveAs(save);
 
-            
+            MessageBox.Show("Построение выполнено", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
         }
@@ -988,9 +1005,10 @@ namespace WoodenBox
             double lengthTape = col_bottom * w_bottom * 4 +
                 col_side * w_side * 4 + 100 * 8 + 1000;
 
-            DataSpecificationBox.ValueBox.Clear();
-            DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
+            InformationAboutBox.ValueBox.Clear();
+            InformationAboutBox.ValueBox.Add(new ValueBox
             {
+                TypeBox = 1,
                 cap = $"{w_bottom*col_bottom}x{y + 4 * heightBoard}", //крышка
                 before = $"{w_side*col_side}x{lenghtBT}", //торцевой щит
                 side = $"{w_side*col_side}x{y + 4 * heightBoard}", //боковой щит
@@ -1010,7 +1028,21 @@ namespace WoodenBox
                 colNails = colNails,
                 lengthTape = Math.Round(lengthTape / 1000, 2),
 
-            }); ;
+            });
+
+            InformationAboutBox.ValueBoxForReport.Clear();
+            InformationAboutBox.ValueBoxForReport.Add(new ValueBoxForReport
+            {
+                col_cap = col_bottom,
+                col_side = col_side,
+
+                w_cap = w_bottom,
+                w_side = w_side,
+
+                lenghtBox = y + 4 * heightBoard,
+
+                heightBoard = heightBoard,
+            });
 
 
             ////////////////СБОРКА
@@ -1471,6 +1503,8 @@ namespace WoodenBox
             save = foldername + "\\" + $"{marking}.321169.000 Ящик деревянный I-1" + ".a3d";
 
             ksDoc3d1.SaveAs(save);
+
+            MessageBox.Show("Построение выполнено", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 

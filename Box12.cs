@@ -9,7 +9,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using static TreeBox.SpecificationBox;
+using System.Windows.Forms;
+using static WoodenBox.SpecificationBox;
 
 namespace WoodenBox
 {
@@ -366,9 +367,11 @@ namespace WoodenBox
                 (col_fact_side * w_fact_side + gap * (col_fact_side - 1)) * 4 + 100 * 8 + 1000;
                 
 
-            DataSpecificationBox.ValueBox.Clear();
-            DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
+            InformationAboutBox.ValueBox.Clear();
+            InformationAboutBox.ValueBox.Add(new ValueBox
             {
+                TypeBox = 2,
+
                 cap = $"{w_fact_bottom*col_fact_bottom}x{y + 4 * heightBoard}", //крышка
                 before = $"{w_fact_side * col_fact_side}x{lenghtBT}", //торцевой щит
                 side = $"{w_fact_side*col_fact_side}x{y + 4 * heightBoard}", //боковой щит
@@ -389,7 +392,24 @@ namespace WoodenBox
                 colNails = colNails,
                 lengthTape = Math.Round(lengthTape/1000, 2),
 
-            }); 
+            });
+
+
+            InformationAboutBox.ValueBoxForReport.Clear();
+            InformationAboutBox.ValueBoxForReport.Add(new ValueBoxForReport
+            {
+                col_cap = col_fact_bottom,
+                col_side = col_fact_side,
+
+                w_cap = w_fact_bottom,
+                w_side = w_fact_side,
+
+                lenghtBox = y + 4 * heightBoard,
+
+                heightBoard = heightBoard,
+
+                gap = gap,
+            });
 
 
             ////////////////СБОРКА
@@ -855,6 +875,8 @@ namespace WoodenBox
 
             ksDoc3d1.SaveAs(save);
 
+            MessageBox.Show("Построение выполнено", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
 
@@ -985,12 +1007,13 @@ namespace WoodenBox
             double lengthTape = (col_bottom * w_bottom + gap * (col_bottom - 1)) * 4 +
                 (col_side * w_side + gap * (col_side - 1)) * 4 + 100 * 8 + 1000;
 
-            DataSpecificationBox.ValueBox.Clear();
-            DataSpecificationBox.ValueBox.Add(new ValueSpecificationBox
+            InformationAboutBox.ValueBox.Clear();
+            InformationAboutBox.ValueBox.Add(new ValueBox
             {
-                cap = $"{w_bottom*col_bottom}x{y + 4 * heightBoard}", //крышка
+                TypeBox = 2,
+                cap = $"{w_bottom * col_bottom}x{y + 4 * heightBoard}", //крышка
                 before = $"{w_side * col_side}x{lenghtBT}", //торцевой щит
-                side = $"{w_side*col_side}x{y + 4 * heightBoard}", //боковой щит
+                side = $"{w_side * col_side}x{y + 4 * heightBoard}", //боковой щит
 
                 around1 = $"{w_bottom}x{w_bottom * col_bottom + gap * (col_bottom - 1)}", //Планка пояса 
                 around2 = $"{heightBoard}x{w_bottom}x{w_side * col_side + 4 * heightBoard + gap * (col_side - 1)}", //Планка пояса 
@@ -1009,7 +1032,24 @@ namespace WoodenBox
                 colNails = colNails,
                 lengthTape = Math.Round(lengthTape / 1000, 2),
 
-            });
+            }) ;
+
+            InformationAboutBox.ValueBoxForReport.Clear();
+            InformationAboutBox.ValueBoxForReport.Add(new ValueBoxForReport
+            {
+                col_cap = col_bottom,
+                col_side = col_side,
+
+                w_cap = w_bottom,
+                w_side = w_side,
+
+                lenghtBox = y + 4 * heightBoard,
+
+                heightBoard = heightBoard,
+
+                gap = gap,
+
+            }) ;
 
             ////////////////СБОРКА
 
@@ -1479,6 +1519,8 @@ namespace WoodenBox
             save = foldername + "\\" + "Ящик деревянный I-2" + ".a3d";
 
             ksDoc3d1.SaveAs(save);
+
+            MessageBox.Show("Построение выполнено", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 

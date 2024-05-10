@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WoodenBox;
 
-namespace TreeBox
+namespace WoodenBox
 {
     public partial class ChooseGOST : Form
     {

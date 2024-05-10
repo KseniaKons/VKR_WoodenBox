@@ -1,4 +1,4 @@
-﻿namespace TreeBox
+﻿namespace WoodenBox
 {
     partial class ChooseGOST
     {
@@ -182,7 +182,7 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.cbGOSTWood);
             this.panel1.Controls.Add(this.cbWood);
-            this.panel1.Location = new System.Drawing.Point(41, 32);
+            this.panel1.Location = new System.Drawing.Point(12, 18);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(421, 131);
             this.panel1.TabIndex = 23;
@@ -196,7 +196,7 @@
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.cbTapeHeight);
-            this.panel2.Location = new System.Drawing.Point(41, 289);
+            this.panel2.Location = new System.Drawing.Point(12, 275);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(421, 131);
             this.panel2.TabIndex = 24;
@@ -206,7 +206,7 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.cbNails);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Location = new System.Drawing.Point(41, 187);
+            this.panel3.Location = new System.Drawing.Point(12, 173);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(421, 76);
             this.panel3.TabIndex = 25;
@@ -214,7 +214,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(194, 436);
+            this.button1.Location = new System.Drawing.Point(317, 422);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(116, 39);
             this.button1.TabIndex = 26;
@@ -227,11 +227,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(518, 487);
+            this.ClientSize = new System.Drawing.Size(445, 470);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ChooseGOST";
             this.Text = "Выбор ГОСТов";
             this.panel1.ResumeLayout(false);
