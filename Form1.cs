@@ -231,7 +231,7 @@ namespace WoodenBox
             int z = Convert.ToInt32(tbHeightBox.Text); //высота
 
             double massa = Convert.ToInt32(tbMassa.Text); //масса груза
-            double VBox = x * y * z / 1000; //внутренний объем ящика, дм3
+            double VBox = x * y * z / 1000000; //внутренний объем ящика, дм3
             double PackingDensity = massa / VBox; //Плотность упаковывания, кг/дм3 
 
             int heightBoard = 22;

@@ -739,10 +739,13 @@ namespace WoodenBox
             reference36 = iSpc36.ksSpcObjectEnd();
 
             string save;
+            double typeBox = InformationAboutBox.ValueBox[0].TypeBox;
 
-            save = foldername + "\\Спецификация на Ящик.spw";
+            save = foldername + $"\\Спецификация на Ящик типа I-{typeBox}.spw";
 
             documentSpc.ksSaveDocument(save);
+
+            MessageBox.Show("Спецификация сформирована!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 

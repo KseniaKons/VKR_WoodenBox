@@ -94,7 +94,7 @@ namespace WoodenBox
             part.name = name;
 
             part.marking = $"{marking}.{CL}.{numDesignation}";
-            part.useColor = 0;           
+            part.useColor = 0;
             ksColorParam kscolor = (ksColorParam)part.ColorParam();
             kscolor.color = 10092543;
             part.SetMaterial(materials, density);
@@ -872,7 +872,7 @@ namespace WoodenBox
 
             ksDoc3d1.SaveAs(save);
 
-            MessageBox.Show("Построение выполнено", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
         }
@@ -1504,7 +1504,7 @@ namespace WoodenBox
 
             ksDoc3d1.SaveAs(save);
 
-            MessageBox.Show("Построение выполнено", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 

@@ -107,7 +107,7 @@
             this.tbMassa.Name = "tbMassa";
             this.tbMassa.Size = new System.Drawing.Size(256, 22);
             this.tbMassa.TabIndex = 11;
-            this.tbMassa.Text = "250";
+            this.tbMassa.Text = "200";
             // 
             // label5
             // 
@@ -321,9 +321,9 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(768, 23);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(82, 16);
+            this.label13.Size = new System.Drawing.Size(79, 16);
             this.label13.TabIndex = 28;
-            this.label13.Text = "ГОСТы на ...";
+            this.label13.Text = "Стандарты";
             // 
             // panel2
             // 
@@ -347,7 +347,7 @@
             this.btChooseGOST.Name = "btChooseGOST";
             this.btChooseGOST.Size = new System.Drawing.Size(458, 41);
             this.btChooseGOST.TabIndex = 34;
-            this.btChooseGOST.Text = "Выбрать ГОСТы";
+            this.btChooseGOST.Text = "Выбрать стандарты";
             this.btChooseGOST.UseVisualStyleBackColor = false;
             this.btChooseGOST.Click += new System.EventHandler(this.btChooseGOST_Click);
             // 
@@ -585,10 +585,10 @@
             this.rbCalculate.AutoSize = true;
             this.rbCalculate.Location = new System.Drawing.Point(32, 16);
             this.rbCalculate.Name = "rbCalculate";
-            this.rbCalculate.Size = new System.Drawing.Size(166, 20);
+            this.rbCalculate.Size = new System.Drawing.Size(181, 20);
             this.rbCalculate.TabIndex = 51;
             this.rbCalculate.TabStop = true;
-            this.rbCalculate.Text = "Вычислить оптимало";
+            this.rbCalculate.Text = "Вычислить оптимально";
             this.rbCalculate.UseVisualStyleBackColor = true;
             this.rbCalculate.CheckedChanged += new System.EventHandler(this.rbCalculate_CheckedChanged);
             // 
@@ -651,7 +651,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "ГОСТ 10198.91 Ящики деревянные для грузов массой св. 200 до 20000 кг";
+            this.Text = "Ящики деревянные для грузов";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageBox)).EndInit();
