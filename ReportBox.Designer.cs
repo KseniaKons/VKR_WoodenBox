@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.butTxt = new System.Windows.Forms.Button();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tbWidthBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbHeightBox = new System.Windows.Forms.TextBox();
@@ -249,7 +248,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(406, 240);
+            this.label10.Location = new System.Drawing.Point(393, 240);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(79, 16);
             this.label10.TabIndex = 16;
@@ -257,9 +256,9 @@
             // 
             // tbWood
             // 
-            this.tbWood.Location = new System.Drawing.Point(409, 259);
+            this.tbWood.Location = new System.Drawing.Point(396, 259);
             this.tbWood.Name = "tbWood";
-            this.tbWood.Size = new System.Drawing.Size(126, 22);
+            this.tbWood.Size = new System.Drawing.Size(139, 22);
             this.tbWood.TabIndex = 17;
             // 
             // ReportBox
@@ -294,7 +293,6 @@
         #endregion
 
         private System.Windows.Forms.Button butTxt;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox tbWidthBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbHeightBox;

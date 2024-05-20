@@ -10,7 +10,7 @@ namespace WoodenBox
     {
         public static List<ValueBox> ValueBox = new List<ValueBox>();
         public static List<ValueBoxForReport> ValueBoxForReport = new List<ValueBoxForReport>();
-        public static List<WoodBoxForReport> WoodBoxForReport = new List<WoodBoxForReport>();
+        public static List<ForReport> ForReport = new List<ForReport>();
     }
     public class ValueBox
     {
@@ -46,10 +46,17 @@ namespace WoodenBox
 
     }
 
-    public class WoodBoxForReport
+    public class ForReport
     {
-        public string WoodGOST { get; set; }
-        public string Wood { get; set; }
+        public string massNails { get; set; }
+        public string nameNails { get; set; }
+        public string nameTape { get; set; }
+        public string lenghtTape { get; set; }
+
+        public string gostNails { get; set; }
+        public string gostTape { get; set; }
+        public string gostWood { get; set; }
+        public string wood { get; set; }
 
     }
 

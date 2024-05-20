@@ -872,7 +872,8 @@ namespace WoodenBox
 
             ksDoc3d1.SaveAs(save);
 
-            MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
 
 
         }
@@ -1504,7 +1505,8 @@ namespace WoodenBox
 
             ksDoc3d1.SaveAs(save);
 
-            MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information
+                , MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
 
         }
 

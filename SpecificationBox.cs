@@ -14,11 +14,12 @@ namespace WoodenBox
 {
     internal class SpecificationBox
     {
-        private KompasObject kompas; 
+        private KompasObject kompas;
+        public double massNails;
+        public double lengthTape;
 
-        
         public void CreateSpecification(string WoodGOST, string Wood, string NailsGOST, string NailsName, double mass1Nail,
-            string TapeGOST, string TapeName, int heightBoard, string marking, int number, string foldername)
+            string TapeGOST, string TapeName, double heightBoard, string marking, int number, string foldername)
         {          
             try
             {
@@ -660,7 +661,7 @@ namespace WoodenBox
 
             // СТАНДАРТНЫЕ ИЗДЕЛИЯ
 
-            double massNails = mass1Nail * InformationAboutBox.ValueBox[0].colNails;
+            massNails = mass1Nail * InformationAboutBox.ValueBox[0].colNails;
             massNails = Math.Round(massNails, 2);
 
             ksSpecification iSpc33 = (ksSpecification)documentSpc.GetSpecification();
@@ -702,6 +703,8 @@ namespace WoodenBox
             //Лента Н — 0.5х30 ГОСТ3560—73
             //Лента Н-2-2х50 ГОСТ 503
 
+            lengthTape = InformationAboutBox.ValueBox[0].lengthTape;
+
             ksSpecification iSpc35 = (ksSpecification)documentSpc.GetSpecification();
             iSpc35.ksSpcObjectCreate("", 0, 25, 0, 0, 1);
             int reference35 = iSpc35.ksSpcObjectEnd();
@@ -718,7 +721,7 @@ namespace WoodenBox
             documentSpc.ksSetObjParam(reference35, iSpcObjParam35, ldefin2d.ALLPARAM);
             iSpc35.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
             iSpc35.ksSetSpcObjectColumnText(5, 1, 0, TapeName);
-            iSpc35.ksSetSpcObjectColumnText(7, 1, 0, $"{InformationAboutBox.ValueBox[0].lengthTape} м");
+            iSpc35.ksSetSpcObjectColumnText(7, 1, 0, $"{lengthTape} м");
             reference35 = iSpc35.ksSpcObjectEnd();
 
             ksSpecification iSpc36 = (ksSpecification)documentSpc.GetSpecification();
@@ -745,12 +748,11 @@ namespace WoodenBox
 
             documentSpc.ksSaveDocument(save);
 
-            MessageBox.Show("Спецификация сформирована!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            MessageBox.Show("Спецификация сформирована!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information, 
+                MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
 
         }
-
-
-
 
     }
 }

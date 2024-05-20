@@ -875,7 +875,8 @@ namespace WoodenBox
 
             ksDoc3d1.SaveAs(save);
 
-            MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information
+                , MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
 
         }
 
@@ -1016,10 +1017,10 @@ namespace WoodenBox
                 side = $"{w_side * col_side}x{y + 4 * heightBoard}", //боковой щит
 
                 around1 = $"{w_bottom}x{w_bottom * col_bottom + gap * (col_bottom - 1)}", //Планка пояса 
-                around2 = $"{heightBoard}x{w_bottom}x{w_side * col_side + 4 * heightBoard + gap * (col_side - 1)}", //Планка пояса 
+                around2 = $"{w_bottom}x{w_side * col_side + 4 * heightBoard + gap * (col_side - 1)}", //Планка пояса 
 
                 front1 = $"{w_side}x{w_side * col_side + gap * (col_side - 1)}", //Планка торцевого щита - вертикальная
-                front2 = $"{heightBoard}x{w_side}x{lenghtBT - 2 * w_side}", //Планка торцевого щита - горизонтальная
+                front2 = $"{w_side}x{lenghtBT - 2 * w_side}", //Планка торцевого щита - горизонтальная
 
                 masscap = $"{masscap}",
                 massbefore = $"{massbefore}",
@@ -1520,7 +1521,8 @@ namespace WoodenBox
 
             ksDoc3d1.SaveAs(save);
 
-            MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information
+                , MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
 
         }
 

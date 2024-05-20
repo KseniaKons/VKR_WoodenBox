@@ -19,6 +19,7 @@ using System.Runtime.InteropServices;
 using WoodenBox;
 using System.Xml.Linq;
 using static WoodenBox.SpecificationBox;
+using System.IO;
 
 
 
@@ -40,14 +41,20 @@ namespace WoodenBox
         public string savedTapeHeight = "0,50";
         public string savedTapeWidth = "20";
 
-        string foldername;
+        public string foldername;
 
         public Form1()
         {
             InitializeComponent();
             cbTypeBox.SelectedIndexChanged += SelectedIndexChangedTypeBox;
             cbTypeBox.SelectedIndex = 0;
-            tbSave.Text = "C:\\Users\\Ksenia\\Desktop\\дт";
+            
+            string defoltPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Ящик";
+
+            Directory.CreateDirectory(defoltPath);
+
+            tbSave.Text = defoltPath;
+
             foldername = tbSave.Text;
             tbMPST.Text = "МПСТ";
             tbNumber.Text = "001";
@@ -248,14 +255,6 @@ namespace WoodenBox
             else if (savedGOSTWood == "ГОСТ 24454-80 Пиломатериалы хвойных пород")
                 WoodGOST = 1;
 
-            InformationAboutBox.WoodBoxForReport.Clear();
-            InformationAboutBox.WoodBoxForReport.Add(new WoodBoxForReport
-            {
-                Wood = savedWood,
-                WoodGOST = savedGOSTWood,
-            });
-
-
             string materials = string.Empty;
             double density = 0;
 
@@ -351,21 +350,7 @@ namespace WoodenBox
             else if (savedGOSTWood == "ГОСТ 24454-80 Пиломатериалы хвойных пород")
                 WoodGOST = "ГОСТ 24454-80";
 
-            int x = Convert.ToInt32(tbWidthBox.Text);  //ширина
-            int y = Convert.ToInt32(tbLengthBox.Text); //длинна
-            int z = Convert.ToInt32(tbHeightBox.Text); //высота
-
-            double massa = Convert.ToInt32(tbMassa.Text); //масса груза
-            double VBox = x * y * z / 1000; //внутренний объем ящика, дм3
-            double PackingDensity = massa / VBox; //Плотность упаковывания, кг/дм3 
-
-            int heightBoard = 22;
-            if (PackingDensity <= 1)
-                heightBoard = 22;
-            if (PackingDensity > 1 & PackingDensity <= 3)
-                heightBoard = 25;
-            if (PackingDensity > 3)
-                heightBoard = 32;
+            double heightBoard = InformationAboutBox.ValueBoxForReport[0].heightBoard;
 
             string nameNails = "Гвозди";
             string gostNails = "ГОСТ";
@@ -445,9 +430,83 @@ namespace WoodenBox
                 return;
             }
 
-            ReportBox report = new ReportBox();
-            report.ShowDialog();
+            double heightBoard = InformationAboutBox.ValueBoxForReport[0].heightBoard;
 
+            string nameNails = "Гвозди";
+            double massOneNails = 0;
+            if (savedNails == "ГОСТ 4034-63 Гвозди тарные круглые")
+            {
+                if (heightBoard == 22)
+                {
+                    nameNails = "Гвозди П 1,8х40";
+                    massOneNails = 0.000783;
+                }
+                if (heightBoard == 25)
+                {
+                    nameNails = "Гвозди П 2х45";
+                    massOneNails = 0.00111;
+                }
+
+                if (heightBoard == 32)
+                {
+                    nameNails = "Гвозди П 2,5х60";
+                    massOneNails = 0.00229;
+                }
+            }
+            if (savedNails == "ГОСТ 4029-63 Гвозди толевые круглые")
+            {
+                nameNails = "Гвозди 2,5х40";
+                massOneNails = 0.00152;
+            }
+            if (savedNails == "ГОСТ 4028-63 Гвозди строительные")
+            {
+                if (heightBoard == 22 || heightBoard == 25)
+                {
+                    nameNails = "Гвозди П 1,6х40";
+                    massOneNails = 0.000633;
+                }
+                if (heightBoard == 32)
+                {
+                    nameNails = "Гвозди П 1,6х50";
+                    massOneNails = 0.000791;
+                }
+            }
+
+            string nameTape = "Лента";
+
+            if (savedTape == "ГОСТ 503-81 Лента из низкоуглеродистой стали")
+            {
+                nameTape = $"Лента Н-{savedTapeHeight}х{savedTapeWidth}";
+            }
+
+            if (savedTape == "ГОСТ 3560-73 Лента стальная упаковочная")
+            {
+                nameTape = $"Лента Н-2-{savedTapeHeight}х{savedTapeWidth}";
+            }
+
+            double  massNails = massOneNails * InformationAboutBox.ValueBox[0].colNails;
+            massNails = Math.Round(massNails, 2);
+
+            InformationAboutBox.ForReport.Clear();
+            InformationAboutBox.ForReport.Add(new ForReport
+            {
+                nameNails = nameNails,
+                gostNails = savedNails,
+                massNails = $"{massNails}",
+
+                nameTape = nameTape,
+                gostTape = savedTape,
+                lenghtTape = $"{InformationAboutBox.ValueBox[0].lengthTape}",
+
+                wood = savedWood,
+                gostWood = savedGOSTWood,
+
+            });
+
+            ReportBox report = new ReportBox();
+            report.foldername = foldername;
+
+            report.ShowDialog();
         }
 
         //private void button1_Click(object sender, EventArgs e)
