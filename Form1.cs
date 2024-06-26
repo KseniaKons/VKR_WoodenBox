@@ -20,6 +20,8 @@ using WoodenBox;
 using System.Xml.Linq;
 using static WoodenBox.SpecificationBox;
 using System.IO;
+using System.Resources;
+using TreeBox.Properties;
 
 
 
@@ -50,12 +52,10 @@ namespace WoodenBox
             cbTypeBox.SelectedIndex = 0;
             
             string defoltPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Ящик";
-
             Directory.CreateDirectory(defoltPath);
-
             tbSave.Text = defoltPath;
-
             foldername = tbSave.Text;
+
             tbMPST.Text = "МПСТ";
             tbNumber.Text = "001";
 
@@ -103,7 +103,7 @@ namespace WoodenBox
                 tbGap.Enabled = false;
                 label6.Enabled = false;
                 tbGap.Text = "0";
-                p = new Bitmap(Properties.Resources.I_1);
+                p = new Bitmap(Resources.I_1);
                 pbImageBox.Image = p;
                 pbImageBox.Invalidate();
             }
@@ -113,13 +113,11 @@ namespace WoodenBox
             {
                 tbGap.Enabled = true;
                 label6.Enabled = true;
-                tbGap.Text = "30";
-                p = new Bitmap(Properties.Resources.I_2);
+                tbGap.Text = "20";
+                p = new Bitmap(Resources.I_2);
                 pbImageBox.Image = p;
                 pbImageBox.Invalidate();
             }
-
-
         }
 
         private void btBuild_Click(object sender, EventArgs e)
@@ -130,12 +128,14 @@ namespace WoodenBox
                 tbMassa.Text == String.Empty ||
                 tbGap.Text == String.Empty)
             {
-                MessageBox.Show("Поля не могут быть пустыми!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Поля не могут быть пустыми!", "Ошибка", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (cbTypeBox.SelectedIndex == 1 & !int.TryParse(tbGap.Text, out int result))
             {
-                MessageBox.Show("Значения должны быть целыми положительными числами!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Значения должны быть целыми положительными числами!!", 
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -144,82 +144,83 @@ namespace WoodenBox
                 !int.TryParse(tbWidthBox.Text, out int result3) ||
                 !int.TryParse(tbMassa.Text, out int result4))
             {
-                MessageBox.Show("Значения должны быть целыми положительными числами!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Значения должны быть целыми положительными числами!!", 
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (!int.TryParse(tbNumber.Text, out int result5))
             {
-                MessageBox.Show("Некорректное значение нумерации в обозначении!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Некорректное значение нумерации в обозначении!!", 
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             if (int.Parse(tbHeightBox.Text) <= 0 ||
                 int.Parse(tbLengthBox.Text) <= 0 ||
                 int.Parse(tbWidthBox.Text) <= 0 ||
                 int.Parse(tbMassa.Text) <= 0)
             {
-                MessageBox.Show("Значения должны быть целыми положительными числами!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Значения должны быть целыми положительными числами!", 
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (cbTypeBox.SelectedIndex == 1 & int.Parse(tbGap.Text) <=0 )
             {
-                MessageBox.Show("Значения должны быть целыми положительными числами!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Значения должны быть целыми положительными числами!!", 
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             if (cbTypeBox.SelectedIndex == 1 & int.Parse(tbGap.Text) > 100)
             {
-                MessageBox.Show("Значение зазора слишком большое!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Значение зазора слишком большое!!", "Ошибка", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (int.Parse(tbHeightBox.Text) > 1000 ||
                 int.Parse(tbLengthBox.Text) > 1000 ||
                 int.Parse(tbWidthBox.Text) > 1000)
             {
-                MessageBox.Show("Некорректное значение габаритных размеров ящика (значение больше 1000)!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Некорректное значение габаритных размеров ящика (значение больше 1000)!!", 
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (int.Parse(tbHeightBox.Text) < 250 ||
                 int.Parse(tbLengthBox.Text) < 250 ||
                 int.Parse(tbWidthBox.Text) < 250)
             {
-                MessageBox.Show("Некорректное значение габаритных размеров ящика (значение меньше 250)!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (int.Parse(tbMassa.Text) > 1000 || int.Parse(tbMassa.Text) < 200)
-            {
-                MessageBox.Show("Некоректное значение массы груза (от 200 до 1000 кг)!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Некорректное значение габаритных размеров ящика (значение меньше 250)!!", 
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            if (int.Parse(tbMassa.Text) > 1000 || int.Parse(tbMassa.Text) < 200)
+            {
+                MessageBox.Show("Некоректное значение массы груза (от 200 до 1000 кг)!!", 
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (rbWrite.Checked && 
                 (tbBottomBoards.Text == String.Empty ||
                 tbAroundBoard.Text == String.Empty ||
                 tbFrontBoard.Text == String.Empty ||
-                tbSideBoard.Text == String.Empty ||
-                tbBottomBoards.Text == String.Empty ||
-                tbAroundBoard.Text == String.Empty ||
-                tbFrontBoard.Text == String.Empty ||
-                tbSideBoard.Text == String.Empty))
+                tbSideBoard.Text == String.Empty ))
             {
-                MessageBox.Show("Поля не могут быть пустыми!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Поля не могут быть пустыми!!", "Ошибка", MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error);
                 return;
             }           
-
+            
             if (rbWrite.Checked && 
                 (!int.TryParse(tbBottomBoards.Text, out int result10) ||
                 !int.TryParse(tbAroundBoard.Text, out int result11) ||
                 !int.TryParse(tbFrontBoard.Text, out int result12) ||
-                !int.TryParse(tbSideBoard.Text, out int result13) ||
-                !int.TryParse(tbBottomBoards.Text, out int result14) ||
-                !int.TryParse(tbAroundBoard.Text, out int result15) ||
-                !int.TryParse(tbFrontBoard.Text, out int result16) ||
-                !int.TryParse(tbSideBoard.Text, out int result17)))
+                !int.TryParse(tbSideBoard.Text, out int result13)))
             {
-                MessageBox.Show("Некорректные значения ширины досок (от 50 до 300)!!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Некорректные значения ширины досок (от 50 до 300)!!!", "Ошибка", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             if (rbWrite.Checked && (int.Parse(tbBottomBoards.Text) < 50 ||
                 int.Parse(tbAroundBoard.Text) < 50 ||
                 int.Parse(tbFrontBoard.Text) < 50 ||
@@ -229,7 +230,8 @@ namespace WoodenBox
                 int.Parse(tbFrontBoard.Text) > 300 ||
                 int.Parse(tbSideBoard.Text) > 300))
             {
-                MessageBox.Show("Некорректные значения ширины досок (от 50 до 300)!!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Некорректные значения ширины досок (от 50 до 300)!!!", 
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -306,11 +308,13 @@ namespace WoodenBox
                 int gap = Convert.ToInt32(tbGap.Text); //зазор 
 
                 if (rbCalculate.Checked)
-                    box12.СreatingBox12(x, y, z, gap, WoodGOST, heightBoard, foldername, marking, number, materials, density);
+                    box12.СreatingBox12(x, y, z, gap, WoodGOST, heightBoard, foldername, 
+                        marking, number, materials, density);
 
                 if (rbChGost.Checked)
                     box12.СreatingBox12Manually(x, y, z, gap, heightBoard,
-                        cbBottomBoards.Text, cbSideBoard.Text, cbAroundBoard.Text, cbFrontBoard.Text, foldername, marking, number, materials, density);
+                        cbBottomBoards.Text, cbSideBoard.Text, cbAroundBoard.Text, cbFrontBoard.Text, 
+                        foldername, marking, number, materials, density);
                 
                 if (rbWrite.Checked)
                     box12.СreatingBox12Manually(x, y, z, gap, heightBoard,
@@ -352,14 +356,10 @@ namespace WoodenBox
 
             double heightBoard = InformationAboutBox.ValueBoxForReport[0].heightBoard;
 
-            string nameNails = "Гвозди";
-            string gostNails = "ГОСТ";
+            string nameNails = "Гвозди", gostNails = "ГОСТ";
             double massNails = 0;
             if (savedNails == "ГОСТ 4034-63 Гвозди тарные круглые")
             {
-                //1000 гвнздей 0,783 кг
-                //1000 гвнздей 1,110 кг
-                //1000 гвнздей 2,290 кг
                 if (heightBoard == 22)
                 { 
                     nameNails = "Гвозди П 1,8х40";
@@ -370,7 +370,6 @@ namespace WoodenBox
                     nameNails = "Гвозди П 2х45";
                     massNails = 0.00111;
                 }
-
                 if (heightBoard == 32)
                 { 
                     nameNails = "Гвозди П 2,5х60";
@@ -378,17 +377,15 @@ namespace WoodenBox
                 }
                 gostNails = "ГОСТ 4034-63";
             }
+
             if (savedNails == "ГОСТ 4029-63 Гвозди толевые круглые")
             {
-                //1000 гвнздей 1,520 кг
                 nameNails = "Гвозди 2,5х40";
                 massNails = 0.00152;
                 gostNails = "ГОСТ 4029-63";
             }
             if (savedNails == "ГОСТ 4028-63 Гвозди строительные")
             {
-                //1000 гвнздей 0,633 кг
-                //1000 гвнздей 0,791 кг
                 if (heightBoard == 22 || heightBoard == 25)
                 { 
                     nameNails = "Гвозди П 1,6х40";
@@ -404,21 +401,19 @@ namespace WoodenBox
 
             string nameTape = "Лента";
             string gostTape = "ГОСТ";
-
             if (savedTape == "ГОСТ 503-81 Лента из низкоуглеродистой стали")
             {
                 nameTape = $"Лента Н-{savedTapeHeight}х{savedTapeWidth}";
                 gostTape = "ГОСТ 503-81";
             }
-
             if (savedTape == "ГОСТ 3560-73 Лента стальная упаковочная")
             {
                 nameTape = $"Лента Н-2-{savedTapeHeight}х{savedTapeWidth}";
                 gostTape = "ГОСТ 3560-73";
             }
 
-            specification.CreateSpecification(WoodGOST, savedWood, gostNails, nameNails, massNails, gostTape, nameTape, 
-                heightBoard, marking, number, foldername);
+            specification.CreateSpecification(WoodGOST, savedWood, gostNails, nameNails, 
+                massNails, gostTape, nameTape, heightBoard, marking, number, foldername);
         }
 
         private void btReportBox_Click(object sender, EventArgs e)
@@ -557,15 +552,21 @@ namespace WoodenBox
             }
         }
 
-        int indexFront = 0;
-        int indexAround = 0;
-        int indexBottom = 0;
-        int indexSide = 0;
+        
+
+        void SetComboBoxItems(System.Windows.Forms.ComboBox comboBox, List<string> items, int selectedIndex)
+        {
+            comboBox.Items.Clear();
+            foreach (string item in items)
+            {
+                comboBox.Items.Add(item);
+            }
+            comboBox.SelectedIndex = selectedIndex;
+        }
+
 
         bool leaves = false;
         bool conifer = false;
-
-
         private void rbChGost_CheckedChanged(object sender, EventArgs e)
         {
             if (rbChGost.Checked)
@@ -585,142 +586,42 @@ namespace WoodenBox
                 tbFrontBoard.Visible = false;
                 tbSideBoard.Visible = false;
 
+                
+
                 if (savedGOSTWood == "ГОСТ 2695-83 Пиломатериалы лиственных пород")
                 {
-                    if (leaves == true)
+                    conifer = false;
+
+                    if (!leaves)
                     {
-                        indexFront = cbFrontBoard.SelectedIndex;
-                        indexAround = cbAroundBoard.SelectedIndex;
-                        indexSide = cbSideBoard.SelectedIndex;
-                        indexBottom = cbBottomBoards.SelectedIndex;
+                        List<string> leavesItems = new List<string> { "80", "90", "100", "110", 
+                            "130", "150", "180", "200" };
+
+                        SetComboBoxItems(cbFrontBoard, leavesItems, 0);
+                        SetComboBoxItems(cbAroundBoard, leavesItems, 0);
+                        SetComboBoxItems(cbSideBoard, leavesItems, 0);
+                        SetComboBoxItems(cbBottomBoards, leavesItems, 0);
+
+                        leaves = true;
                     }
-
-                    if (leaves == false)
-                    {
-                        indexFront = 0;
-                        indexAround = 0;
-                        indexSide = 0;
-                        indexBottom = 0;
-                    }
-
-                    cbFrontBoard.Items.Clear();
-                    cbFrontBoard.Items.Insert(0, "80");
-                    cbFrontBoard.Items.Insert(1, "90");
-                    cbFrontBoard.Items.Insert(2, "100");
-                    cbFrontBoard.Items.Insert(3, "110");
-                    cbFrontBoard.Items.Insert(4, "130");
-                    cbFrontBoard.Items.Insert(5, "150");
-                    cbFrontBoard.Items.Insert(6, "180");
-                    cbFrontBoard.Items.Insert(7, "200");
-                    
-                    cbAroundBoard.Items.Clear();
-                    cbAroundBoard.Items.Insert(0, "80");
-                    cbAroundBoard.Items.Insert(1, "90");
-                    cbAroundBoard.Items.Insert(2, "100");
-                    cbAroundBoard.Items.Insert(3, "110");
-                    cbAroundBoard.Items.Insert(4, "130");
-                    cbAroundBoard.Items.Insert(5, "150");
-                    cbAroundBoard.Items.Insert(6, "180");
-                    cbAroundBoard.Items.Insert(7, "200");
-                    
-                    cbSideBoard.Items.Clear();
-                    cbSideBoard.Items.Insert(0, "80");
-                    cbSideBoard.Items.Insert(1, "90");
-                    cbSideBoard.Items.Insert(2, "100");
-                    cbSideBoard.Items.Insert(3, "110");
-                    cbSideBoard.Items.Insert(4, "130");
-                    cbSideBoard.Items.Insert(5, "150");
-                    cbSideBoard.Items.Insert(6, "180");
-                    cbSideBoard.Items.Insert(7, "200");
-
-                    cbBottomBoards.Items.Clear();
-                    cbBottomBoards.Items.Insert(0, "80");
-                    cbBottomBoards.Items.Insert(1, "90");
-                    cbBottomBoards.Items.Insert(2, "100");
-                    cbBottomBoards.Items.Insert(3, "110");
-                    cbBottomBoards.Items.Insert(4, "130");
-                    cbBottomBoards.Items.Insert(5, "150");
-                    cbBottomBoards.Items.Insert(6, "180");
-                    cbBottomBoards.Items.Insert(7, "200");
-
-
-                    cbFrontBoard.SelectedIndex = indexFront;
-                    cbAroundBoard.SelectedIndex = indexAround;
-                    cbSideBoard.SelectedIndex = indexSide;
-                    cbBottomBoards.SelectedIndex = indexBottom;
-
-                    leaves = true;
-
                 }
                 else if (savedGOSTWood == "ГОСТ 24454-80 Пиломатериалы хвойных пород")
                 {
+                    leaves = false;
 
-                    if (conifer == true)
+                    if (!conifer)
                     {
-                        indexFront = cbFrontBoard.SelectedIndex;
-                        indexAround = cbAroundBoard.SelectedIndex;
-                        indexSide = cbSideBoard.SelectedIndex;
-                        indexBottom = cbBottomBoards.SelectedIndex;
+
+                        List<string> coniferItems = new List<string> { "75", "100", "125", "150", 
+                            "175", "200", "225", "250", "275" };
+
+                        SetComboBoxItems(cbFrontBoard, coniferItems, 0);
+                        SetComboBoxItems(cbAroundBoard, coniferItems, 0);
+                        SetComboBoxItems(cbSideBoard, coniferItems, 0);
+                        SetComboBoxItems(cbBottomBoards, coniferItems, 0);
+
+                        conifer = true;
                     }
-
-                    if (conifer == false)
-                    {
-                        indexFront = 0;
-                        indexAround = 0;
-                        indexSide = 0;
-                        indexBottom = 0;
-                    }
-
-                    cbFrontBoard.Items.Clear();
-                    cbFrontBoard.Items.Insert(0, "75");
-                    cbFrontBoard.Items.Insert(1, "100");
-                    cbFrontBoard.Items.Insert(2, "125");
-                    cbFrontBoard.Items.Insert(3, "150");
-                    cbFrontBoard.Items.Insert(4, "175");
-                    cbFrontBoard.Items.Insert(5, "200");
-                    cbFrontBoard.Items.Insert(6, "225");
-                    cbFrontBoard.Items.Insert(7, "250");
-                    cbFrontBoard.Items.Insert(8, "275");
-
-                    cbAroundBoard.Items.Clear();
-                    cbAroundBoard.Items.Insert(0, "75");
-                    cbAroundBoard.Items.Insert(1, "100");
-                    cbAroundBoard.Items.Insert(2, "125");
-                    cbAroundBoard.Items.Insert(3, "150");
-                    cbAroundBoard.Items.Insert(4, "175");
-                    cbAroundBoard.Items.Insert(5, "200");
-                    cbAroundBoard.Items.Insert(6, "225");
-                    cbAroundBoard.Items.Insert(7, "250");
-                    cbAroundBoard.Items.Insert(8, "275");
-
-                    cbSideBoard.Items.Clear();
-                    cbSideBoard.Items.Insert(0, "75");
-                    cbSideBoard.Items.Insert(1, "100");
-                    cbSideBoard.Items.Insert(2, "125");
-                    cbSideBoard.Items.Insert(3, "150");
-                    cbSideBoard.Items.Insert(4, "175");
-                    cbSideBoard.Items.Insert(5, "200");
-                    cbSideBoard.Items.Insert(6, "225");
-                    cbSideBoard.Items.Insert(7, "250");
-                    cbSideBoard.Items.Insert(8, "275");
-
-                    cbBottomBoards.Items.Clear();
-                    cbBottomBoards.Items.Insert(0, "75");
-                    cbBottomBoards.Items.Insert(1, "100");
-                    cbBottomBoards.Items.Insert(2, "125");
-                    cbBottomBoards.Items.Insert(3, "150");
-                    cbBottomBoards.Items.Insert(4, "175");
-                    cbBottomBoards.Items.Insert(5, "200");
-                    cbBottomBoards.Items.Insert(6, "225");
-                    cbBottomBoards.Items.Insert(7, "250");
-                    cbBottomBoards.Items.Insert(8, "275");
-
-                    cbFrontBoard.SelectedIndex = indexFront;
-                    cbAroundBoard.SelectedIndex = indexAround;
-                    cbSideBoard.SelectedIndex = indexSide;
-                    cbBottomBoards.SelectedIndex = indexBottom;
-
-                    conifer = true;
                 }
 
             }

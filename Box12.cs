@@ -23,17 +23,13 @@ namespace WoodenBox
         private ksPart part; // создание экземпляра детали
 
 
-        void CalculationBoardsLeaves(int param, int gap, out double w_fact_bottom, out double col_fact_bottom)
+        void CalculationBoardsLeaves(int param, int gap, 
+            out double w_fact_bottom, out double col_fact_bottom)
         {
-            //параметр по которому считаем, ширина доски вернется, количество досок вернется 
-
-            w_fact_bottom = 0; //посчитанная длиннна доски
-            col_fact_bottom = 0; // посчитанное количество
+            w_fact_bottom = 0; col_fact_bottom = 0;
             int w_sh = 10000, buf_sh = 0;
             int col = 0;
-
             int[] arr = { 80, 90, 100, 110, 130, 150, 180, 200 };
-
             for (int i = 0; i < arr.Length; i++)
             {
                 while (buf_sh - gap < param)
@@ -55,22 +51,16 @@ namespace WoodenBox
             }
         }
 
-        private void CalculationBoardsConifer(int param, int gap, int boardWidth, out double w_fact_bottom, out double col_fact_bottom)
+        private void CalculationBoardsConifer(int param, int gap, int boardWidth, 
+            out double w_fact_bottom, out double col_fact_bottom)
         {
-            //параметр по которому считаем, ширина доски вернется, количество досок вернется 
-
-            w_fact_bottom = 0; //посчитанная длиннна доски
-            col_fact_bottom = 0; // посчитанное количество
+            w_fact_bottom = 0; col_fact_bottom = 0; 
             int w_sh = 10000, buf_sh = 0;
             int col = 0;
-
             int[] arr = { 75, 100, 125, 150, 175, 200, 225, 250, 275 };
 
             if (boardWidth == 22)
-            {
-                //убрать последние два размера
                 arr = arr.Take(arr.Length - 2).ToArray();
-            }
 
             for (int i = 0; i < arr.Length; i++)
             {
@@ -203,24 +193,20 @@ namespace WoodenBox
 
             if (meshCopy == true)
             { 
-                // создаём операцию линейного массива
                 ksEntity MeshCopyE = part.NewEntity((short)Obj3dType.o3d_meshCopy);
+                MeshCopyDefinition MeshCopyDef = MeshCopyE.GetDefinition();
 
-                MeshCopyDefinition MeshCopyDef = MeshCopyE.GetDefinition(); //создаём интерфейс свойств линейного массива
+                ksEntity baseAxisX = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_axisOX);
 
-                ksEntity baseAxisX = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_axisOX); //создаём ось линейного массива на основе базовой Х
-                MeshCopyDef.SetAxis1(baseAxisX); //выставляем базовую ось для первого направления
-
+                MeshCopyDef.SetAxis1(baseAxisX);
                 MeshCopyDef.count1 = (int)col; 
                 MeshCopyDef.step1 = width + gap;
-
-                //создаём коллекцию для копируемых элементов
                 ksEntityCollection EntityCollection = MeshCopyDef.OperationArray();
-                EntityCollection.Clear(); // очищаем её
 
-                EntityCollection.Add(bossExtr); //добавляем элемент выдавливания в коллекци.
+                EntityCollection.Clear();
+                EntityCollection.Add(bossExtr);
 
-                MeshCopyE.Create(); // создаём массив
+                MeshCopyE.Create(); 
             }
 
             mass = Math.Round(part.GetMass(), 2);
@@ -249,7 +235,7 @@ namespace WoodenBox
 
         public void СreatingBox12(int x, int y, int z, int gap, int GOST, int heightBoard, string foldername, 
             string marking, int number, string materials, double density)
-        { //gap зазор
+        {
             try
             {
                 kompas = (KompasObject)Marshal.GetActiveObject("KOMPAS.Application.5");
@@ -260,7 +246,6 @@ namespace WoodenBox
             }
             if (kompas == null)
                 return;
-
             kompas.Visible = true;
 
             double w_fact_bottom = 0, col_fact_bottom = 0;
@@ -268,18 +253,12 @@ namespace WoodenBox
 
             if (GOST == 0) //ЛИСТВЕННЫЕ ПОРОДЫ
             {
-                // ДОСКИ ДНА И КРЫШКИ
                 CalculationBoardsLeaves(x + 2 * heightBoard, gap, out w_fact_bottom, out col_fact_bottom);
-
-                // ДОСКИ БОКОВОГО ЩИТА
                 CalculationBoardsLeaves(z, gap, out w_fact_side, out col_fact_side);
             }
             else if (GOST == 1) //ХВОЙНЫЕ ПОРОДЫ
             {
-                // ДОСКИ ДНА И КРЫШКИ
                 CalculationBoardsConifer(x + 2 * heightBoard, gap, heightBoard, out w_fact_bottom, out col_fact_bottom);
-
-                // ДОСКИ БОКОВОГО ЩИТА
                 CalculationBoardsConifer(z, gap, heightBoard, out w_fact_side, out col_fact_side);
             }
 
@@ -332,54 +311,60 @@ namespace WoodenBox
                 foldername, marking, CL_side, numDesignation, materials, density, true, out massside);
             name_side = $"{marking}.{CL_side}.{numDesignation} {name_side}";
 
+            double w_around = w_fact_bottom;
+            if (w_fact_bottom > 100)
+                w_around = 100;
+
+            double w_front = w_fact_side;
+            if (w_fact_side > 100)
+                w_front = 100;
+
+
             //Планка пояса - вверхняя
             MarkingBox(number, out numDesignation);
             number++;
-            NewShield(heightBoard, w_fact_bottom, w_fact_bottom * col_fact_bottom + gap * (col_fact_bottom - 1), 
+            NewShield(heightBoard, w_around, w_fact_bottom * col_fact_bottom + gap * (col_fact_bottom - 1), 
                 0, 0, name_around1, foldername, marking, CL_around, numDesignation, materials, density, false, out massaround1);
             name_around1 = $"{marking}.{CL_around}.{numDesignation} {name_around1}";
 
             //Планка пояса - боковая
             MarkingBox(number, out numDesignation);
             number++;
-            NewShield(heightBoard, w_fact_bottom, w_fact_side * col_fact_side + 4 * heightBoard + gap * (col_fact_side - 1), 0, 0, 
+            NewShield(heightBoard, w_around, w_fact_side * col_fact_side + 4 * heightBoard + gap * (col_fact_side - 1), 0, 0, 
                 name_around2, foldername, marking, CL_around, numDesignation, materials, density, false, out massaround2);
             name_around2 = $"{marking}.{CL_around}.{numDesignation} {name_around2}";
 
             //Планка торцевого щита - вертикальная
             MarkingBox(number, out numDesignation);
             number++;
-            NewShield(heightBoard, w_fact_side, w_fact_side * col_fact_side + gap * (col_fact_side - 1),
+            NewShield(heightBoard, w_front, w_fact_side * col_fact_side + gap * (col_fact_side - 1),
                 0, 0, name_front1, foldername, marking, CL_front, numDesignation, materials, density, false, out massfront1);
             name_front1 = $"{marking}.{CL_front}.{numDesignation} {name_front1}";
 
             //Планка торцевого щита - горизонтальная
             MarkingBox(number, out numDesignation);
             number++;
-            NewShield(heightBoard, w_fact_side, lenghtBT - 2 * w_fact_side, 0, 0, name_front2,
+            NewShield(heightBoard, w_front, lenghtBT - 2 * w_fact_side, 0, 0, name_front2,
                 foldername, marking, CL_front, numDesignation, materials, density, false, out massfront2);
             name_front2 = $"{marking}.{CL_front}.{numDesignation} {name_front2}";
 
-            double colNails = 0;
+            
 
-            colNails = (col_fact_bottom * 16 + 16) * 2 + (col_fact_side * 16) * 2 + (col_fact_side * 4 * 4) + 26;
+            double colNails = (col_fact_bottom * 16 + 16) * 2 + (col_fact_side * 16) * 2 + (col_fact_side * 4 * 4) + 26;
             double lengthTape = (col_fact_bottom * w_fact_bottom + gap * (col_fact_bottom - 1)) * 4 +
                 (col_fact_side * w_fact_side + gap * (col_fact_side - 1)) * 4 + 100 * 8 + 1000;
-                
-
             InformationAboutBox.ValueBox.Clear();
             InformationAboutBox.ValueBox.Add(new ValueBox
             {
                 TypeBox = 2,
-
-                cap = $"{w_fact_bottom*col_fact_bottom}x{y + 4 * heightBoard}", //крышка
-                before = $"{w_fact_side * col_fact_side}x{lenghtBT}", //торцевой щит
-                side = $"{w_fact_side*col_fact_side}x{y + 4 * heightBoard}", //боковой щит
-                around1 = $"{w_fact_bottom}x{w_fact_bottom * col_fact_bottom + gap * (col_fact_bottom - 1)}", //Планка пояса 
-                around2 = $"{w_fact_bottom}x{w_fact_side * col_fact_side + 4 * heightBoard + gap * (col_fact_side - 1)}", //Планка пояса 
+                cap = $"{w_fact_bottom*col_fact_bottom}x{y + 4 * heightBoard}",
+                before = $"{w_fact_side * col_fact_side}x{lenghtBT}", 
+                side = $"{w_fact_side*col_fact_side}x{y + 4 * heightBoard}",
+                around1 = $"{w_fact_bottom}x{w_fact_bottom * col_fact_bottom + gap * (col_fact_bottom - 1)}", 
+                around2 = $"{w_fact_bottom}x{w_fact_side * col_fact_side + 4 * heightBoard + gap * (col_fact_side - 1)}", 
                 
-                front1 = $"{w_fact_side}x{w_fact_side * col_fact_side + gap * (col_fact_side - 1)}", //Планка торцевого щита - вертикальная
-                front2 = $"{w_fact_side}x{lenghtBT - 2 * w_fact_side}", //Планка торцевого щита - горизонтальная
+                front1 = $"{w_fact_side}x{w_fact_side * col_fact_side + gap * (col_fact_side - 1)}", 
+                front2 = $"{w_fact_side}x{lenghtBT - 2 * w_fact_side}",
 
                 masscap = $"{masscap}",
                 massbefore = $"{massbefore}",
@@ -391,7 +376,6 @@ namespace WoodenBox
 
                 colNails = colNails,
                 lengthTape = Math.Round(lengthTape/1000, 2),
-
             });
 
 
@@ -400,14 +384,10 @@ namespace WoodenBox
             {
                 col_cap = col_fact_bottom,
                 col_side = col_fact_side,
-
                 w_cap = w_fact_bottom,
                 w_side = w_fact_side,
-
                 lenghtBox = y + 4 * heightBoard,
-
                 heightBoard = heightBoard,
-
                 gap = gap,
             });
 
@@ -581,7 +561,8 @@ namespace WoodenBox
 
             //дно и бок 2, бок 1
             ksDoc3d1.AddMateConstraint(0, namePlane[4], namePlane2[0], -1, 1, 0);
-            ksDoc3d1.AddMateConstraint(5, namePlane1[3], namePlane2[3], 1, 1, w_fact_bottom * col_fact_bottom - heightBoard + gap * (col_fact_bottom - 1));
+            ksDoc3d1.AddMateConstraint(5, namePlane1[3], namePlane2[3], 1, 1, 
+                w_fact_bottom * col_fact_bottom - heightBoard + gap * (col_fact_bottom - 1));
             ksDoc3d1.AddMateConstraint(0, namePlane[2], namePlane2[2], 1, 1, 0);
 
             ////КРЫШКА
@@ -595,10 +576,10 @@ namespace WoodenBox
             namePlane3[3] = pCol3.GetByName("Number3", true, true);
             namePlane3[4] = pCol3.GetByName("Number4", true, true);
 
-            //бок 1 и крышка, дно
             ksDoc3d1.AddMateConstraint(0, namePlane1[4], namePlane3[0], 1, 1, 0);
             ksDoc3d1.AddMateConstraint(0, namePlane1[2], namePlane3[2], 1, 1, 0);
-            ksDoc3d1.AddMateConstraint(5, namePlane1[0], namePlane3[4], -1, 1, -(w_fact_side * col_fact_side + heightBoard + gap * (col_fact_side - 1)));
+            ksDoc3d1.AddMateConstraint(5, namePlane1[0], namePlane3[4], -1, 1, 
+                -(w_fact_side * col_fact_side + heightBoard + gap * (col_fact_side - 1)));
 
             ////ТОРЦЕВОЙ ЩИТ 1
 
@@ -870,9 +851,7 @@ namespace WoodenBox
 
 
             string save;
-
             save = foldername + "\\" + $"{marking}.321169.000 Ящик деревянный I-2" + ".a3d";
-
             ksDoc3d1.SaveAs(save);
 
             MessageBox.Show("Построение выполнено!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information
@@ -917,11 +896,7 @@ namespace WoodenBox
             int w_side = int.Parse(sideBoard);
             int w_front = int.Parse(frontBoard);
             int w_around = int.Parse(aroundBoard);
-
-            //дно
             CalculationLenghtManually(w_bottom, x + 2 * heightBoard, gap, out col_bottom);
-
-            //бок
             CalculationLenghtManually(w_side, z, gap, out col_side);
             
             //длинна торцевых досок 
@@ -1016,11 +991,11 @@ namespace WoodenBox
                 before = $"{w_side * col_side}x{lenghtBT}", //торцевой щит
                 side = $"{w_side * col_side}x{y + 4 * heightBoard}", //боковой щит
 
-                around1 = $"{w_bottom}x{w_bottom * col_bottom + gap * (col_bottom - 1)}", //Планка пояса 
-                around2 = $"{w_bottom}x{w_side * col_side + 4 * heightBoard + gap * (col_side - 1)}", //Планка пояса 
+                around1 = $"{w_around}x{w_bottom * col_bottom + gap * (col_bottom - 1)}", //Планка пояса 
+                around2 = $"{w_around}x{w_side * col_side + 4 * heightBoard + gap * (col_side - 1)}", //Планка пояса 
 
-                front1 = $"{w_side}x{w_side * col_side + gap * (col_side - 1)}", //Планка торцевого щита - вертикальная
-                front2 = $"{w_side}x{lenghtBT - 2 * w_side}", //Планка торцевого щита - горизонтальная
+                front1 = $"{w_front}x{w_side * col_side + gap * (col_side - 1)}", //Планка торцевого щита - вертикальная
+                front2 = $"{w_front}x{lenghtBT - 2 * w_side}", //Планка торцевого щита - горизонтальная
 
                 masscap = $"{masscap}",
                 massbefore = $"{massbefore}",

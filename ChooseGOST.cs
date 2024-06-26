@@ -21,8 +21,6 @@ namespace WoodenBox
             cbTape.SelectedIndexChanged += cbTape_SelectedIndexChanged;
             cbTapeHeight.SelectedIndexChanged += cbTapeHeight_SelectedIndexChanged;
             this.FormClosing += new FormClosingEventHandler(MyForm_FormClosing);
-            
-
         }
 
         
@@ -43,7 +41,6 @@ namespace WoodenBox
 
                 cbWood.SelectedIndex = 0;
             }
-
             if (cbGOSTWood.SelectedIndex == 1) // ГОСТ 24454 - 80.Пиломатериалы хвойных пород
             {
                 cbWood.Items.Clear();
@@ -54,9 +51,7 @@ namespace WoodenBox
                 cbWood.Items.Insert(4, "Сосна");
 
                 cbWood.SelectedIndex = 0;
-
             }
-            
         }
 
         private void cbTape_SelectedIndexChanged(object sender, EventArgs e)
@@ -64,7 +59,6 @@ namespace WoodenBox
             if (cbTape.SelectedIndex == 0) // ГОСТ 503-81 Лента холоднокатаная из низкоуглеродистой стали
             {
                 cbTapeHeight.Items.Clear();
-
                 string[] tapeHeightsValues = {
                     "0,05", "0,06", "0,07", "0,08", "0,09", "0,10", "0,11", "0,12", "0,15", "0,18",
                     "0,20", "0,22", "0,25", "0,28", "0,30", "0,32", "0,35", "0,40", "0,45", "0,50",
@@ -75,11 +69,8 @@ namespace WoodenBox
                     "2,80", "2,90", "3,00", "3,10", "3,20", "3,30", "3,40", "3,50", "3,60", "3,80",
                     "3,90", "4,00"
                 };
-
                 foreach (string value in tapeHeightsValues)
                     cbTapeHeight.Items.Add(value);
-
-
                 cbTapeHeight.SelectedIndex = 19;
 
                 cbTapeWidth.Items.Clear();
@@ -93,30 +84,20 @@ namespace WoodenBox
                     "112", "114", "115", "117", "120", "123", "125", "130", "135",
                     "140", "142", "145", "150"
                 };
-
                 foreach (var value in tapeWidthValues)
                     cbTapeWidth.Items.Add(value);
-
-
                 cbTapeWidth.SelectedIndex = 16;
-
-
             }
 
             if (cbTape.SelectedIndex == 1) //ГОСТ 3560 - 73 Лента стальная упаковочная
             {
                 cbTapeHeight.Items.Clear();
-
                 string[] tapeHeightsValues = {
                     "0,20", "0,25", "0,30", "0,40", "0,50", "0,70", "0,80", "0,90",
                     "1,00", "1,20", "1,50", "1,80"
                 };
-
                 foreach (string value in tapeHeightsValues)
-                {
                     cbTapeHeight.Items.Add(value);
-                }
-
                 cbTapeHeight.SelectedIndex = 4;
             }
 
@@ -211,7 +192,6 @@ namespace WoodenBox
 
         private void MyForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Проверяем, что причиной закрытия формы была кнопка закрытия "X"
             if (e.CloseReason == CloseReason.UserClosing && saving == false)
             {
                 if (cbNails.SelectedIndex == -1 || cbGOSTWood.SelectedIndex == -1 ||
@@ -231,7 +211,6 @@ namespace WoodenBox
                     selectedTapeWidth = newForm.savedTapeWidth;
                     selectedTape = newForm.savedTape;
                 }
-
             }
         }
     }

@@ -9,14 +9,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.IO;
+using TreeBox.Properties;
+
 
 namespace WoodenBox
 {
     internal class SpecificationBox
     {
         private KompasObject kompas;
-        public double massNails;
-        public double lengthTape;
+        public void MarkingBox(int number, out string numDesignation)
+        {
+            numDesignation = "000";
+
+            if (number < 10)
+                numDesignation = $"00{number}";
+            if (number >= 10 && number < 100)
+                numDesignation = $"0{number}";
+            if (number >= 100 && number < 1000)
+                numDesignation = $"{number}";
+        }
 
         public void CreateSpecification(string WoodGOST, string Wood, string NailsGOST, string NailsName, double mass1Nail,
             string TapeGOST, string TapeName, double heightBoard, string marking, int number, string foldername)
@@ -36,17 +48,12 @@ namespace WoodenBox
 
             kompas.Visible = true;
 
-            //Классификаторы 
-
-            string CL_cap = "321174"; // крышка 2 шт
-            string CL_before = "321179"; // торцевой щит
-            string CL_side = "321179"; // боковой щит
-            string CL_around = "321175"; // планка пояса 
-            string CL_front = "321175"; // планка торцевого щита
-           
-            // Доска - 2 - сосна - (ширина доски)
-            // ГОСТ
-
+            string CL_cap = "321174"; 
+            string CL_before = "321179"; 
+            string CL_side = "321179"; 
+            string CL_around = "321175"; 
+            string CL_front = "321175"; 
+            
             string board = $"Доска-2-{Wood}-{heightBoard}";            
 
 
@@ -62,28 +69,23 @@ namespace WoodenBox
             ksSheetPar sheetParam = (ksSheetPar)documentParam.GetLayoutParam();
             //Интерфейс параметров оформления
             sheetParam.Init();
-            sheetParam.layoutName = @"C:\Program Files\ASCON\KOMPAS-3D v21 Study\Sys\graphic.lyt";
+
+            //byte[] resourceData = Resources.GRAPHIC;
+            //File.WriteAllBytes($"{foldername}\\graphic.lyt", resourceData);
+
+            //sheetParam.layoutName = $"{foldername}\\graphic.lyt";
+
             //путь до библиотеки стилей спецификации
             sheetParam.shtType = 1; //номер стиля из библиотеки
             documentSpc.ksCreateDocument(documentParam);
           
-
-            
             int count = 1;
             string numDesignation = "000";
-
-            if (number<10)
-                numDesignation = $"00{number}";
-            if (number >= 10 && number <100)
-                numDesignation = $"0{number}";
-            if (number >= 100 && number < 1000)
-                numDesignation = $"{number}";
-
             // 1 секция
+            MarkingBox(number, out numDesignation);
             ksSpecification iSpc1 = (ksSpecification)documentSpc.GetSpecification();
             iSpc1.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
             int reference1 = iSpc1.ksSpcObjectEnd();
-
             ksSpcObjParam iSpcObjParam1 =
            (ksSpcObjParam)kompas.GetParamStruct((short)StructType2DEnum.ko_SpcObjParam);
             iSpc1.ksSpcObjectEdit(reference1);
@@ -128,10 +130,10 @@ namespace WoodenBox
             iSpc3.ksSpcObjectEdit(reference3);
             documentSpc.ksGetObjParam(reference3, iSpcObjParam3, ldefin2d.ALLPARAM);
             iSpcObjParam3.blockNumber = 0;
-            iSpcObjParam3.draw = 2;
+            iSpcObjParam3.draw = 1;
             iSpcObjParam3.firstOnSheet = 0;
             iSpcObjParam3.ispoln = 0;
-            iSpcObjParam3.posInc = 2;
+            iSpcObjParam3.posInc = 1;
             iSpcObjParam3.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference3, iSpcObjParam3, ldefin2d.ALLPARAM);
             iSpc3.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
@@ -145,26 +147,19 @@ namespace WoodenBox
             iSpc4.ksSpcObjectEdit(reference4);
             documentSpc.ksGetObjParam(reference4, iSpcObjParam4, ldefin2d.ALLPARAM);
             iSpcObjParam4.blockNumber = 0;
-            iSpcObjParam4.draw = 2;
+            iSpcObjParam4.draw = 1;
             iSpcObjParam4.firstOnSheet = 0;
             iSpcObjParam4.ispoln = 0;
-            iSpcObjParam4.posInc = 2;
+            iSpcObjParam4.posInc = 1;
             iSpcObjParam4.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference4, iSpcObjParam4, ldefin2d.ALLPARAM);
             iSpc4.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].cap);
             reference4 = iSpc4.ksSpcObjectEnd();
-
             count++;
             number++;
 
             // 2 секция           
-            if (number < 10)
-                numDesignation = $"00{number}";
-            if (number >= 10 && number < 100)
-                numDesignation = $"0{number}";
-            if (number >= 100 && number < 1000)
-                numDesignation = $"{number}";
-
+            MarkingBox(number, out numDesignation);
             ksSpecification iSpc9 = (ksSpecification)documentSpc.GetSpecification();
             iSpc9.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
             int reference9 = iSpc9.ksSpcObjectEnd();
@@ -186,8 +181,6 @@ namespace WoodenBox
             iSpc9.ksSetSpcObjectColumnText(6, 1, 0, "2");
             iSpc9.ksSetSpcObjectColumnText(7, 1, 0, $"{InformationAboutBox.ValueBox[0].massbefore} кг");
             reference9 = iSpc9.ksSpcObjectEnd();
-            count++;
-            number++;
 
             ksSpecification iSpc10 = (ksSpecification)documentSpc.GetSpecification();
             iSpc10.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
@@ -214,10 +207,10 @@ namespace WoodenBox
             iSpc11.ksSpcObjectEdit(reference11);
             documentSpc.ksGetObjParam(reference11, iSpcObjParam11, ldefin2d.ALLPARAM);
             iSpcObjParam11.blockNumber = 0;
-            iSpcObjParam11.draw = 2;
+            iSpcObjParam11.draw = 1;
             iSpcObjParam11.firstOnSheet = 0;
             iSpcObjParam11.ispoln = 0;
-            iSpcObjParam11.posInc = 2;
+            iSpcObjParam11.posInc = 1;
             iSpcObjParam11.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference11, iSpcObjParam11, ldefin2d.ALLPARAM);
             iSpc11.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
@@ -231,23 +224,19 @@ namespace WoodenBox
             iSpc12.ksSpcObjectEdit(reference12);
             documentSpc.ksGetObjParam(reference12, iSpcObjParam12, ldefin2d.ALLPARAM);
             iSpcObjParam12.blockNumber = 0;
-            iSpcObjParam12.draw = 2;
+            iSpcObjParam12.draw = 1;
             iSpcObjParam12.firstOnSheet = 0;
             iSpcObjParam12.ispoln = 0;
-            iSpcObjParam12.posInc = 2;
+            iSpcObjParam12.posInc = 1;
             iSpcObjParam12.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference12, iSpcObjParam12, ldefin2d.ALLPARAM);
             iSpc12.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].before);
             reference12 = iSpc12.ksSpcObjectEnd();
+            count++;
+            number++;
 
             // 3 секция           
-            if (number < 10)
-                numDesignation = $"00{number}";
-            if (number >= 10 && number < 100)
-                numDesignation = $"0{number}";
-            if (number >= 100 && number < 1000)
-                numDesignation = $"{number}";
-
+            MarkingBox(number, out numDesignation);
             ksSpecification iSpc13 = (ksSpecification)documentSpc.GetSpecification();
             iSpc13.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
             int reference13 = iSpc13.ksSpcObjectEnd();
@@ -297,10 +286,10 @@ namespace WoodenBox
             iSpc15.ksSpcObjectEdit(reference15);
             documentSpc.ksGetObjParam(reference15, iSpcObjParam15, ldefin2d.ALLPARAM);
             iSpcObjParam15.blockNumber = 0;
-            iSpcObjParam15.draw = 2;
+            iSpcObjParam15.draw = 1;
             iSpcObjParam15.firstOnSheet = 0;
             iSpcObjParam15.ispoln = 0;
-            iSpcObjParam15.posInc = 2;
+            iSpcObjParam15.posInc = 1;
             iSpcObjParam15.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference15, iSpcObjParam15, ldefin2d.ALLPARAM);
             iSpc15.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
@@ -314,10 +303,10 @@ namespace WoodenBox
             iSpc16.ksSpcObjectEdit(reference16);
             documentSpc.ksGetObjParam(reference16, iSpcObjParam16, ldefin2d.ALLPARAM);
             iSpcObjParam16.blockNumber = 0;
-            iSpcObjParam16.draw = 2;
+            iSpcObjParam16.draw = 1;
             iSpcObjParam16.firstOnSheet = 0;
             iSpcObjParam16.ispoln = 0;
-            iSpcObjParam16.posInc = 2;
+            iSpcObjParam16.posInc = 1;
             iSpcObjParam16.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference16, iSpcObjParam16, ldefin2d.ALLPARAM);
             iSpc16.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].side);
@@ -325,13 +314,7 @@ namespace WoodenBox
 
 
             // 4 секция - планка пояса - верхняя     
-            if (number < 10)
-                numDesignation = $"00{number}";
-            if (number >= 10 && number < 100)
-                numDesignation = $"0{number}";
-            if (number >= 100 && number < 1000)
-                numDesignation = $"{number}";
-
+            MarkingBox(number, out numDesignation);
             ksSpecification iSpc17 = (ksSpecification)documentSpc.GetSpecification();
             iSpc17.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
             int reference17 = iSpc17.ksSpcObjectEnd();
@@ -381,10 +364,10 @@ namespace WoodenBox
             iSpc19.ksSpcObjectEdit(reference19);
             documentSpc.ksGetObjParam(reference19, iSpcObjParam19, ldefin2d.ALLPARAM);
             iSpcObjParam19.blockNumber = 0;
-            iSpcObjParam19.draw = 2;
+            iSpcObjParam19.draw = 1;
             iSpcObjParam19.firstOnSheet = 0;
             iSpcObjParam19.ispoln = 0;
-            iSpcObjParam19.posInc = 2;
+            iSpcObjParam19.posInc = 1;
             iSpcObjParam19.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference19, iSpcObjParam19, ldefin2d.ALLPARAM);
             iSpc19.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
@@ -398,10 +381,10 @@ namespace WoodenBox
             iSpc20.ksSpcObjectEdit(reference20);
             documentSpc.ksGetObjParam(reference20, iSpcObjParam20, ldefin2d.ALLPARAM);
             iSpcObjParam20.blockNumber = 0;
-            iSpcObjParam20.draw = 2;
+            iSpcObjParam20.draw = 1;
             iSpcObjParam20.firstOnSheet = 0;
             iSpcObjParam20.ispoln = 0;
-            iSpcObjParam20.posInc = 2;
+            iSpcObjParam20.posInc = 1;
             iSpcObjParam20.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference20, iSpcObjParam20, ldefin2d.ALLPARAM);
             iSpc20.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].around1);
@@ -409,12 +392,7 @@ namespace WoodenBox
 
 
             // 5 секция - планка пояса - боковая    
-            if (number < 10)
-                numDesignation = $"00{number}";
-            if (number >= 10 && number < 100)
-                numDesignation = $"0{number}";
-            if (number >= 100 && number < 1000)
-                numDesignation = $"{number}";
+            MarkingBox(number, out numDesignation);
 
             ksSpecification iSpc21 = (ksSpecification)documentSpc.GetSpecification();
             iSpc21.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
@@ -465,10 +443,10 @@ namespace WoodenBox
             iSpc23.ksSpcObjectEdit(reference23);
             documentSpc.ksGetObjParam(reference23, iSpcObjParam23, ldefin2d.ALLPARAM);
             iSpcObjParam23.blockNumber = 0;
-            iSpcObjParam23.draw = 2;
+            iSpcObjParam23.draw = 1;
             iSpcObjParam23.firstOnSheet = 0;
             iSpcObjParam23.ispoln = 0;
-            iSpcObjParam23.posInc = 2;
+            iSpcObjParam23.posInc = 1;
             iSpcObjParam23.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference23, iSpcObjParam23, ldefin2d.ALLPARAM);
             iSpc23.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
@@ -482,10 +460,10 @@ namespace WoodenBox
             iSpc24.ksSpcObjectEdit(reference24);
             documentSpc.ksGetObjParam(reference24, iSpcObjParam24, ldefin2d.ALLPARAM);
             iSpcObjParam24.blockNumber = 0;
-            iSpcObjParam24.draw = 2;
+            iSpcObjParam24.draw = 1;
             iSpcObjParam24.firstOnSheet = 0;
             iSpcObjParam24.ispoln = 0;
-            iSpcObjParam24.posInc = 2;
+            iSpcObjParam24.posInc = 1;
             iSpcObjParam24.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference24, iSpcObjParam24, ldefin2d.ALLPARAM);
             iSpc24.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].around2);
@@ -493,12 +471,7 @@ namespace WoodenBox
 
 
             // 6 секция - планка пояса - вертикальная
-            if (number < 10)
-                numDesignation = $"00{number}";
-            if (number >= 10 && number < 100)
-                numDesignation = $"0{number}";
-            if (number >= 100 && number < 1000)
-                numDesignation = $"{number}";
+            MarkingBox(number, out numDesignation);
 
             ksSpecification iSpc25 = (ksSpecification)documentSpc.GetSpecification();
             iSpc25.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
@@ -549,10 +522,10 @@ namespace WoodenBox
             iSpc27.ksSpcObjectEdit(reference27);
             documentSpc.ksGetObjParam(reference27, iSpcObjParam27, ldefin2d.ALLPARAM);
             iSpcObjParam27.blockNumber = 0;
-            iSpcObjParam27.draw = 2;
+            iSpcObjParam27.draw = 1;
             iSpcObjParam27.firstOnSheet = 0;
             iSpcObjParam27.ispoln = 0;
-            iSpcObjParam27.posInc = 2;
+            iSpcObjParam27.posInc = 1;
             iSpcObjParam27.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference27, iSpcObjParam27, ldefin2d.ALLPARAM);
             iSpc27.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
@@ -566,22 +539,17 @@ namespace WoodenBox
             iSpc28.ksSpcObjectEdit(reference28);
             documentSpc.ksGetObjParam(reference28, iSpcObjParam28, ldefin2d.ALLPARAM);
             iSpcObjParam28.blockNumber = 0;
-            iSpcObjParam28.draw = 2;
+            iSpcObjParam28.draw = 1;
             iSpcObjParam28.firstOnSheet = 0;
             iSpcObjParam28.ispoln = 0;
-            iSpcObjParam28.posInc = 2;
+            iSpcObjParam28.posInc = 1;
             iSpcObjParam28.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference28, iSpcObjParam28, ldefin2d.ALLPARAM);
             iSpc28.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].front1);
             reference28 = iSpc28.ksSpcObjectEnd();
 
             //7 секция - планка пояса - горизонтальная
-            if (number < 10)
-                numDesignation = $"00{number}";
-            if (number >= 10 && number < 100)
-                numDesignation = $"0{number}";
-            if (number >= 100 && number < 1000)
-                numDesignation = $"{number}";
+            MarkingBox(number, out numDesignation);
 
             ksSpecification iSpc29 = (ksSpecification)documentSpc.GetSpecification();
             iSpc29.ksSpcObjectCreate("", 0, 20, 0, 0, 1);
@@ -632,10 +600,10 @@ namespace WoodenBox
             iSpc31.ksSpcObjectEdit(reference31);
             documentSpc.ksGetObjParam(reference31, iSpcObjParam31, ldefin2d.ALLPARAM);
             iSpcObjParam31.blockNumber = 0;
-            iSpcObjParam31.draw = 2;
+            iSpcObjParam31.draw = 1;
             iSpcObjParam31.firstOnSheet = 0;
             iSpcObjParam31.ispoln = 0;
-            iSpcObjParam31.posInc = 2;
+            iSpcObjParam31.posInc = 1;
             iSpcObjParam31.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference31, iSpcObjParam31, ldefin2d.ALLPARAM);
             iSpc31.ksSetSpcObjectColumnText(5, 1, 0, WoodGOST);
@@ -649,10 +617,10 @@ namespace WoodenBox
             iSpc32.ksSpcObjectEdit(reference32);
             documentSpc.ksGetObjParam(reference32, iSpcObjParam32, ldefin2d.ALLPARAM);
             iSpcObjParam32.blockNumber = 0;
-            iSpcObjParam32.draw = 2;
+            iSpcObjParam32.draw = 1;
             iSpcObjParam32.firstOnSheet = 0;
             iSpcObjParam32.ispoln = 0;
-            iSpcObjParam32.posInc = 2;
+            iSpcObjParam32.posInc = 1;
             iSpcObjParam32.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference32, iSpcObjParam32, ldefin2d.ALLPARAM);
             iSpc32.ksSetSpcObjectColumnText(5, 1, 0, InformationAboutBox.ValueBox[0].front2);
@@ -661,8 +629,11 @@ namespace WoodenBox
 
             // СТАНДАРТНЫЕ ИЗДЕЛИЯ
 
+            double massNails;
+            double lengthTape;
             massNails = mass1Nail * InformationAboutBox.ValueBox[0].colNails;
             massNails = Math.Round(massNails, 2);
+            lengthTape = InformationAboutBox.ValueBox[0].lengthTape;
 
             ksSpecification iSpc33 = (ksSpecification)documentSpc.GetSpecification();
             iSpc33.ksSpcObjectCreate("", 0, 25, 0, 0, 1);
@@ -672,10 +643,10 @@ namespace WoodenBox
             iSpc33.ksSpcObjectEdit(reference33);
             documentSpc.ksGetObjParam(reference33, iSpcObjParam33, ldefin2d.ALLPARAM);
             iSpcObjParam33.blockNumber = 0;
-            iSpcObjParam33.draw = 2;
+            iSpcObjParam33.draw = 1;
             iSpcObjParam33.firstOnSheet = 0;
             iSpcObjParam33.ispoln = 0;
-            iSpcObjParam33.posInc = 2;
+            iSpcObjParam33.posInc = 1;
             iSpcObjParam33.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference33, iSpcObjParam33, ldefin2d.ALLPARAM);
             iSpc33.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
@@ -691,10 +662,10 @@ namespace WoodenBox
             iSpc34.ksSpcObjectEdit(reference34);
             documentSpc.ksGetObjParam(reference34, iSpcObjParam34, ldefin2d.ALLPARAM);
             iSpcObjParam34.blockNumber = 0;
-            iSpcObjParam34.draw = 2;
+            iSpcObjParam34.draw = 1;
             iSpcObjParam34.firstOnSheet = 0;
             iSpcObjParam34.ispoln = 0;
-            iSpcObjParam34.posInc = 2;
+            iSpcObjParam34.posInc = 1;
             iSpcObjParam34.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference34, iSpcObjParam34, ldefin2d.ALLPARAM);
             iSpc34.ksSetSpcObjectColumnText(5, 1, 0, NailsGOST);
@@ -702,8 +673,6 @@ namespace WoodenBox
 
             //Лента Н — 0.5х30 ГОСТ3560—73
             //Лента Н-2-2х50 ГОСТ 503
-
-            lengthTape = InformationAboutBox.ValueBox[0].lengthTape;
 
             ksSpecification iSpc35 = (ksSpecification)documentSpc.GetSpecification();
             iSpc35.ksSpcObjectCreate("", 0, 25, 0, 0, 1);
@@ -713,10 +682,10 @@ namespace WoodenBox
             iSpc35.ksSpcObjectEdit(reference35);
             documentSpc.ksGetObjParam(reference35, iSpcObjParam35, ldefin2d.ALLPARAM);
             iSpcObjParam35.blockNumber = 0;
-            iSpcObjParam35.draw = 2;
+            iSpcObjParam35.draw = 1;
             iSpcObjParam35.firstOnSheet = 0;
             iSpcObjParam35.ispoln = 0;
-            iSpcObjParam35.posInc = 2;
+            iSpcObjParam35.posInc = 1;
             iSpcObjParam35.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference35, iSpcObjParam35, ldefin2d.ALLPARAM);
             iSpc35.ksSetSpcObjectColumnText(1, 1, 0, "БЧ");
@@ -732,10 +701,10 @@ namespace WoodenBox
             iSpc36.ksSpcObjectEdit(reference36);
             documentSpc.ksGetObjParam(reference36, iSpcObjParam36, ldefin2d.ALLPARAM);
             iSpcObjParam36.blockNumber = 0;
-            iSpcObjParam36.draw = 2;
+            iSpcObjParam36.draw = 1;
             iSpcObjParam36.firstOnSheet = 0;
             iSpcObjParam36.ispoln = 0;
-            iSpcObjParam36.posInc = 2;
+            iSpcObjParam36.posInc = 1;
             iSpcObjParam36.posNotDraw = 0;
             documentSpc.ksSetObjParam(reference36, iSpcObjParam36, ldefin2d.ALLPARAM);
             iSpc36.ksSetSpcObjectColumnText(5, 1, 0, TapeGOST);
@@ -743,14 +712,11 @@ namespace WoodenBox
 
             string save;
             double typeBox = InformationAboutBox.ValueBox[0].TypeBox;
-
             save = foldername + $"\\Спецификация на Ящик типа I-{typeBox}.spw";
-
             documentSpc.ksSaveDocument(save);
 
-
-            MessageBox.Show("Спецификация сформирована!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information, 
-                MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+            MessageBox.Show("Спецификация сформирована!", "Уведомление", MessageBoxButtons.OK,
+                MessageBoxIcon.Information,MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
 
         }
 

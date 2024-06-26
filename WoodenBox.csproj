@@ -101,15 +101,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\GRAPHIC.LYT" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Screenshot_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Screenshot_2.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\11.png" />

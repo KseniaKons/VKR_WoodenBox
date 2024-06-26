@@ -48,8 +48,10 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tbWoodGOST = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tbWood = new System.Windows.Forms.TextBox();
+            this.tbNailsGOST = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tbTapeGOST = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -57,9 +59,9 @@
             // butTxt
             // 
             this.butTxt.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.butTxt.Location = new System.Drawing.Point(994, 309);
+            this.butTxt.Location = new System.Drawing.Point(564, 314);
             this.butTxt.Name = "butTxt";
-            this.butTxt.Size = new System.Drawing.Size(173, 47);
+            this.butTxt.Size = new System.Drawing.Size(603, 47);
             this.butTxt.TabIndex = 0;
             this.butTxt.Text = "Выгрузить в .txt";
             this.butTxt.UseVisualStyleBackColor = false;
@@ -233,7 +235,7 @@
             // 
             this.tbWoodGOST.Location = new System.Drawing.Point(17, 259);
             this.tbWoodGOST.Name = "tbWoodGOST";
-            this.tbWoodGOST.Size = new System.Drawing.Size(368, 22);
+            this.tbWoodGOST.Size = new System.Drawing.Size(518, 22);
             this.tbWoodGOST.TabIndex = 11;
             // 
             // label11
@@ -245,28 +247,48 @@
             this.label11.TabIndex = 10;
             this.label11.Text = "ГОСТ на пиломатериалы";
             // 
-            // label10
+            // tbNailsGOST
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(393, 240);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(79, 16);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "Древесина";
+            this.tbNailsGOST.Location = new System.Drawing.Point(17, 311);
+            this.tbNailsGOST.Name = "tbNailsGOST";
+            this.tbNailsGOST.Size = new System.Drawing.Size(518, 22);
+            this.tbNailsGOST.TabIndex = 22;
             // 
-            // tbWood
+            // label9
             // 
-            this.tbWood.Location = new System.Drawing.Point(396, 259);
-            this.tbWood.Name = "tbWood";
-            this.tbWood.Size = new System.Drawing.Size(139, 22);
-            this.tbWood.TabIndex = 17;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(14, 292);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(110, 16);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "ГОСТ на гвозди";
+            // 
+            // tbTapeGOST
+            // 
+            this.tbTapeGOST.Location = new System.Drawing.Point(17, 364);
+            this.tbTapeGOST.Name = "tbTapeGOST";
+            this.tbTapeGOST.Size = new System.Drawing.Size(518, 22);
+            this.tbTapeGOST.TabIndex = 24;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(14, 345);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(210, 16);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "ГОСТ на металлическую ленту";
             // 
             // ReportBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1186, 368);
+            this.ClientSize = new System.Drawing.Size(1186, 398);
+            this.Controls.Add(this.tbTapeGOST);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.tbNailsGOST);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel2);
@@ -274,9 +296,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.butTxt);
             this.Controls.Add(this.tbWoodGOST);
-            this.Controls.Add(this.tbWood);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ReportBox";
@@ -312,7 +332,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox tbWoodGOST;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox tbWood;
+        private System.Windows.Forms.TextBox tbNailsGOST;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tbTapeGOST;
+        private System.Windows.Forms.Label label12;
     }
 }

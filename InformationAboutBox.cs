@@ -15,23 +15,22 @@ namespace WoodenBox
     public class ValueBox
     {
         public double TypeBox { get; set; }
-
-        public string cap { get; set; } // размер крышкы
-        public string masscap { get; set; } //масса крышки
-        public string before { get; set; } //торцевой щит размер
-        public string massbefore { get; set; } //торцевой щит масса
-        public string side { get; set; } //боковой щит размер 
-        public string massside { get; set; } //боковой щит масса 
-        public string around1 { get; set; } //планка пояса - верхняя
-        public string massaround1 { get; set; } //планка пояса - верхняя
-        public string around2 { get; set; } //планка пояса - боковая
-        public string massaround2 { get; set; } //планка пояса - боковая
-        public string front1 { get; set; } //планка торцевого щита - вертикальная
-        public string massfront1 { get; set; } //планка торцевого щита - вертикальная
-        public string front2 { get; set; } //планка торцевого щита - горизонтальная
-        public string massfront2 { get; set; } //планка торцевого щита - горизонтальная
-        public double colNails { get; set; } // количество гвоздей
-        public double lengthTape { get; set; } // длина мет ленты
+        public string cap { get; set; } 
+        public string masscap { get; set; } 
+        public string before { get; set; } 
+        public string massbefore { get; set; } 
+        public string side { get; set; }  
+        public string massside { get; set; } 
+        public string around1 { get; set; } 
+        public string massaround1 { get; set; } 
+        public string around2 { get; set; } 
+        public string massaround2 { get; set; } 
+        public string front1 { get; set; } 
+        public string massfront1 { get; set; } 
+        public string front2 { get; set; }
+        public string massfront2 { get; set; } 
+        public double colNails { get; set; } 
+        public double lengthTape { get; set; }
     }
 
     public class ValueBoxForReport
@@ -52,12 +51,10 @@ namespace WoodenBox
         public string nameNails { get; set; }
         public string nameTape { get; set; }
         public string lenghtTape { get; set; }
-
         public string gostNails { get; set; }
         public string gostTape { get; set; }
         public string gostWood { get; set; }
         public string wood { get; set; }
-
     }
 
     }

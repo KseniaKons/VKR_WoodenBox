@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btBuild = new System.Windows.Forms.Button();
             this.tbMassa = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -165,7 +166,7 @@
             this.tbHeightBox.Name = "tbHeightBox";
             this.tbHeightBox.Size = new System.Drawing.Size(256, 22);
             this.tbHeightBox.TabIndex = 7;
-            this.tbHeightBox.Text = "400";
+            this.tbHeightBox.Text = "450";
             // 
             // label2
             // 
@@ -649,6 +650,7 @@
             this.Controls.Add(this.pbImageBox);
             this.Controls.Add(this.btBuild);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Ящики деревянные для грузов";

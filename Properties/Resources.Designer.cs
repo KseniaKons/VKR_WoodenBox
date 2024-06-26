@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WoodenBox.Properties {
+namespace TreeBox.Properties {
     using System;
     
     
@@ -57,6 +57,16 @@ namespace WoodenBox.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] GRAPHIC {
+            get {
+                object obj = ResourceManager.GetObject("GRAPHIC", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

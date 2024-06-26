@@ -44,32 +44,32 @@ namespace WoodenBox
 
         double typeBox = InformationAboutBox.ValueBox[0].TypeBox;
 
-        string HeightBox = string.Empty;
-        string WidthBox = string.Empty;
+        string HeightBox = string.Empty, WidthBox = string.Empty;
         string LenghtBox = string.Empty;
 
-        string HeightBoxInternal = string.Empty;
-        string WidthBoxInternal = string.Empty;
+        string HeightBoxInternal = string.Empty, WidthBoxInternal = string.Empty;
         string LenghtBoxInternal = string.Empty;
 
         string[,] RowData = new string[6, 4];
-        double CapLenght;
-        double SideLenght;
-        double BeforLenght;
-
-        double ar1Lenght;
-        double ar2Lenght;
-        double fr1Lenght;
-        double fr2Lenght;
+        double CapLenght, SideLenght, BeforLenght;
+        double ar1Lenght, ar2Lenght, fr1Lenght, fr2Lenght;
 
 
         public ReportBox()
         {
             InitializeComponent();
-            // внешние
-            tbHeightBox.Enabled = false; // высота
-            tbWidthBox.Enabled = false; // ширина
-            tbLenghtBox.Enabled = false; //длинна
+            tbHeightBox.Enabled = false; tbWidthBox.Enabled = false;
+            tbLenghtBox.Enabled = false;
+            tbHeightBoxInternal.Enabled = false;
+            tbLenghtBoxInternal.Enabled = false;
+            tbWidthBoxInternal.Enabled = false;
+            tableLayoutPanel1.Enabled = false;
+            tbWoodGOST.Enabled = false;
+            tbWoodGOST.Text = $"{woodGost}; {wood}";
+            tbNailsGOST.Enabled = false;
+            tbNailsGOST.Text = $"{gostNails} {nameNails} {massNails} кг";
+            tbTapeGOST.Enabled = false;
+            tbTapeGOST.Text = $"{gostTape} {nameTape} {lenghtTape} м";
 
             if (typeBox == 1)
             {
@@ -84,14 +84,9 @@ namespace WoodenBox
                 LenghtBox = $"{lenghtBox}";
 
             }
-
             tbHeightBox.Text = HeightBox;
             tbWidthBox.Text = WidthBox;
             tbLenghtBox.Text = LenghtBox;
-
-            tbHeightBoxInternal.Enabled = false;
-            tbLenghtBoxInternal.Enabled = false;
-            tbWidthBoxInternal.Enabled = false;
 
             if (typeBox == 1)
             {
@@ -105,59 +100,56 @@ namespace WoodenBox
                 WidthBoxInternal = $"{col_cap * w_cap - 2 * heightBoard + gap * (col_cap - 1)}";
                 LenghtBoxInternal = $"{lenghtBox - 4 * heightBoard}";
             }
-
             tbHeightBoxInternal.Text = HeightBoxInternal;
             tbWidthBoxInternal.Text = WidthBoxInternal;
             tbLenghtBoxInternal.Text = LenghtBoxInternal;
 
-            tbWood.Enabled = false;
-            tbWoodGOST.Enabled = false;
-
-            tbWood.Text = wood;
-            tbWoodGOST.Text = woodGost;
 
             if (typeBox == 1)
             {
                  CapLenght = col_cap * lenghtBox * 2 / 1000;
                  SideLenght = col_side * lenghtBox * 2 / 1000;
                  BeforLenght = col_side * (col_cap * w_cap - 2 * heightBoard) * 2 / 1000;
-
                  ar1Lenght = w_cap * col_cap * 4 / 1000;
                  ar2Lenght = (w_side * col_side + 4 * heightBoard) * 4 / 1000;
                  fr1Lenght = w_side * col_side * 4 / 1000;
                  fr2Lenght = (w_cap * col_cap - 2 * heightBoard - 2 * w_side) * 4 / 1000;
-
                 RowData = new string[,]
                 {
                 { "", "Кол-во досок", "Размер одной доски", "Для построения понадобится" },
                 { "Дно и крышка", $"{col_cap * 2} шт", $"{heightBoard}x{w_cap}x{lenghtBox}", $"{CapLenght} м" },
                 { "Боковые щиты", $"{col_side * 2} шт", $"{heightBoard}x{w_side}x{lenghtBox}", $"{SideLenght} м" },
-                { "Торцевые щиты", $"{col_side * 2} шт", $"{heightBoard}x{w_side}x{col_cap * w_cap - 2 * heightBoard}", $"{BeforLenght} м" },
-                { "Планки пояса", "4 шт, 4 шт", $"{heightBoard}x{around1}, {heightBoard}x{around2}", $"{ar1Lenght} м, {ar2Lenght} м" },
-                { "Планки торцевого щита", "4 шт, 4 шт", $"{heightBoard}x{front1}, {heightBoard}x{front2}", $"{fr1Lenght} м, {fr2Lenght} м" }
+                { "Торцевые щиты", $"{col_side * 2} шт", $"{heightBoard}x{w_side}x{col_cap * w_cap - 2 * heightBoard}", 
+                        $"{BeforLenght} м" },
+                { "Планки пояса", "4 шт, 4 шт", $"{heightBoard}x{around1}, {heightBoard}x{around2}", 
+                        $"{ar1Lenght} м, {ar2Lenght} м" },
+                { "Планки торцевого щита", "4 шт, 4 шт", $"{heightBoard}x{front1}, {heightBoard}x{front2}", 
+                        $"{fr1Lenght} м, {fr2Lenght} м" }
                 };
-
             }
             if (typeBox == 2)
             {
                  CapLenght = col_cap * lenghtBox * 2 / 1000;
                  SideLenght = col_side * lenghtBox * 2 / 1000;
                  BeforLenght = col_side * (col_cap * w_cap + gap*(col_cap - 1) - 2 * heightBoard) * 2 / 1000;
-
                  ar1Lenght = (w_cap * col_cap + gap * (col_cap - 1)) * 4 / 1000;
                  ar2Lenght = (w_side * col_side + 4 * heightBoard + gap * (col_cap - 1)) * 4 / 1000;
                  fr1Lenght = (w_side * col_side + gap * (col_cap - 1)) * 4 / 1000;
                  fr2Lenght = (w_cap * col_cap + gap * (col_cap - 1) - 2 * heightBoard - 2 * w_side) * 4 / 1000;
-
                 RowData = new string[,]
                 {
                 { "", "Кол-во досок", "Размер одной доски", "Для построения понадобится" },
-                { "Дно и крышка", $"{col_cap * 2} шт", $"{heightBoard}x{w_cap}x{lenghtBox}", $"{Math.Round(CapLenght, 2)} м" },
-                { "Боковые щиты", $"{col_side * 2} шт", $"{heightBoard}x{w_side}x{lenghtBox}", $"{Math.Round(SideLenght, 2)} м" },
-                { "Торцевые щиты", $"{col_side * 2} шт", $"{heightBoard}x{w_side}x{col_cap * w_cap + gap*(col_cap - 1) - 2 * heightBoard}", 
+                { "Дно и крышка", $"{col_cap * 2} шт", $"{heightBoard}x{w_cap}x{lenghtBox}", 
+                        $"{Math.Round(CapLenght, 2)} м" },
+                { "Боковые щиты", $"{col_side * 2} шт", $"{heightBoard}x{w_side}x{lenghtBox}", 
+                        $"{Math.Round(SideLenght, 2)} м" },
+                { "Торцевые щиты", $"{col_side * 2} шт", 
+                        $"{heightBoard}x{w_side}x{col_cap * w_cap + gap*(col_cap - 1) - 2 * heightBoard}", 
                         $"{Math.Round(BeforLenght, 2)} м" },
-                { "Планки пояса", "4 шт, 4 шт", $"{heightBoard}x{around1}, {heightBoard}x{around2}", $"{Math.Round(ar1Lenght, 2)} м, {Math.Round(ar2Lenght, 2)} м" },
-                { "Планки торцевого щита", "4 шт, 4 шт", $"{heightBoard}x{front1}, {heightBoard}x{front2}", $"{Math.Round(fr1Lenght, 2)} м, {Math.Round(fr2Lenght, 2)} м" }
+                { "Планки пояса", "4 шт, 4 шт", $"{heightBoard}x{around1}, {heightBoard}x{around2}", 
+                        $"{Math.Round(ar1Lenght, 2)} м, {Math.Round(ar2Lenght, 2)} м" },
+                { "Планки торцевого щита", "4 шт, 4 шт", $"{heightBoard}x{front1}, {heightBoard}x{front2}", 
+                        $"{Math.Round(fr1Lenght, 2)} м, {Math.Round(fr2Lenght, 2)} м" }
                 };
             }
 
@@ -181,9 +173,7 @@ namespace WoodenBox
 
         private void butTxt_Click(object sender, EventArgs e)
         {
-            
             string filePath = foldername + "\\Отчет.txt";
-
             using (StreamWriter writer = new StreamWriter(filePath))
             {
                 writer.WriteLine($"Ящик типа I-{typeBox}");
@@ -191,19 +181,23 @@ namespace WoodenBox
                 writer.WriteLine($"Внешние габаритные размеры: {HeightBox}х{WidthBox}x{LenghtBox}");
                 writer.WriteLine($"Внутренние габаритные размеры: {HeightBoxInternal}х{WidthBoxInternal}x{LenghtBoxInternal}");
                 writer.WriteLine($"Для построения ящика понадобится:");
-                writer.WriteLine($"- Крашки: доски {heightBoard}x{w_cap}x{lenghtBox} {col_cap * 2} шт, общая длинна досок - {Math.Round(CapLenght, 2)} м");
-                writer.WriteLine($"- Боковые щиты: доски {heightBoard}x{w_side}x{lenghtBox} {col_side * 2} шт, общая длинна досок - {Math.Round(SideLenght, 2)} м");
-                writer.WriteLine($"- Торцевые щиты: доски {heightBoard}x{w_side}x{col_cap * w_cap - 2 * heightBoard} {col_side * 2} шт, общая длинна досок - {Math.Round(BeforLenght, 2)} м");
-                writer.WriteLine($"- Планки пояса: доски {heightBoard}x{around1} 4 шт, общая длинна досок - {Math.Round(ar1Lenght, 2)} м; ");
+                writer.WriteLine($"- Крашки: доски {heightBoard}x{w_cap}x{lenghtBox} {col_cap * 2} шт, " +
+                    $"общая длинна досок - {Math.Round(CapLenght, 2)} м");
+                writer.WriteLine($"- Боковые щиты: доски {heightBoard}x{w_side}x{lenghtBox} {col_side * 2} шт, " +
+                    $"общая длинна досок - {Math.Round(SideLenght, 2)} м");
+                writer.WriteLine($"- Торцевые щиты: доски {heightBoard}x{w_side}x{col_cap * w_cap - 2 * heightBoard} " +
+                    $"{col_side * 2} шт, общая длинна досок - {Math.Round(BeforLenght, 2)} м");
+                writer.WriteLine($"- Планки пояса: доски {heightBoard}x{around1} 4 шт, общая длинна досок - " +
+                    $"{Math.Round(ar1Lenght, 2)} м; ");
                 writer.WriteLine($"доски {heightBoard}x{around2} 4 шт, общая длинна досок - {Math.Round(ar2Lenght, 2)} м");
-                writer.WriteLine($"- Планки торцевого щита: доски {heightBoard}x{front1} 4 шт, общая длинна досок - {Math.Round(fr1Lenght, 2)} м; ");
+                writer.WriteLine($"- Планки торцевого щита: доски {heightBoard}x{front1} 4 шт, общая длинна досок - " +
+                    $"{Math.Round(fr1Lenght, 2)} м; ");
                 writer.WriteLine($"доски {heightBoard}x{front2} 4 шт, общая длинна досок - {Math.Round(fr2Lenght, 2)} м");
                 writer.WriteLine($"- {gostNails} {nameNails} {massNails} кг ");
                 writer.WriteLine($"- {gostTape} {nameTape} {lenghtTape} м ");
             }
-
-            MessageBox.Show("Отчет соохранен!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
-
+            MessageBox.Show("Отчет сохранен!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information, 
+                MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
         }
     }
 }
