@@ -53,3 +53,31 @@ I-2. Пользователь выбирает тип ящика, вводит �
 
 Разработка велась на языке программирования С# с использованием API
 Компас 3D версии 5 и Visual Studio Community 2022.
+
+# Результаты работы программы
+
+## Ящик типа I-1
+
+![image](https://github.com/user-attachments/assets/967da89b-f899-40da-95a5-1d24bdd0c866)
+
+![image](https://github.com/user-attachments/assets/41c7646d-0274-4ca5-82e8-8c0bf1c16e24)
+
+![image](https://github.com/user-attachments/assets/95ce93be-0852-423f-8f13-8378fe7c3bdf)
+
+![image](https://github.com/user-attachments/assets/385bb476-8412-4a46-a613-c2853e7721bc)
+
+
+## Ящик типа I-2
+
+![image](https://github.com/user-attachments/assets/84f47a55-9d41-481d-b526-887bd1f72521)
+
+![image](https://github.com/user-attachments/assets/93c0043d-2628-4332-927f-abf314a66802)
+
+![image](https://github.com/user-attachments/assets/c0708209-1d31-471f-8449-36b7bf13b3ea)
+
+![image](https://github.com/user-attachments/assets/8ec0e367-db5b-4e8d-a9a6-64837d9077da)
+
+
+
+
+
